@@ -1,0 +1,90 @@
+import React, { Component } from "react"
+import styled from "styled-components"
+
+import ufc from "assets/img/ufc.svg"
+
+const Container = styled.nav`
+	background-color: ${({ theme }) => theme.bgColor};
+	color: ${({ theme }) => theme.textColor};
+
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	max-width: 1024px;
+
+	.logo {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		img {
+			display: inline-block;
+			width: 80px;
+			height: auto;
+		}
+	}
+
+	.gnb {
+		display: flex;
+
+		li {
+			padding: 1rem;
+
+			&.align-right {
+				margin-left: auto;
+			}
+
+			&.hoverUnderline {
+				position: absolute;
+				bottom: 0;
+				width: 0px;
+				height: 2px;
+				border-bottom: 4px solid #cc0b0b;
+				padding: 0;
+				transition: all 0.3s ease-in-out;
+			}
+		}
+	}
+`
+
+export default class AppGnb extends Component {
+	constructor(props) {
+		super(props)
+		this.underlineElement = React.createRef()
+	}
+
+	handleMouseOver = e => {
+		const left = e.target.offsetLeft
+		const width = e.target.offsetWidth
+		this.underlineElement.current.setAttribute("style", `width: ${width}px; left: ${left}px`)
+	}
+
+	render() {
+		const { className } = this.props
+		return (
+			<Container className={className}>
+				<h1 className="logo noTextContent">
+					<a href="/" title="go to home" className="noTextContent">
+						<img src={ufc} className="App__Logo" alt="UFC" />
+					</a>
+				</h1>
+				<ul className="gnb">
+					<li onMouseOver={this.handleMouseOver}>플라이급</li>
+					<li onMouseOver={this.handleMouseOver}>벤텀급</li>
+					<li onMouseOver={this.handleMouseOver}>페더급</li>
+					<li onMouseOver={this.handleMouseOver}>라이트급</li>
+					<li onMouseOver={this.handleMouseOver} className="align-right">
+						웰터급
+					</li>
+					<li onMouseOver={this.handleMouseOver}>미들급</li>
+					<li onMouseOver={this.handleMouseOver}>라이트헤비급</li>
+					<li onMouseOver={this.handleMouseOver}>헤비급</li>
+					<li className="hoverUnderline" ref={this.underlineElement}></li>
+				</ul>
+			</Container>
+		)
+	}
+}
