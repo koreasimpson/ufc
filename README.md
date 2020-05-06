@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 이 프로젝트는 [Create React App](https://github.com/facebook/create-react-app)으로 부트 스트랩 되었습니다.
 
 ## 사용 가능한 스크립트
@@ -50,3 +51,7 @@ React를 배우려면 공식 [React documentation](https://reactjs.org/)을 확�
 - [고급 환경 구성](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 - [배포](https://facebook.github.io/create-react-app/docs/deployment)
 - [`npm run build` 명령이 실패 할 경우](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# ufc
+ufc page made by react
+>>>>>>> b7c22dfc4a7b30c9db37e5a4b65fe0e7c8b2c1f0
