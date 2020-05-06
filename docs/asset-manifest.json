@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3586fdae.chunk.css",
+    "main.js": "/static/js/main.de886104.chunk.js",
+    "main.js.map": "/static/js/main.de886104.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e3a021aa.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e3a021aa.js.map",
+    "static/js/2.99118b56.chunk.js": "/static/js/2.99118b56.chunk.js",
+    "static/js/2.99118b56.chunk.js.map": "/static/js/2.99118b56.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.d24653a19b0c2fb18202b729855469c3.js": "/precache-manifest.d24653a19b0c2fb18202b729855469c3.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.3586fdae.chunk.css.map": "/static/css/main.3586fdae.chunk.css.map",
+    "static/js/2.99118b56.chunk.js.LICENSE.txt": "/static/js/2.99118b56.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/YeonSung-Regular.5990fe41.woff",
+    "static/media/background_header.jpg": "/static/media/background_header.27d2ac65.jpg",
+    "static/media/ufc.svg": "/static/media/ufc.88f7e369.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e3a021aa.js",
+    "static/js/2.99118b56.chunk.js",
+    "static/css/main.3586fdae.chunk.css",
+    "static/js/main.de886104.chunk.js"
+  ]
+}
