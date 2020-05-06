@@ -7,7 +7,7 @@ import AppGnb from "components/AppGnb/AppGnb"
 const Container = styled.header`
 	background-image: url(${BgHeader});
 	background-attachment: fixed;
-	min-height: 100vh;
+	min-height: 50vh;
 	background-size: cover;
 	background-position: center center;
 	margin: 0 auto;

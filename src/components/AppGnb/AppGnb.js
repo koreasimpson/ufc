@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import styled from "styled-components"
+import { Link, NavLink } from "react-router-dom"
 
 import ufc from "assets/img/ufc.svg"
 
@@ -46,6 +47,10 @@ const Container = styled.nav`
 				padding: 0;
 				transition: all 0.3s ease-in-out;
 			}
+
+			a.active {
+				color: #cc0b0b;
+			}
 		}
 	}
 `
@@ -67,21 +72,29 @@ export default class AppGnb extends Component {
 		return (
 			<Container className={className}>
 				<h1 className="logo noTextContent">
-					<a href="/" title="go to home" className="noTextContent">
+					<Link to="/" title="go to home" className="noTextContent">
 						<img src={ufc} className="App__Logo" alt="UFC" />
-					</a>
+					</Link>
 				</h1>
 				<ul className="gnb">
-					<li onMouseOver={this.handleMouseOver}>플라이급</li>
-					<li onMouseOver={this.handleMouseOver}>벤텀급</li>
-					<li onMouseOver={this.handleMouseOver}>페더급</li>
-					<li onMouseOver={this.handleMouseOver}>라이트급</li>
-					<li onMouseOver={this.handleMouseOver} className="align-right">
-						웰터급
+					<li onMouseOver={this.handleMouseOver}>
+						<NavLink to="/event">이벤트</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver}>미들급</li>
-					<li onMouseOver={this.handleMouseOver}>라이트헤비급</li>
-					<li onMouseOver={this.handleMouseOver}>헤비급</li>
+					<li onMouseOver={this.handleMouseOver}>
+						<NavLink to="/fighter">선수</NavLink>
+					</li>
+					<li onMouseOver={this.handleMouseOver}>
+						<NavLink to="/article">기사 및 이미지</NavLink>
+					</li>
+					<li onMouseOver={this.handleMouseOver} className="align-right">
+						<NavLink to="/live">Live</NavLink>
+					</li>
+					<li onMouseOver={this.handleMouseOver}>
+						<NavLink to="/shop">Shop</NavLink>
+					</li>
+					<li onMouseOver={this.handleMouseOver}>
+						<NavLink to="/support">Support</NavLink>
+					</li>
 					<li className="hoverUnderline" ref={this.underlineElement}></li>
 				</ul>
 			</Container>
