@@ -1,7 +1,9 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import styled from "styled-components"
 import { Link, NavLink } from "react-router-dom"
 
+import store from "store"
 import ufc from "assets/img/ufc.svg"
 
 const Container = styled.nav`
@@ -12,8 +14,7 @@ const Container = styled.nav`
 	top: 50px;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 100%;
-	max-width: 1024px;
+	width: 1024px;
 
 	.logo {
 		position: absolute;
@@ -55,7 +56,7 @@ const Container = styled.nav`
 	}
 `
 
-export default class AppGnb extends Component {
+class AppGnb extends Component {
 	constructor(props) {
 		super(props)
 		this.underlineElement = React.createRef()
@@ -69,6 +70,9 @@ export default class AppGnb extends Component {
 
 	render() {
 		const { className } = this.props
+		const { isAuth } = store.getState().authReducer
+		console.log("gnb isAuth = ", isAuth)
+		console.log("gnb isAuth = ", store.getState())
 		return (
 			<Container className={className}>
 				<h1 className="logo noTextContent">
@@ -95,9 +99,20 @@ export default class AppGnb extends Component {
 					<li onMouseOver={this.handleMouseOver}>
 						<NavLink to="/support">Support</NavLink>
 					</li>
+					<li onMouseOver={this.handleMouseOver}>
+						<NavLink to="/my">{isAuth ? "My" : "Login"}</NavLink>
+					</li>
 					<li className="hoverUnderline" ref={this.underlineElement}></li>
 				</ul>
 			</Container>
 		)
 	}
 }
+
+const mapStateToProps = state => ({
+	isAuth: state.authReducer.isAuth
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppGnb)

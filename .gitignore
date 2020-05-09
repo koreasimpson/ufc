@@ -169,4 +169,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Firebase config file
+firebaseConfig.js
+
 # End of https://www.gitignore.io/api/osx,node,windows,visualstudiocode

@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Auth from "../Auth/Auth"
 
 export default class Support extends Component {
 	render() {

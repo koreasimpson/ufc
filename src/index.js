@@ -3,22 +3,19 @@ import "styles/index.css"
 
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter as Router } from "react-router-dom"
+import { HashRouter as Router } from "react-router-dom"
 
 import App from "components/App/App"
 import * as serviceWorker from "config/serviceWorker"
-import store from "store/"
-import { changeWeightClass } from "./store/actions/index"
-
-window.setTimeout(() => {
-	store.dispatch(changeWeightClass)
-	console.log(store.getState())
-}, 2000)
+import { Provider } from "react-redux"
+import store from "store"
 
 ReactDOM.render(
-	<Router>
-		<App />
-	</Router>,
+	<Provider store={store}>
+		<Router>
+			<App />
+		</Router>
+	</Provider>,
 	document.getElementById("reactApp")
 )
 

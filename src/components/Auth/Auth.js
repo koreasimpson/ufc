@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { Route, Redirect } from "react-router-dom"
 import store from "store"
-import Support from "../Support/Support"
 import Login from "components/Login/Login"
 
 export default class Auth extends Component {
@@ -13,7 +12,7 @@ export default class Auth extends Component {
 				{...rest}
 				render={props =>
 					isAuth ? (
-						<Support {...props} />
+						<Component {...props} />
 					) : (
 						<Login {...props} to={{ pathname: "/login", state: { from: props.location } }} />
 					)

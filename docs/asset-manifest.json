@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.3586fdae.chunk.css",
-    "main.js": "/static/js/main.de886104.chunk.js",
-    "main.js.map": "/static/js/main.de886104.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.e3a021aa.js",
-    "runtime-main.js.map": "/static/js/runtime-main.e3a021aa.js.map",
-    "static/js/2.99118b56.chunk.js": "/static/js/2.99118b56.chunk.js",
-    "static/js/2.99118b56.chunk.js.map": "/static/js/2.99118b56.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.d24653a19b0c2fb18202b729855469c3.js": "/precache-manifest.d24653a19b0c2fb18202b729855469c3.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.3586fdae.chunk.css.map": "/static/css/main.3586fdae.chunk.css.map",
-    "static/js/2.99118b56.chunk.js.LICENSE.txt": "/static/js/2.99118b56.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/static/media/YeonSung-Regular.5990fe41.woff",
-    "static/media/background_header.jpg": "/static/media/background_header.27d2ac65.jpg",
-    "static/media/ufc.svg": "/static/media/ufc.88f7e369.svg"
+    "main.css": "/ufc/static/css/main.5a12f85b.chunk.css",
+    "main.js": "/ufc/static/js/main.477b0231.chunk.js",
+    "main.js.map": "/ufc/static/js/main.477b0231.chunk.js.map",
+    "runtime-main.js": "/ufc/static/js/runtime-main.9b0633dc.js",
+    "runtime-main.js.map": "/ufc/static/js/runtime-main.9b0633dc.js.map",
+    "static/js/2.8ef93d23.chunk.js": "/ufc/static/js/2.8ef93d23.chunk.js",
+    "static/js/2.8ef93d23.chunk.js.map": "/ufc/static/js/2.8ef93d23.chunk.js.map",
+    "index.html": "/ufc/index.html",
+    "precache-manifest.223c1b68a65bbdce7446451fbfbfe303.js": "/ufc/precache-manifest.223c1b68a65bbdce7446451fbfbfe303.js",
+    "service-worker.js": "/ufc/service-worker.js",
+    "static/css/main.5a12f85b.chunk.css.map": "/ufc/static/css/main.5a12f85b.chunk.css.map",
+    "static/js/2.8ef93d23.chunk.js.LICENSE.txt": "/ufc/static/js/2.8ef93d23.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/ufc/static/media/YeonSung-Regular.5990fe41.woff",
+    "static/media/background_header.jpg": "/ufc/static/media/background_header.27d2ac65.jpg",
+    "static/media/ufc.svg": "/ufc/static/media/ufc.88f7e369.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e3a021aa.js",
-    "static/js/2.99118b56.chunk.js",
-    "static/css/main.3586fdae.chunk.css",
-    "static/js/main.de886104.chunk.js"
+    "static/js/runtime-main.9b0633dc.js",
+    "static/js/2.8ef93d23.chunk.js",
+    "static/css/main.5a12f85b.chunk.css",
+    "static/js/main.477b0231.chunk.js"
   ]
 }
