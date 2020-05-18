@@ -1,5 +1,4 @@
-const FLY_WEIGHT = "FLY_WEIGHT"
-
+export const FLY_WEIGHT = "FLY_WEIGHT"
 export const BANTHOM_WEIGHT = "BANTHOM_WEIGHT"
 export const FEATHER_WEIGHT = "FEATHER_WEIGHT"
 export const LIGHT_WEIGHT = "LIGHT_WEIGHT"
@@ -7,5 +6,3 @@ export const WELTER_WEIGHT = "WELTER_WEIGHT"
 export const MIDDLE_WEIGHT = "MIDDLE_WEIGHT"
 export const LIGHTHEAVY_WEIGHT = "LIGHTHEAVY_WEIGHT"
 export const HEAVY_WEIGHT = "HEAVY_WEIGHT"
-
-export default FLY_WEIGHT

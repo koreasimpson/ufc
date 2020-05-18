@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import styled from "styled-components"
 
 import BgHeader from "assets/img/background_header.jpg"
@@ -7,7 +8,7 @@ import AppGnb from "components/AppGnb/AppGnb"
 const Container = styled.header`
 	background-image: url(${BgHeader});
 	background-attachment: fixed;
-	min-height: 50vh;
+	min-height: 100vh;
 	background-size: cover;
 	background-position: center center;
 	margin: 0 auto;
@@ -45,8 +46,8 @@ class AppHeader extends Component {
 					<dl>
 						<dt>Use Skill</dt>
 						<dd>React</dd>
+						<dd>React-hooks</dd>
 						<dd>styled-component</dd>
-						<dd>scss</dd>
 						<dd>redux</dd>
 						<dd>react-router</dd>
 					</dl>
@@ -56,4 +57,10 @@ class AppHeader extends Component {
 	}
 }
 
-export default AppHeader
+const mapStateToProps = state => ({
+	lang: state.langReducer.lang
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader)

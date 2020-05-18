@@ -1,5 +1,4 @@
-const ACCESS_LOGIN = "ACCESS_LOGIN"
-const ACCESS_LOGOUT = "ACCESS_LOGOUT"
+import { ACCESS_LOGIN, ACCESS_LOGOUT } from "../actions/auth.js"
 
 const initValue = {
 	isAuth: false

@@ -1,0 +1,46 @@
+{
+	"format": {
+		"ko": "",
+		"en": "",
+		"ja": ""
+	},
+	"appGnb": {
+		"list": {
+			"event": {
+				"ko": "이벤트",
+				"en": "event",
+				"ja": ""
+			},
+			"fighter": {
+				"ko": "선수",
+				"en": "fighter",
+				"ja": ""
+			},
+			"article": {
+				"ko": "기사 및 이미지",
+				"en": "article",
+				"ja": ""
+			},
+			"live": {
+				"ko": "라이브",
+				"en": "live",
+				"ja": ""
+			},
+			"shop": {
+				"ko": "상점",
+				"en": "shop",
+				"ja": ""
+			},
+			"support": {
+				"ko": "고객지원",
+				"en": "support",
+				"ja": ""
+			},
+			"my": {
+				"ko": "내 정보",
+				"en": "my",
+				"ja": ""
+			}
+		}
+	}
+}

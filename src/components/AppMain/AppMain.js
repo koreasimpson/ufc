@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import styled from "styled-components"
 import { Switch, Route } from "react-router-dom"
 
@@ -45,12 +46,21 @@ class AppMain extends Component {
 					<Route path="/shop/" component={Shop} className={className} />
 					<Route path="/support/" component={Support} />
 					<Auth path="/my/" component={My} className={className} />
+					<Route path="/">
+						<h2>메인 페이지</h2>
+						<button onClick={e => this.updateFirebase(true)}>업데이트</button>
+						<button onClick={e => this.updateFirebase(false)}>업데이트</button>
+					</Route>
 				</Switch>
-				<button onClick={e => this.updateFirebase(true)}>업데이트</button>
-				<button onClick={e => this.updateFirebase(false)}>업데이트</button>
 			</Container>
 		)
 	}
 }
 
-export default AppMain
+const mapStateToProps = state => ({
+	lang: state.langReducer.lang
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppMain)

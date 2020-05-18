@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom"
 
 import store from "store"
 import ufc from "assets/img/ufc.svg"
+import language from "assets/language/language.json"
 
 const Container = styled.nav`
 	background-color: ${({ theme }) => theme.bgColor};
@@ -15,6 +16,15 @@ const Container = styled.nav`
 	left: 50%;
 	transform: translateX(-50%);
 	width: 1024px;
+	transition: width 1s;
+
+	&.fixed {
+		position: fixed;
+		top: 0px;
+		width: 100vw;
+		min-width: 1024px;
+		box-shadow: 0 -5px 10px 0px #000;
+	}
 
 	.logo {
 		position: absolute;
@@ -59,48 +69,95 @@ const Container = styled.nav`
 class AppGnb extends Component {
 	constructor(props) {
 		super(props)
+		this.nav = React.createRef()
 		this.underlineElement = React.createRef()
+		this.state = {
+			isFixed: false
+		}
+		window.addEventListener("scroll", e => {
+			if (window.scrollY > 50 && !this.state.isFixed) {
+				const target = e.target.querySelector("nav a.active")
+				this.setState({ isFixed: true })
+				this.handleMouseOver(e, target)
+			} else if (window.scrollY <= 50 && this.state.isFixed) {
+				const target = e.target.querySelector("nav a.active")
+				this.setState({ isFixed: false })
+				this.handleMouseOver(e, target)
+			}
+		})
 	}
 
-	handleMouseOver = e => {
-		const left = e.target.offsetLeft
-		const width = e.target.offsetWidth
+	setUnderLine = (width, left) => {
 		this.underlineElement.current.setAttribute("style", `width: ${width}px; left: ${left}px`)
+	}
+
+	handleMouseOver = (e, target) => {
+		let left, width
+		if (target) {
+			left = target.offsetLeft
+			width = target.offsetWidth
+			this.setUnderLine(width, left)
+		} else {
+			console.log("no target")
+			left = e.target.offsetLeft
+			width = e.target.offsetWidth
+			this.setUnderLine(width, left)
+		}
+	}
+
+	handleMouseLeave = e => {
+		const target = e.currentTarget.querySelector("a.active")
+		this.handleMouseOver(e, target)
 	}
 
 	render() {
 		const { className } = this.props
 		const { isAuth } = store.getState().authReducer
-		console.log("gnb isAuth = ", isAuth)
-		console.log("gnb isAuth = ", store.getState())
+		const { lang } = store.getState().langReducer
+		const languageText = language.appGnb
 		return (
-			<Container className={className}>
+			<Container className={(className, this.state.isFixed ? "fixed" : null)} ref={this.nav}>
 				<h1 className="logo noTextContent">
 					<Link to="/" title="go to home" className="noTextContent">
 						<img src={ufc} className="App__Logo" alt="UFC" />
 					</Link>
 				</h1>
-				<ul className="gnb">
-					<li onMouseOver={this.handleMouseOver}>
-						<NavLink to="/event">이벤트</NavLink>
+				<ul className="gnb" onMouseLeave={this.handleMouseLeave}>
+					<li>
+						<NavLink to="/event" onMouseOver={this.handleMouseOver}>
+							{languageText.list.event[lang]}
+						</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver}>
-						<NavLink to="/fighter">선수</NavLink>
+					<li>
+						<NavLink to="/fighter" onMouseOver={this.handleMouseOver}>
+							선수
+						</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver}>
-						<NavLink to="/article">기사 및 이미지</NavLink>
+					<li>
+						<NavLink to="/article" onMouseOver={this.handleMouseOver}>
+							기사 및 이미지
+						</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver} className="align-right">
-						<NavLink to="/live">Live</NavLink>
+					<li className="align-right">
+						<NavLink to="/live" onMouseOver={this.handleMouseOver}>
+							Live
+						</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver}>
-						<NavLink to="/shop">Shop</NavLink>
+					<li>
+						<NavLink to="/shop" onMouseOver={this.handleMouseOver}>
+							Shop
+						</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver}>
-						<NavLink to="/support">Support</NavLink>
+					<li>
+						<NavLink to="/support" onMouseOver={this.handleMouseOver}>
+							Support
+						</NavLink>
 					</li>
-					<li onMouseOver={this.handleMouseOver}>
-						<NavLink to="/my">{isAuth ? "My" : "Login"}</NavLink>
+					<li>
+						<NavLink to="/my" onMouseOver={this.handleMouseOver}>
+							{" "}
+							{isAuth ? "My" : "Login"}
+						</NavLink>
 					</li>
 					<li className="hoverUnderline" ref={this.underlineElement}></li>
 				</ul>
@@ -110,7 +167,8 @@ class AppGnb extends Component {
 }
 
 const mapStateToProps = state => ({
-	isAuth: state.authReducer.isAuth
+	isAuth: state.authReducer.isAuth,
+	lang: state.langReducer.lang
 })
 
 const mapDispatchToProps = {}
