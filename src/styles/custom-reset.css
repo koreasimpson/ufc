@@ -1,12 +1,6 @@
 /** 
  * 사용자 정의 초기화
  */
-@font-face {
-	font-family: "Yeon Sung";
-	src: url("../assets/fonts/YeonSung-Regular.ttf") format("truetype"),
-		url("../assets/fonts/YeonSung-Regular.woff") format("woff");
-	font-style: normal;
-}
 
 body {
 	margin: 0;
