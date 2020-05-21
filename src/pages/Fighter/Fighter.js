@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react"
 import { NavLink, Route } from "react-router-dom"
-import Ranking from "components/Ranking.js/Ranking"
+import Ranking from "components/Ranking/Ranking"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 
 const pageData = {

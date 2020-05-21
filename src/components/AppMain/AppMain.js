@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import { Switch, Route } from "react-router-dom"
@@ -10,34 +10,43 @@ import Live from "pages/Live/Live"
 import Shop from "pages/Shop/Shop"
 import Support from "pages/Support/Support"
 import My from "pages/My/My"
+import Login from "pages/Login/Login"
+import SignUp from "pages/SignUp/SignUp"
 
 import Auth from "components/Auth/Auth"
-
-import db from "../../firebaseInit"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 
-var cityRef = db.collection("cities").doc("new-city-id")
-
-var updateSingle = cityRef.update({ capital: false })
+import BgHeader from "assets/img/background_header.jpg"
 
 const Container = styled.main`
 	background-color: ${({ theme }) => theme.bgColor};
 	color: ${({ theme }) => theme.textColor};
 	min-height: 100vh;
-`
 
-class AppMain extends Component {
-	updateFirebase = boolean => {
-		var updateSingle
-		boolean
-			? (updateSingle = cityRef.update({ capital: true }))
-			: (updateSingle = cityRef.update({ capital: false }))
+	.landing {
+		background-image: url(${BgHeader});
+		color: ${({ theme }) => theme.textColorInvert};
+		padding-top: 20rem;
+		.App__Desc {
+			font-size: 5rem;
+			font-weight: bold;
+			text-shadow: 1px 1px 1px #cc0b0b;
+		}
+		dl {
+			margin-top: 2rem;
+			dt {
+				font-size: 2rem;
+				font-weight: bold;
+				padding-bottom: 2rem;
+			}
+		}
 	}
-
+`
+class AppMain extends Component {
 	render() {
 		const { className } = this.props
 		return (
-			<Container>
+			<Fragment>
 				<Switch>
 					기본 페이지
 					<Route path="/event/" component={Event} className={className} />
@@ -46,15 +55,28 @@ class AppMain extends Component {
 					<Route path="/live/" component={Live} className={className} />
 					<Route path="/shop/" component={Shop} className={className} />
 					<Route path="/support/" component={Support} />
+					<Route path="/login/" component={Login} />
 					<Auth path="/my/" component={My} className={className} />
+					<Route path="/signup/" component={SignUp} />
 					<Route path="/">
-						<AppHelmet />
-						<h2>메인 페이지</h2>
-						<button onClick={e => this.updateFirebase(true)}>업데이트</button>
-						<button onClick={e => this.updateFirebase(false)}>업데이트</button>
+						<Container>
+							<AppHelmet />
+							<h2 className="a11yHidden">메인 페이지</h2>
+							<div className="landing">
+								<p className="App__Desc">"CRA를 사용하여 제작한 UFC 홈페이지"</p>
+								<dl>
+									<dt>Use Skill</dt>
+									<dd>React</dd>
+									<dd>React-hooks</dd>
+									<dd>styled-component</dd>
+									<dd>redux</dd>
+									<dd>react-router</dd>
+								</dl>
+							</div>
+						</Container>
 					</Route>
 				</Switch>
-			</Container>
+			</Fragment>
 		)
 	}
 }

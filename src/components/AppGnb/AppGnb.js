@@ -155,7 +155,7 @@ class AppGnb extends Component {
 					</li>
 					<li>
 						<NavLink to="/my" onMouseOver={this.handleMouseOver}>
-							{" "}
+							{/* {" "} */}
 							{isAuth ? "My" : "Login"}
 						</NavLink>
 					</li>

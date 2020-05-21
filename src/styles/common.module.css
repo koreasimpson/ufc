@@ -28,3 +28,19 @@
 	margin: 0;
 	padding: 0;
 }
+
+.landing {
+	background-attachment: fixed;
+	min-height: 100vh;
+	background-size: cover;
+	background-position: center center;
+	margin: 0 auto;
+	font-size: calc(10px + 2vmin);
+	text-align: center;
+}
+
+:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;
+}

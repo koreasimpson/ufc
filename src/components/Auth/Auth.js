@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route, Redirect, withRouter } from "react-router-dom"
 import store from "store"
-import Login from "components/Login/Login"
+import { connect } from "react-redux"
 
-export default class Auth extends Component {
+class Auth extends Component {
 	render() {
 		const { component: Component, ...rest } = this.props
 		const { isAuth } = store.getState().authReducer
@@ -14,10 +14,23 @@ export default class Auth extends Component {
 					isAuth ? (
 						<Component {...props} />
 					) : (
-						<Login {...props} to={{ pathname: "/login", state: { from: props.location } }} />
+						<Redirect
+							to={{
+								pathname: "/login",
+								state: { from: props.location }
+							}}
+						/>
 					)
 				}
 			/>
 		)
 	}
 }
+
+const mapStateToProps = state => ({
+	isAuth: state.authReducer.isAuth
+})
+
+const mapDispatchToProps = {}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth))
