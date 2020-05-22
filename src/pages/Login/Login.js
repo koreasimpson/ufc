@@ -58,18 +58,12 @@ class Login extends Component {
 		this.password = ""
 		this.passwordValidation = ""
 		this.validUser = "null"
-		this.state = {
-			email: "",
-			emailValidation: "",
-			password: "",
-			passwordValidation: "",
-			validUser: "null"
-		}
 	}
 
-	handleInput = (type, value, isPassed) => {
-		this[type] = value
-		this[`${type}Validation`] = isPassed
+	handleInput = (value, name, isPassed) => {
+		console.log("name =", name)
+		this[name] = value
+		this[`${name}Validation`] = isPassed
 		if (this.emailValidation === "pass" && this.passwordValidation === "pass") {
 			this.submit.current.disabled = false
 		} else {
@@ -142,10 +136,20 @@ class Login extends Component {
 					</p>
 					<form onSubmit={this.checkValidUser}>
 						<div className="emailField">
-							<InputField type="email" labelText="UFC 계정" onChange={this.handleInput} />
+							<InputField
+								type="email"
+								labelText="UFC 계정"
+								name="email"
+								onChange={this.handleInput}
+							/>
 						</div>
 						<div className="passwordField">
-							<InputField type="password" labelText="암호" onChange={this.handleInput} />
+							<InputField
+								type="password"
+								labelText="암호"
+								name="password"
+								onChange={this.handleInput}
+							/>
 						</div>
 						<button ref={this.submit} type="submit" className="button login" disabled>
 							로그인

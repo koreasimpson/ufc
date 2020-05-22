@@ -1,17 +1,20 @@
+// labelText로 placeholder 역할 대체
+
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
 
-import { expEmail } from "assets/validation/validation"
+import { expEmail, expPhone } from "assets/validation/validation"
 
 const Container = styled.div`
 	display: inline-block;
 	position: relative;
 	padding-bottom: 1.5rem;
+	flex: 1;
 
 	label {
 		display: inline-block;
 		position: relative;
-		width: 300px;
+		width: 100%;
 
 		input {
 			width: 100%;
@@ -20,7 +23,7 @@ const Container = styled.div`
 			box-sizing: border-box;
 			padding: 1.5rem 5px 0.5rem;
 			font-size: 1rem;
-			border: 1px solid #eee;
+			border: 1px solid #e7e7e7;
 
 			&:not(.null):not(.pass) {
 				border: 1px solid red;
@@ -72,16 +75,16 @@ export default class InputField extends Component {
 
 	state = {
 		value: "",
+		name: "",
 		validation: "null"
 	}
 
 	handleChange = e => {
-		// const { value } = e.currentTarget
-
-		let { type, value } = e.currentTarget
+		let { value, name } = e.currentTarget
 		value = value.trim()
 		this.setState({
-			value: value
+			value,
+			name
 		})
 		if (!value) {
 			this.alert.current.textContent = `${this.props.labelText}을(를) 입력해주세요`
@@ -89,7 +92,7 @@ export default class InputField extends Component {
 				validation: "empty"
 			})
 			return
-		} else if (value && type === "email") {
+		} else if (value && name === "email") {
 			const result = expEmail.test(value)
 			if (!result) {
 				this.alert.current.textContent = "이메일 형식으로 입력해주세요"
@@ -98,6 +101,10 @@ export default class InputField extends Component {
 				})
 				return
 			}
+		} else if (value && name === "phone") {
+			this.setState({
+				value: value.replace(expPhone, "")
+			})
 		}
 		this.setState({
 			validation: "pass"
@@ -106,32 +113,44 @@ export default class InputField extends Component {
 
 	handleFocus = e => {}
 
-	handleBlur = e => {}
+	handleBlur = (e, propsBlur) => {
+		if (propsBlur && !propsBlur.valid && propsBlur.validationText) {
+			this.setState({
+				validation: "notValid"
+			})
+			this.alert.current.textContent = propsBlur.validationText
+		}
+	}
 
 	componentDidUpdate() {
-		this.onChange(this.type, this.state.value, this.state.validation)
+		this.onChange(this.state.value, this.state.name, this.state.validation)
 	}
 
 	render() {
 		const {
-			onChange = () => {},
-			children,
-			className,
-			labelText,
 			type = "text",
+			name = "input",
+			labelText,
+			className,
+			children,
+			onChange = () => {},
+			onBlur = () => {},
 			...rest
 		} = this.props
 		this.type = type
+		this.name = name
 		this.onChange = onChange
 		return (
 			<Container className={(className, "inputField")}>
 				<label htmlFor="">
 					<input
 						type={type}
+						name={name}
 						onFocus={this.handleFocus}
-						onBlur={e => this.handleBlur(e)}
+						onBlur={e => this.handleBlur(e, onBlur())}
 						onChange={e => this.handleChange(e)}
 						className={this.state.validation}
+						value={this.state.value}
 						{...rest}
 					/>
 					<span className={this.state.value ? "small" : null}>{labelText}</span>
@@ -140,7 +159,6 @@ export default class InputField extends Component {
 					ref={this.alert}
 					className="alert"
 					hidden={this.state.validation === "pass" || this.state.validation === "null"}></p>
-				{this.state.validation}
 			</Container>
 		)
 	}

@@ -24,6 +24,10 @@ const Container = styled.nav`
 		width: 100vw;
 		min-width: 1024px;
 		box-shadow: 0 -5px 10px 0px #000;
+
+		.gnb .underline {
+			width: 100%;
+		}
 	}
 
 	.logo {
@@ -49,14 +53,16 @@ const Container = styled.nav`
 				margin-left: auto;
 			}
 
-			&.hoverUnderline {
+			&.underline {
 				position: absolute;
 				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
 				width: 0px;
 				height: 2px;
 				border-bottom: 4px solid #cc0b0b;
 				padding: 0;
-				transition: all 0.3s ease-in-out;
+				transition: all 1s ease-in-out;
 			}
 
 			a.active {
@@ -69,45 +75,16 @@ const Container = styled.nav`
 class AppGnb extends Component {
 	constructor(props) {
 		super(props)
-		this.nav = React.createRef()
-		this.underlineElement = React.createRef()
 		this.state = {
 			isFixed: false
 		}
 		window.addEventListener("scroll", e => {
 			if (window.scrollY > 50 && !this.state.isFixed) {
-				const target = e.target.querySelector("nav a.active")
 				this.setState({ isFixed: true })
-				this.handleMouseOver(e, target)
 			} else if (window.scrollY <= 50 && this.state.isFixed) {
-				const target = e.target.querySelector("nav a.active")
 				this.setState({ isFixed: false })
-				this.handleMouseOver(e, target)
 			}
 		})
-	}
-
-	setUnderLine = (width, left) => {
-		this.underlineElement.current.setAttribute("style", `width: ${width}px; left: ${left}px`)
-	}
-
-	handleMouseOver = (e, target) => {
-		let left, width
-		if (target) {
-			left = target.offsetLeft
-			width = target.offsetWidth
-			this.setUnderLine(width, left)
-		} else {
-			console.log("no target")
-			left = e.target.offsetLeft
-			width = e.target.offsetWidth
-			this.setUnderLine(width, left)
-		}
-	}
-
-	handleMouseLeave = e => {
-		const target = e.currentTarget.querySelector("a.active")
-		this.handleMouseOver(e, target)
 	}
 
 	render() {
@@ -116,7 +93,7 @@ class AppGnb extends Component {
 		const { lang } = store.getState().langReducer
 		const languageText = language.appGnb
 		return (
-			<Container className={(className, this.state.isFixed ? "fixed" : null)} ref={this.nav}>
+			<Container className={(className, this.state.isFixed ? "fixed" : null)}>
 				<h1 className="logo noTextContent">
 					<Link to="/" title="go to home" className="noTextContent">
 						<img src={ufc} className="App__Logo" alt="UFC" />
@@ -155,11 +132,10 @@ class AppGnb extends Component {
 					</li>
 					<li>
 						<NavLink to="/my" onMouseOver={this.handleMouseOver}>
-							{/* {" "} */}
 							{isAuth ? "My" : "Login"}
 						</NavLink>
 					</li>
-					<li className="hoverUnderline" ref={this.underlineElement}></li>
+					<li className="underline"></li>
 				</ul>
 			</Container>
 		)
