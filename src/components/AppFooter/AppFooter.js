@@ -3,8 +3,12 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 
 import store from "store"
-import ufc from "assets/img/ufc.svg"
+import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import { SET_LANGUAGE_KO, SET_LANGUAGE_EN, SET_LANGUAGE_JA } from "../../store/actions/lang"
+
+const StyledLogo = styled(ufc)`
+	fill: ${({ theme }) => theme.logoColor};
+`
 
 const Container = styled.footer`
 	background-color: ${({ theme }) => theme.bgColor};
@@ -18,7 +22,7 @@ const Container = styled.footer`
 	h1 {
 		display: inline-block;
 		margin: 0;
-		img {
+		svg {
 			height: 2em;
 			width: 5em;
 		}
@@ -76,7 +80,7 @@ class AppFooter extends Component {
 			<Container className={className}>
 				<div className="content left">
 					<h1>
-						<img src={ufc} alt="UFC" />
+						<StyledLogo />
 					</h1>
 					<select id="languageOptions" defaultValue={lang} onChange={this.handleLanguageOptions}>
 						<option value="ko">Korea</option>

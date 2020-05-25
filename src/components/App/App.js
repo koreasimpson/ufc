@@ -1,37 +1,57 @@
-import React, { useState } from "react"
+import React from "react"
 import { ThemeProvider } from "styled-components"
 import { withRouter } from "react-router-dom"
-
-import ThemeStyle from "theme/theme"
 import AppHeader from "components/AppHeader/AppHeader"
 import AppMain from "components/AppMain/AppMain"
 import AppFooter from "components/AppFooter/AppFooter"
+import Modal from "components/Common/Modal"
+import ThemeSelect from "components/ModalContents/ThemeSelect"
+import ThemeStyle from "theme/theme"
+import store from "store"
+import { connect } from "react-redux"
+import { CookiesProvider, useCookies } from "react-cookie"
 
 // components
 const App = props => {
-	console.log("app props =", props)
-	const [themeState, setTheme] = useState({
-		default: true,
-		theme: ThemeStyle.lightMode
-	})
+	const [cookies, setCookie] = useCookies(["name"])
+	let theme
+	if (cookies.theme) {
+		theme = cookies.theme
+	} else {
+		theme = store.getState().themeReducer.theme
+	}
 
-	const toggleTheme = () => {
-		themeState.default
-			? setTheme({ default: false, theme: ThemeStyle.darkMode })
-			: setTheme({ default: true, theme: ThemeStyle.lightMode })
+	const setThemeCookies = () => {
+		if (!cookies.theme) {
+			const dayTime = 86400000
+			let expireDate = new Date()
+			expireDate.setTime(expireDate.getTime() + 7 * dayTime)
+			setCookie("theme", theme, { path: "/", expires: expireDate })
+		}
 	}
 
 	return (
-		<ThemeProvider theme={themeState.theme}>
-			{/* <label htmlFor="Theme">
-				<input id="Theme" type="checkbox" onChange={toggleTheme} />
-				Theme 설정하기 {themeState.default ? "true" : "false"}
-			</label> */}
-			<AppHeader props={props} />
-			<AppMain test="hello" />
-			<AppFooter />
-		</ThemeProvider>
+		<CookiesProvider>
+			<ThemeProvider theme={ThemeStyle[theme]}>
+				<AppHeader props={props} />
+				<AppMain test="hello" />
+				<AppFooter />
+				<Modal open={!cookies.theme} closeButton handleConfirm={setThemeCookies}>
+					<Modal.Header>모달 제목이 뭐야?</Modal.Header>
+					<Modal.Contents>
+						<ThemeSelect />
+					</Modal.Contents>
+					<Modal.Footer />
+				</Modal>
+			</ThemeProvider>
+		</CookiesProvider>
 	)
 }
 
-export default withRouter(App)
+const mapStateToProps = state => ({
+	theme: state.themeReducer.theme
+})
+
+const mapDispatchToProps = {}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

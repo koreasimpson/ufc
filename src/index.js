@@ -1,5 +1,5 @@
 import "react-app-polyfill/ie11"
-import "styles/index.css"
+import "styles/index.scss"
 
 import React from "react"
 import ReactDOM from "react-dom"

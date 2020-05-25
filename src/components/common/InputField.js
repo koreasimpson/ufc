@@ -2,8 +2,7 @@
 
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
-
-import { expEmail, expPhone } from "assets/validation/validation"
+import { expEmail, expPhone } from "assets/lib/validation"
 
 const Container = styled.div`
 	display: inline-block;

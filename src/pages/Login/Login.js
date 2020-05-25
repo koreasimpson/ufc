@@ -10,7 +10,7 @@ import { connect } from "react-redux"
 import { ACCESS_LOGIN } from "../../store/actions/auth"
 
 import AppHelmet from "components/AppHelmet/AppHelmet"
-import InputField from "components/common/InputField"
+import InputField from "components/Common/InputField"
 
 const Container = styled.main`
 	font-size: 2rem;

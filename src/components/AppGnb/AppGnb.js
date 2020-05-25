@@ -4,8 +4,12 @@ import styled from "styled-components"
 import { Link, NavLink } from "react-router-dom"
 
 import store from "store"
-import ufc from "assets/img/ufc.svg"
+import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import language from "assets/language/language.json"
+
+const StyledLogo = styled(ufc)`
+	fill: ${({ theme }) => theme.logoColor};
+`
 
 const Container = styled.nav`
 	background-color: ${({ theme }) => theme.bgColor};
@@ -36,7 +40,7 @@ const Container = styled.nav`
 		left: 50%;
 		transform: translate(-50%, -50%);
 
-		img {
+		svg {
 			display: inline-block;
 			width: 80px;
 			height: auto;
@@ -96,7 +100,7 @@ class AppGnb extends Component {
 			<Container className={(className, this.state.isFixed ? "fixed" : null)}>
 				<h1 className="logo noTextContent">
 					<Link to="/" title="go to home" className="noTextContent">
-						<img src={ufc} className="App__Logo" alt="UFC" />
+						<StyledLogo />
 					</Link>
 				</h1>
 				<ul className="gnb" onMouseLeave={this.handleMouseLeave}>

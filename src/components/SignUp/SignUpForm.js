@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import styled from "styled-components"
-import InputField from "components/common/InputField"
-import { expPassword } from "assets/validation/validation"
+import InputField from "components/Common/InputField"
+import { expPassword } from "assets/lib/validation"
 
 const Container = styled.main`
 	font-size: 2rem;

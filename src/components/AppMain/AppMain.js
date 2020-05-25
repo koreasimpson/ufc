@@ -25,7 +25,7 @@ const Container = styled.main`
 
 	.landing {
 		background-image: url(${BgHeader});
-		color: ${({ theme }) => theme.textColorInvert};
+		color: #fff;
 		padding-top: 20rem;
 		.App__Desc {
 			font-size: 5rem;
