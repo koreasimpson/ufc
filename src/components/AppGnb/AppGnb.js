@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import styled from "styled-components"
 import { Link, NavLink } from "react-router-dom"
+import styled from "styled-components"
+import throttle from "lodash.throttle"
 
 import store from "store"
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
@@ -82,13 +83,20 @@ class AppGnb extends Component {
 		this.state = {
 			isFixed: false
 		}
-		window.addEventListener("scroll", e => {
-			if (window.scrollY > 50 && !this.state.isFixed) {
-				this.setState({ isFixed: true })
-			} else if (window.scrollY <= 50 && this.state.isFixed) {
-				this.setState({ isFixed: false })
-			}
-		})
+		this.detectScrollThrottled = throttle(this.detectScroll, 100)
+		window.addEventListener("scroll", this.detectScrollThrottled)
+	}
+
+	detectScroll = () => {
+		if (window.scrollY > 50 && !this.state.isFixed) {
+			this.setState({ isFixed: true })
+		} else if (window.scrollY <= 50 && this.state.isFixed) {
+			this.setState({ isFixed: false })
+		}
+	}
+
+	componentWillUnmount() {
+		this.detectScrollThrottled.cancel()
 	}
 
 	render() {
