@@ -13,6 +13,8 @@ import { CookiesProvider, useCookies } from "react-cookie"
 
 // components
 const App = props => {
+	console.log("props =", props)
+
 	const [cookies, setCookie] = useCookies(["name"])
 	let theme
 	if (cookies.theme) {
@@ -33,16 +35,18 @@ const App = props => {
 	return (
 		<CookiesProvider>
 			<ThemeProvider theme={ThemeStyle[theme]}>
-				<AppHeader props={props} />
-				<AppMain test="hello" />
-				<AppFooter />
-				<Modal open={!cookies.theme} closeButton handleConfirm={setThemeCookies}>
-					<Modal.Header>모달 제목이 뭐야?</Modal.Header>
-					<Modal.Contents>
-						<ThemeSelect />
-					</Modal.Contents>
-					<Modal.Footer />
-				</Modal>
+				<div className={props.className}>
+					<AppHeader props={props} />
+					<AppMain test="hello" />
+					<AppFooter />
+					<Modal open={!cookies.theme} closeButton handleConfirm={setThemeCookies}>
+						<Modal.Header>모달 제목이 뭐야?</Modal.Header>
+						<Modal.Contents>
+							<ThemeSelect />
+						</Modal.Contents>
+						<Modal.Footer />
+					</Modal>
+				</div>
 			</ThemeProvider>
 		</CookiesProvider>
 	)

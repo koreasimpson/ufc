@@ -16,7 +16,7 @@ class AppHeader extends Component {
 
 	render() {
 		return (
-			<Container className={`App__Header`}>
+			<Container className={`appHeader`}>
 				<AppGnb />
 			</Container>
 		)

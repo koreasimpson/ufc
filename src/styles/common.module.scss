@@ -31,12 +31,34 @@
 
 .landing {
 	background-attachment: fixed;
-	min-height: 100vh;
 	background-size: cover;
 	background-position: center center;
 	margin: 0 auto;
 	font-size: calc(10px + 2vmin);
 	text-align: center;
+
+	&.bg {
+		color: #fff;
+		min-height: 100vh;
+		padding-top: 10vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+
+		.desc {
+			font-size: 5rem;
+			font-weight: bold;
+			text-shadow: 1px 1px 1px #cc0b0b;
+		}
+	}
+}
+
+.contentWrap {
+	padding-top: 100px;
+	padding-bottom: 100px;
+	max-width: 1220px;
+	margin: 0 auto;
 }
 
 :disabled {

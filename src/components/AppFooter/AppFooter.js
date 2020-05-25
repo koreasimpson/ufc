@@ -13,7 +13,7 @@ const StyledLogo = styled(ufc)`
 const Container = styled.footer`
 	background-color: ${({ theme }) => theme.bgColor};
 	color: ${({ theme }) => theme.textColor};
-	border-top: 1px solid ${({ theme }) => theme.textColor};
+	border-top: 5px solid ${({ theme }) => theme.majorColor};
 	padding: 5em 2em;
 	display: flex;
 	justify-content: space-between;

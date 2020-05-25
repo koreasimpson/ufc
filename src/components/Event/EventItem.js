@@ -1,18 +1,43 @@
 import React, { Component } from "react"
 
 export default class EventItem extends Component {
+	constructor(props) {
+		super(props)
+		this.props = props
+	}
+
 	render() {
+		const { eventNumber, eventTitle, eventLocation, eventDate, fighter1, fighter2 } = this.props
 		return (
 			<li>
-				<p>fight number</p>
+				{eventNumber === "fightPass" ? (
+					<p>
+						<span>UFC</span>
+						<i>
+							FIGHT <span>NIGHT</span>
+						</i>
+					</p>
+				) : (
+					<p>
+						<span>UFC</span>
+						<i>{eventNumber}</i>
+					</p>
+				)}
 				<figure>
-					<img src="" alt="" />
-					<figcaption>메인 이벤트 선수 이름 vs 선수 이름</figcaption>
+					<img src="" alt="fighter1" />
+					<img src="" alt="fighter2" />
+					<figcaption className="a11yHidden"></figcaption>
 				</figure>
 				<p>
-					<span>대회 장소</span>
-					<span>대전 리스트</span>
+					<strong className="mainEvent">
+						{fighter1} VS {fighter2}
+					</strong>
+					<span className="">
+						{eventDate ? `${eventDate} / ` : ""}
+						{eventLocation}
+					</span>
 				</p>
+				<button>상세 정보</button>
 			</li>
 		)
 	}

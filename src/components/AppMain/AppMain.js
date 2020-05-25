@@ -16,22 +16,15 @@ import SignUp from "pages/SignUp/SignUp"
 import Auth from "components/Auth/Auth"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 
-import BgHeader from "assets/img/background_header.jpg"
+import langdingBg from "assets/img/background_header.jpg"
 
 const Container = styled.main`
 	background-color: ${({ theme }) => theme.bgColor};
 	color: ${({ theme }) => theme.textColor};
-	min-height: 100vh;
 
 	.landing {
-		background-image: url(${BgHeader});
-		color: #fff;
-		padding-top: 20rem;
-		.App__Desc {
-			font-size: 5rem;
-			font-weight: bold;
-			text-shadow: 1px 1px 1px #cc0b0b;
-		}
+		background-image: url(${langdingBg});
+
 		dl {
 			margin-top: 2rem;
 			dt {
@@ -62,8 +55,8 @@ class AppMain extends Component {
 						<Container>
 							<AppHelmet />
 							<h2 className="a11yHidden">메인 페이지</h2>
-							<div className="landing">
-								<p className="App__Desc">"CRA를 사용하여 제작한 UFC 홈페이지"</p>
+							<div className="landing bg">
+								<p className="desc">"CRA를 사용하여 제작한 UFC 홈페이지"</p>
 								<dl>
 									<dt>Use Skill</dt>
 									<dd>React</dd>

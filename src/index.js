@@ -5,16 +5,27 @@ import React from "react"
 import ReactDOM from "react-dom"
 // for github pages
 import { HashRouter as Router } from "react-router-dom"
+import styled from "styled-components"
 
 import App from "components/App/App"
 import * as serviceWorker from "config/serviceWorker"
 import { Provider } from "react-redux"
 import store from "store"
 
+const StyledApp = styled(App)`
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+	main {
+		flex: 1;
+	}
+`
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
-			<App />
+			<StyledApp />
 		</Router>
 	</Provider>,
 	document.getElementById("reactApp")

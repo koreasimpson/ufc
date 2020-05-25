@@ -161,7 +161,7 @@ export default class SignUp extends Component {
 		const { className } = this.props
 		return (
 			<Container className={className}>
-				<div className="landing">
+				<section className="contentWrap">
 					<h2>회원가입</h2>
 					<p>UFC 계정을 생성하여 원하는 선수의 소식을 정기적으로 받아보세요</p>
 					<form onSubmit={this.handleSubmit}>
@@ -283,7 +283,7 @@ export default class SignUp extends Component {
 						</button>
 					</form>
 					<p>이용약관 및 개인정보보호방침</p>
-				</div>
+				</section>
 			</Container>
 		)
 	}

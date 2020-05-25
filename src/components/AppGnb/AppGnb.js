@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, withRouter } from "react-router-dom"
 import styled from "styled-components"
 import throttle from "lodash.throttle"
 
@@ -33,6 +33,10 @@ const Container = styled.nav`
 		.gnb .underline {
 			width: 100%;
 		}
+	}
+
+	&.shadow {
+		box-shadow: 0 0px 10px 0px #000;
 	}
 
 	.logo {
@@ -83,6 +87,7 @@ class AppGnb extends Component {
 		this.state = {
 			isFixed: false
 		}
+		this.hasLandingContent = true
 		this.detectScrollThrottled = throttle(this.detectScroll, 100)
 		window.addEventListener("scroll", this.detectScrollThrottled)
 	}
@@ -100,12 +105,23 @@ class AppGnb extends Component {
 	}
 
 	render() {
-		const { className } = this.props
+		const { className, location } = this.props
 		const { isAuth } = store.getState().authReducer
 		const { lang } = store.getState().langReducer
 		const languageText = language.appGnb
+		console.log("location =", location)
+		if (!(location.pathname === "/event" || location.pathname === "/fighter")) {
+			this.hasLandingContent = false
+		} else {
+			this.hasLandingContent = true
+		}
+		console.log("this.hasLandingContent =", this.hasLandingContent)
 		return (
-			<Container className={(className, this.state.isFixed ? "fixed" : null)}>
+			<Container
+				className={
+					((className, this.state.isFixed ? "fixed" : null),
+					this.hasLandingContent ? null : "shadow")
+				}>
 				<h1 className="logo noTextContent">
 					<Link to="/" title="go to home" className="noTextContent">
 						<StyledLogo />
@@ -161,4 +177,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppGnb)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppGnb))
