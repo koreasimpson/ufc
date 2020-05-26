@@ -93,9 +93,12 @@ class AppGnb extends Component {
 	}
 
 	detectScroll = () => {
+		console.log("scroll")
 		if (window.scrollY > 50 && !this.state.isFixed) {
+			console.log("fixed")
 			this.setState({ isFixed: true })
 		} else if (window.scrollY <= 50 && this.state.isFixed) {
+			console.log("no fixed")
 			this.setState({ isFixed: false })
 		}
 	}
@@ -115,11 +118,13 @@ class AppGnb extends Component {
 			this.hasLandingContent = true
 		}
 		return (
+			// this.state.isFixed ? "fixed" : null,
+			// 	this.hasLandingContent ? null : "shadow"
 			<Container
-				className={
-					((className, this.state.isFixed ? "fixed" : null),
-					this.hasLandingContent ? null : "shadow")
-				}>
+				className={`${className}
+				${this.state.isFixed ? "fixed" : null}
+				${this.hasLandingContent ? null : "shadow"}
+			`}>
 				<h1 className="logo noTextContent">
 					<Link to="/" title="go to home" className="noTextContent">
 						<StyledLogo />

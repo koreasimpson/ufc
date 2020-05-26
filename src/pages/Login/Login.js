@@ -98,7 +98,6 @@ class Login extends Component {
 
 	handleSubmit = e => {
 		if (!(this.emailValidation === "pass" && this.passwordValidation === "pass")) return false
-		console.log("this.validUser =", this.validUser)
 		if (this.validUser === "pass") {
 			store.dispatch({ type: ACCESS_LOGIN })
 			alert("성공")

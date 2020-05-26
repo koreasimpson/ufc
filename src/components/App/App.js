@@ -13,8 +13,6 @@ import { CookiesProvider, useCookies } from "react-cookie"
 
 // components
 const App = props => {
-	console.log("props =", props)
-
 	const [cookies, setCookie] = useCookies(["name"])
 	let theme
 	if (cookies.theme) {

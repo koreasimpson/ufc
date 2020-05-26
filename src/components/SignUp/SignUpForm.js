@@ -119,8 +119,6 @@ export default class SignUp extends Component {
 		} else {
 			this.props.completeSignUp()
 		}
-		// console.log("this.form =", this.form)
-		// console.log("this.formValid =", this.formValidation)
 	}
 
 	checkPasswordExp = e => {
