@@ -109,13 +109,11 @@ class AppGnb extends Component {
 		const { isAuth } = store.getState().authReducer
 		const { lang } = store.getState().langReducer
 		const languageText = language.appGnb
-		console.log("location =", location)
 		if (!(location.pathname === "/event" || location.pathname === "/fighter")) {
 			this.hasLandingContent = false
 		} else {
 			this.hasLandingContent = true
 		}
-		console.log("this.hasLandingContent =", this.hasLandingContent)
 		return (
 			<Container
 				className={

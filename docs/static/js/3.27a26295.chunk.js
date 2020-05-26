@@ -1,0 +1,2 @@
+(this["webpackJsonpcra-template-ko"]=this["webpackJsonpcra-template-ko"]||[]).push([[3],{191:function(T){T.exports=JSON.parse('[{"email":"TEST_USER1@ufc.com","password":"TEST1234!"},{"email":"TEST_USER2@ufc.com","password":"TEST1234!"},{"email":"TEST_USER3@ufc.com","password":"TEST1234!"},{"email":"TEST_USER4@ufc.com","password":"TEST1234!"}]')}}]);
+//# sourceMappingURL=3.27a26295.chunk.js.map

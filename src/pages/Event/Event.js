@@ -3,6 +3,26 @@ import EventItem from "components/Event/EventItem"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import styled from "styled-components"
 import langdingBg from "assets/img/background_event.jpg"
+import db from "firebaseInit"
+
+// const data = {
+// 	eventNumber: "fightPass",
+// 	eventLocation: "Ginasio Nilson Nelson, 브라질",
+// 	eventDate: "15.03.20 / 07:00 KST",
+// 	weightClass: "light",
+// 	mainEvent: [
+// 		{
+// 			fighter: "LEE"
+// 		},
+// 		{
+// 			fighter: "OLIVEIRA"
+// 		}
+// 	]
+// }
+
+// db.collection("event")
+// 	.doc("15.03.20")
+// 	.set(data)
 
 const Container = styled.main`
 	.landing {
@@ -41,6 +61,32 @@ const pageMetaData = {
 }
 
 export default class Event extends Component {
+	constructor(props) {
+		super(props)
+		this.props = props
+		this.state = {
+			eventData: [],
+			getData: async () => {
+				await db
+					.collection("event")
+					.get()
+					.then(res => {
+						res.forEach(doc => {
+							let newData = this.state.eventData
+							newData.push(doc.data())
+							this.setState({
+								eventData: newData
+							})
+						})
+					})
+					.catch(err => {
+						console.error("error =", err)
+					})
+			}
+		}
+		this.state.getData()
+	}
+
 	render() {
 		return (
 			<Container className="">
@@ -61,7 +107,9 @@ export default class Event extends Component {
 						</li>
 					</ul>
 					<ul>
-						<EventItem eventNumber="" />
+						{this.state.eventData.map((event, index) => (
+							<EventItem key={index} eventData={event} />
+						))}
 					</ul>
 				</div>
 			</Container>
