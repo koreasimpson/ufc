@@ -38,6 +38,16 @@ const Container = styled.main`
 			display: flex;
 		}
 
+		.sequrityQuestionContainer {
+			select {
+				margin-bottom: 20px;
+			}
+
+			.inputField {
+				display: block;
+			}
+		}
+
 		button {
 			margin-top: 20px;
 			width: 300px;
@@ -49,10 +59,6 @@ const Container = styled.main`
 			font-size: 2rem;
 			font-family: inherit;
 		}
-	}
-
-	.sequrityQuestionContainer .inputField {
-		display: block;
 	}
 `
 
@@ -161,7 +167,7 @@ export default class SignUp extends Component {
 			<Container className={className}>
 				<section className="contentWrap">
 					<h2>회원가입</h2>
-					<p>UFC 계정을 생성하여 원하는 선수의 소식을 정기적으로 받아보세요</p>
+					<p className="desc">UFC 계정을 생성하여 원하는 선수의 소식을 정기적으로 받아보세요</p>
 					<form onSubmit={this.handleSubmit}>
 						<fieldset>
 							<legend className="a11yHidden">필수정보입력</legend>
@@ -280,7 +286,6 @@ export default class SignUp extends Component {
 							회원가입
 						</button>
 					</form>
-					<p>이용약관 및 개인정보보호방침</p>
 				</section>
 			</Container>
 		)

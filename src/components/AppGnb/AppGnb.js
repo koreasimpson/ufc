@@ -25,6 +25,7 @@ const Container = styled.nav`
 	transition: width 1s;
 
 	&.fixed {
+		z-index: 100;
 		position: fixed;
 		top: 0px;
 		width: 100vw;

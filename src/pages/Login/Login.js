@@ -14,19 +14,15 @@ import InputField from "components/Common/InputField"
 const Container = styled.main`
 	font-size: 2rem;
 
-	.landing {
-		padding-top: 200px;
-		text-align: left;
-		width: 980px;
-		margin-left: auto;
-		margin-right: auto;
-		min-height: initial;
+	.contentWrap {
 	}
 
 	form {
-		.passwordField {
-			margin-top: 10px;
+		display: inline-block;
+		& [class*="Field"] {
+			width: 100%;
 		}
+
 		button {
 			margin-top: 20px;
 			width: 300px;
@@ -122,10 +118,10 @@ class Login extends Component {
 				<AppHelmet />
 				<section className="contentWrap">
 					<h2>로그인</h2>
-					<p ref={this.alert} className="alert" hidden>
-						UFC 계정 또는 비밀번호가 유효하지 않습니다.
-					</p>
 					<form onSubmit={this.checkValidUser}>
+						<p ref={this.alert} className="alert" hidden>
+							UFC 계정 또는 비밀번호가 유효하지 않습니다.
+						</p>
 						<div className="emailField">
 							<InputField
 								type="email"
@@ -152,7 +148,9 @@ class Login extends Component {
 						</Link>
 					</form>
 					{/* <button onClick={this.handleLogin}>Login</button> */}
-					<small>id: TEST_USER1@ufc.com | password: TEST1234! </small>
+					<p>
+						<small>id: TEST_USER1@ufc.com | password: TEST1234! </small>
+					</p>
 				</section>
 			</Container>
 		)
