@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import styled from "styled-components"
 

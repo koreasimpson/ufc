@@ -7,6 +7,7 @@ import throttle from "lodash.throttle"
 import store from "store"
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import language from "assets/language/language.json"
+import { expEmail } from "assets/lib/validation"
 
 const StyledLogo = styled(ufc)`
 	fill: ${({ theme }) => theme.logoColor};
@@ -93,14 +94,16 @@ class AppGnb extends Component {
 	}
 
 	detectScroll = () => {
-		console.log("scroll")
 		if (window.scrollY > 50 && !this.state.isFixed) {
-			console.log("fixed")
 			this.setState({ isFixed: true })
 		} else if (window.scrollY <= 50 && this.state.isFixed) {
-			console.log("no fixed")
 			this.setState({ isFixed: false })
 		}
+	}
+
+	temporarilyForbidden = e => {
+		e.preventDefault()
+		alert("준비중입니다 :-)")
 	}
 
 	componentWillUnmount() {
@@ -118,8 +121,6 @@ class AppGnb extends Component {
 			this.hasLandingContent = true
 		}
 		return (
-			// this.state.isFixed ? "fixed" : null,
-			// 	this.hasLandingContent ? null : "shadow"
 			<Container
 				className={`${className}
 				${this.state.isFixed ? "fixed" : null}
@@ -142,22 +143,34 @@ class AppGnb extends Component {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/article" onMouseOver={this.handleMouseOver}>
+						<NavLink
+							to="/article"
+							onMouseOver={this.handleMouseOver}
+							onClick={this.temporarilyForbidden}>
 							기사 및 이미지
 						</NavLink>
 					</li>
 					<li className="align-right">
-						<NavLink to="/live" onMouseOver={this.handleMouseOver}>
+						<NavLink
+							to="/live"
+							onMouseOver={this.handleMouseOver}
+							onClick={this.temporarilyForbidden}>
 							Live
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/shop" onMouseOver={this.handleMouseOver}>
+						<NavLink
+							to="/shop"
+							onMouseOver={this.handleMouseOver}
+							onClick={this.temporarilyForbidden}>
 							Shop
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/support" onMouseOver={this.handleMouseOver}>
+						<NavLink
+							to="/support"
+							onMouseOver={this.handleMouseOver}
+							onClick={this.temporarilyForbidden}>
 							Support
 						</NavLink>
 					</li>
