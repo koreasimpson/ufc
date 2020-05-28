@@ -4,6 +4,7 @@ import styled from "styled-components"
 import store from "store"
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import { SET_THEME_LIGHT, SET_THEME_DARK } from "store/actions/theme"
+import { withTranslation, Trans } from "react-i18next"
 
 const LightTheme = styled(ufc)`
 	fill: ${({ theme }) => theme.logoColor};
@@ -91,7 +92,9 @@ const ThemeSelect = () => {
 						selectedTheme(e)
 					}}>
 					<LightTheme />
-					<label>Light Theme</label>
+					<label>
+						<Trans i18nKey="common.lightTheme" />
+					</label>
 				</li>
 				<li
 					ref={darkThemeItem}
@@ -100,12 +103,14 @@ const ThemeSelect = () => {
 						selectedTheme(e)
 					}}>
 					<DarkTheme />
-					<label>Dark Theme</label>
+					<label>
+						<Trans i18nKey="common.darkTheme" />
+					</label>
 				</li>
 			</ul>
-			<p className="refText">* 테마는 Footer에서 다시 설정할 수 있습니다.</p>
+			{/* <p className="refText">* 테마는 Footer에서 다시 설정할 수 있습니다.</p> */}
 		</Container>
 	)
 }
 
-export default ThemeSelect
+export default withTranslation()(ThemeSelect)

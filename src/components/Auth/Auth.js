@@ -1,12 +1,10 @@
 import React, { Component } from "react"
 import { Route, Redirect, withRouter } from "react-router-dom"
-import store from "store"
 import { connect } from "react-redux"
 
 class Auth extends Component {
 	render() {
-		const { component: Component, ...rest } = this.props
-		const { isAuth } = store.getState().authReducer
+		const { isAuth, component: Component, ...rest } = this.props
 		return (
 			<Route
 				{...rest}

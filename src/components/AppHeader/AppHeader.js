@@ -23,9 +23,7 @@ class AppHeader extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	lang: state.langReducer.lang
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = {}
 

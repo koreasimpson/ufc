@@ -14,9 +14,6 @@ import InputField from "components/Common/InputField"
 const Container = styled.main`
 	font-size: 2rem;
 
-	.contentWrap {
-	}
-
 	form {
 		display: inline-block;
 		& [class*="Field"] {
@@ -125,7 +122,7 @@ class Login extends Component {
 						<div className="emailField">
 							<InputField
 								type="email"
-								labelText="UFC 계정"
+								labelText="account"
 								name="email"
 								onChange={this.handleInput}
 							/>
@@ -133,7 +130,7 @@ class Login extends Component {
 						<div className="passwordField">
 							<InputField
 								type="password"
-								labelText="암호"
+								labelText="password"
 								name="password"
 								onChange={this.handleInput}
 							/>

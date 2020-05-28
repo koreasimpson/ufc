@@ -1,6 +1,9 @@
 import React from "react"
 import { ThemeProvider } from "styled-components"
 import { withRouter } from "react-router-dom"
+import { CookiesProvider, useCookies } from "react-cookie"
+import { connect } from "react-redux"
+
 import AppHeader from "components/AppHeader/AppHeader"
 import AppMain from "components/AppMain/AppMain"
 import AppFooter from "components/AppFooter/AppFooter"
@@ -8,13 +11,13 @@ import Modal from "components/Common/Modal"
 import ThemeSelect from "components/ModalContents/ThemeSelect"
 import ThemeStyle from "theme/theme"
 import store from "store"
-import { connect } from "react-redux"
-import { CookiesProvider, useCookies } from "react-cookie"
+import { Trans } from "react-i18next"
 
 // components
 const App = props => {
 	const [cookies, setCookie] = useCookies(["name"])
 	let theme
+
 	if (cookies.theme) {
 		theme = cookies.theme
 	} else {
@@ -38,7 +41,9 @@ const App = props => {
 					<AppMain test="hello" />
 					<AppFooter />
 					<Modal open={!cookies.theme} closeButton handleConfirm={setThemeCookies}>
-						<Modal.Header>모달 제목이 뭐야?</Modal.Header>
+						<Modal.Header>
+							<Trans i18nKey="modal.theme.header" />
+						</Modal.Header>
 						<Modal.Contents>
 							<ThemeSelect />
 						</Modal.Contents>

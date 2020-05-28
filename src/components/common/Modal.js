@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
 import { createPortal } from "react-dom"
 import styled from "styled-components"
+import { useTranslation } from "react-i18next"
 
 const Container = styled.div`
 	&[hidden] {
@@ -80,6 +81,7 @@ const ModalProvider = props => (
 )
 
 function Modal({ open, closeButton, onClose, handleConfirm, className, children, ...restProps }) {
+	const { t } = useTranslation()
 	const [isOpen, setIsOpen] = useState(open)
 
 	const handleClose = useCallback(() => {
@@ -92,7 +94,7 @@ function Modal({ open, closeButton, onClose, handleConfirm, className, children,
 	}, [open])
 
 	return createPortal(
-		<ModalProvider value={{ handleConfirm, handleClose }}>
+		<ModalProvider value={{ handleConfirm, handleClose, t }}>
 			<Container className={`${className} dimmed`} hidden={!isOpen}>
 				<article role="dialog" aria-modal="true" aria-labelledby="modal" {...restProps}>
 					{children}
@@ -120,7 +122,7 @@ Modal.defaultProps = {
 }
 
 Modal.Header = function ModalHeader(props) {
-	const context = useContext("ModalContext")
+	// const context = useContext("ModalContext")
 	return (
 		<header className="header">
 			<h3>{props.children}</h3>
@@ -129,13 +131,13 @@ Modal.Header = function ModalHeader(props) {
 }
 
 Modal.Contents = function ModalContents(props) {
-	const context = useContext("ModalContext")
+	// const context = useContext("ModalContext")
 	return <div className="contents">{props.children}</div>
 }
 
 Modal.Footer = function ModalFooter(props) {
 	const context = useContext(ModalContext)
-	const { handleConfirm = () => {}, handleClose = () => {} } = context
+	const { handleConfirm = () => {}, handleClose = () => {}, t = () => {} } = context
 	return (
 		<div className="footer">
 			<button
@@ -143,7 +145,7 @@ Modal.Footer = function ModalFooter(props) {
 					handleConfirm()
 					handleClose()
 				}}>
-				확인
+				{t("common.confirm")}
 			</button>
 			{props.children}
 		</div>

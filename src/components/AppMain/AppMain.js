@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import { Switch, Route } from "react-router-dom"
+import { withTranslation, Trans } from "react-i18next"
 
 import Event from "pages/Event/Event"
 import Fighter from "pages/Fighter/Fighter"
@@ -38,10 +39,10 @@ const Container = styled.main`
 class AppMain extends Component {
 	render() {
 		const { className } = this.props
+
 		return (
 			<Fragment>
 				<Switch>
-					기본 페이지
 					<Route path="/event/" component={Event} className={className} />
 					<Route path="/fighter/" component={Fighter} className={className} />
 					<Route path="/article/" component={Article} className={className} />
@@ -54,16 +55,32 @@ class AppMain extends Component {
 					<Route path="/">
 						<Container>
 							<AppHelmet />
-							<h2 className="a11yHidden">메인 페이지</h2>
+							<h2 className="a11yHidden">
+								<Trans i18nKey="components.AppMain.h2" />
+							</h2>
 							<div className="landing bg">
-								<p className="desc">"CRA를 사용하여 제작한 UFC 홈페이지"</p>
+								<p className="desc">
+									<Trans i18nKey="components.AppMain.desc" />
+								</p>
 								<dl>
-									<dt>Use Skill</dt>
-									<dd>React</dd>
-									<dd>React-hooks</dd>
-									<dd>styled-component</dd>
-									<dd>redux</dd>
-									<dd>react-router</dd>
+									<dt>
+										<Trans i18nKey="components.AppMain.skills.title" />{" "}
+									</dt>
+									<dd>
+										<Trans i18nKey="components.AppMain.skills.react" />{" "}
+									</dd>
+									<dd>
+										<Trans i18nKey="components.AppMain.skills.reactHooks" />{" "}
+									</dd>
+									<dd>
+										<Trans i18nKey="components.AppMain.skills.styledComponent" />{" "}
+									</dd>
+									<dd>
+										<Trans i18nKey="components.AppMain.skills.redux" />{" "}
+									</dd>
+									<dd>
+										<Trans i18nKey="components.AppMain.skills.reactRouter" />{" "}
+									</dd>
 								</dl>
 							</div>
 						</Container>
@@ -74,10 +91,10 @@ class AppMain extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	lang: state.langReducer.lang
-})
+const TransAppMain = withTranslation()(AppMain)
+
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppMain)
+export default connect(mapStateToProps, mapDispatchToProps)(TransAppMain)

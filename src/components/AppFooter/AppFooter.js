@@ -2,9 +2,8 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import styled from "styled-components"
 
-import store from "store"
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
-import { SET_LANGUAGE_KO, SET_LANGUAGE_EN, SET_LANGUAGE_JA } from "../../store/actions/lang"
+import { withTranslation, Trans } from "react-i18next"
 
 const StyledLogo = styled(ufc)`
 	fill: ${({ theme }) => theme.logoColor};
@@ -61,66 +60,85 @@ class AppFooter extends Component {
 		this.props = props
 	}
 
-	handleLanguageOptions = e => {
+	changeLanguage = e => {
 		const options = Array.from(e.target.children)
 		let selectedOptions = options.filter(option => option.selected)
 		selectedOptions = selectedOptions[0].value
-		const selectedOptionsValue =
-			selectedOptions === "ko"
-				? SET_LANGUAGE_KO
-				: selectedOptions === "en"
-				? SET_LANGUAGE_EN
-				: SET_LANGUAGE_JA
-		store.dispatch({ type: selectedOptionsValue })
+		this.props.i18n.changeLanguage(selectedOptions)
 	}
 
 	render() {
-		const { lang, className } = this.props
+		const { className } = this.props
+
 		return (
 			<Container className={className}>
 				<div className="content left">
 					<h1>
 						<StyledLogo />
 					</h1>
-					<select id="languageOptions" defaultValue={lang} onChange={this.handleLanguageOptions}>
+					<select id="languageOptions" onChange={this.changeLanguage}>
 						<option value="ko">Korea</option>
 						<option value="en">English</option>
-						<option value="ja">Japan</option>
 					</select>
 				</div>
 				<div className="content footer-navigation right">
 					<dl>
-						<dt>UFC</dt>
-						<dd>the sport</dd>
-						<dd>community</dd>
-						<dd>채용정보</dd>
-						<dd>채용 정보</dd>
-						<dd>store</dd>
-						<dd>press credentials</dd>
+						<dt>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.ufc"} />
+						</dt>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.theSport"} />
+						</dd>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.community"} />
+						</dd>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.hire"} />
+						</dd>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.store"} />
+						</dd>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.press"} />
+						</dd>
 					</dl>
 					<dl>
-						<dt>HELP</dt>
-						<dd>fight pass faq</dd>
+						<dt>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.help"} />
+						</dt>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.fightpass"} />
+						</dd>
 					</dl>
 					<dl>
-						<dt>법</dt>
-						<dd>조항</dd>
-						<dd>개인정보</dd>
-						<dd>Ad choices</dd>
+						<dt>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.raw"} />
+						</dt>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.article"} />
+						</dd>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.privacy"} />
+						</dd>
+						<dd>
+							<Trans i18nKey={"components.AppFooter.footerNavigation.ad"} />
+						</dd>
 					</dl>
 				</div>
 				<p className="copyright">
-					<small>저작권 © all-time 구공찬</small>
+					<small>
+						<Trans i18nKey={"components.AppFooter.copyright"} />
+					</small>
 				</p>
 			</Container>
 		)
 	}
 }
 
-const mapStateToProps = state => ({
-	lang: state.langReducer.lang
-})
+const TransAppFooter = withTranslation()(AppFooter)
+
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppFooter)
+export default connect(mapStateToProps, mapDispatchToProps)(TransAppFooter)

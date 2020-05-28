@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import styled from "styled-components"
 import InputField from "components/Common/InputField"
 import { expPassword } from "assets/lib/validation"
+import { withTranslation, Trans } from "react-i18next"
 
 const Container = styled.main`
 	font-size: 2rem;
@@ -62,7 +63,7 @@ const Container = styled.main`
 	}
 `
 
-export default class SignUp extends Component {
+class SignUp extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
@@ -74,9 +75,9 @@ export default class SignUp extends Component {
 			passwordConfirm: "",
 			phone: "",
 			// address: "",
-			sequrityQuestion1: "1-1",
+			sequrityQuestion1: "1",
 			sequrityAnswer1: "",
-			sequrityQuestion2: "2-1",
+			sequrityQuestion2: "7",
 			sequrityAnswer2: ""
 		}
 		this.formValidation = {
@@ -121,7 +122,7 @@ export default class SignUp extends Component {
 	handleSubmit = e => {
 		e.preventDefault()
 		if (!this.isAllPass()) {
-			alert("가입 폼을 양식에 맞게 모두 입력해주세요")
+			alert(this.props.t("components.SignUp.Form.validation.notAllPass"))
 		} else {
 			this.props.completeSignUp()
 		}
@@ -135,7 +136,7 @@ export default class SignUp extends Component {
 			if (this.form["email"] && password.includes(email)) {
 				return {
 					valid: false,
-					validationText: "암호에 이메일에 입력한 값이 포함되어서는 안 됩니다."
+					validationText: this.props.t("components.InputField.validation.passwordInValidationText")
 				}
 			} else {
 				return null
@@ -143,7 +144,7 @@ export default class SignUp extends Component {
 		} else if (password) {
 			return {
 				valid: false,
-				validationText: "최소 1개의 숫자와 특수문자를 포함한 6~20자의 영문으로 생성해야 합니다."
+				validationText: this.props.t("components.InputField.validation.passwordRules")
 			}
 		}
 	}
@@ -156,7 +157,7 @@ export default class SignUp extends Component {
 		) {
 			return {
 				valid: false,
-				validationText: "입력한 암호와 일치하지 않습니다"
+				validationText: this.props.t("components.InputField.validation.notSamePassword")
 			}
 		}
 	}
@@ -166,19 +167,25 @@ export default class SignUp extends Component {
 		return (
 			<Container className={className}>
 				<section className="contentWrap">
-					<h2>회원가입</h2>
-					<p className="desc">UFC 계정을 생성하여 원하는 선수의 소식을 정기적으로 받아보세요</p>
+					<h2>
+						<Trans i18nKey="components.SignUp.Form.h2" />
+					</h2>
+					<p className="desc">
+						<Trans i18nKey="components.SignUp.Form.desc" />
+					</p>
 					<form onSubmit={this.handleSubmit}>
 						<fieldset>
-							<legend className="a11yHidden">필수정보입력</legend>
+							<legend className="a11yHidden">
+								<Trans i18nKey="components.SignUp.Form.legend.required" />
+							</legend>
 							<div className="nameField">
-								<InputField labelText="성" name="familyName" onChange={this.handleInput} />
-								<InputField labelText="이름" name="firstName" onChange={this.handleInput} />
+								<InputField labelText="familyName" name="familyName" onChange={this.handleInput} />
+								<InputField labelText="firstName" name="firstName" onChange={this.handleInput} />
 							</div>
 							<div className="emailField">
 								<InputField
 									type="email"
-									labelText="이메일"
+									labelText="email"
 									name="email"
 									onChange={this.handleInput}
 								/>
@@ -186,7 +193,7 @@ export default class SignUp extends Component {
 							<div className="passwordField">
 								<InputField
 									type="password"
-									labelText="암호"
+									labelText="password"
 									name="password"
 									onChange={this.handleInput}
 									onBlur={this.checkPasswordExp}
@@ -195,7 +202,7 @@ export default class SignUp extends Component {
 							<div className="passwordConfirmField">
 								<InputField
 									type="password"
-									labelText="암호 확인"
+									labelText="passwordConfirm"
 									name="passwordConfirm"
 									onChange={this.handleInput}
 									onBlur={this.checkPasswordConfirm}
@@ -203,11 +210,13 @@ export default class SignUp extends Component {
 							</div>
 						</fieldset>
 						<fieldset>
-							<legend className="a11yHidden">필수정보입력</legend>
+							<legend className="a11yHidden">
+								<Trans i18nKey="components.SignUp.Form.legend.required" />
+							</legend>
 							<div className="phoneField">
 								<InputField
 									type="text"
-									labelText="핸드폰 번호"
+									labelText="phone"
 									name="phone"
 									onChange={this.handleInput}
 								/>
@@ -216,37 +225,36 @@ export default class SignUp extends Component {
 						</fieldset>
 						<fieldset>
 							<legend className="a11yHidden">
-								보안 질문 응답. 이 질문은 암호 분실 시 신원을 확인하고 암호를 복구하는 데
-								사용됩니다.
+								<Trans i18nKey="components.SignUp.Form.legend.sequrityQuestion" />
 							</legend>
 							<div className="sequrityQuestionContainer">
 								<select
 									name="sequrityQuestion1"
 									className="sequrityField"
 									onChange={this.handleSelect}>
-									<option value="1-1" dir="auto">
-										10대 시절에 가장 친하게 지냈던 친구의 이름은 무엇입니까?
+									<option value="1" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list1")}
 									</option>
-									<option value="1-2" dir="auto">
-										첫 애완동물의 이름은 무엇입니까?
+									<option value="2" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list2")}
 									</option>
-									<option value="1-3" dir="auto">
-										처음 배운 요리는 무엇입니까?
+									<option value="3" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list3")}
 									</option>
-									<option value="1-4" dir="auto">
-										영화관에서 처음으로 관람한 영화는 무엇입니까?
+									<option value="4" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list4")}
 									</option>
-									<option value="1-5" dir="auto">
-										처음으로 비행기를 타고 방문한 곳은 어디입니까?
+									<option value="5" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list5")}
 									</option>
-									<option value="1-6" dir="auto">
-										초등학교 또는 중학교 시절 가장 좋아했던 선생님의 성함은 무엇입니까?{" "}
+									<option value="6" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list6")}
 									</option>
 								</select>
 
 								<InputField
 									type="text"
-									labelText="질문 답변"
+									labelText="sequrityAnswer"
 									name="sequrityAnswer1"
 									onChange={this.handleInput}
 								/>
@@ -254,36 +262,36 @@ export default class SignUp extends Component {
 									name="sequrityQuestion2"
 									className="sequrityField"
 									onChange={this.handleSelect}>
-									<option value="2-1" dir="auto">
-										꿈의 직업은 무엇입니까?
+									<option value="7" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list7")}
 									</option>
-									<option value="2-2" dir="auto">
-										가장 좋아했던 동화책의 제목은 무엇입니까?
+									<option value="8" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list8")}
 									</option>
-									<option value="2-3" dir="auto">
-										처음으로 소유했던 자동차의 모델명은 무엇입니까?
+									<option value="9" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list9")}
 									</option>
-									<option value="2-4" dir="auto">
-										어린 시절의 별명은 무엇입니까?
+									<option value="10" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list10")}
 									</option>
-									<option value="2-5" dir="auto">
-										학창 시절 가장 좋아했던 영화 배우 또는 영화 속 캐릭터는 누구입니까?
+									<option value="11" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list11")}
 									</option>
-									<option value="2-6" dir="auto">
-										학창 시절 가장 좋아했던 밴드 또는 가수는 누구입니까?
+									<option value="12" dir="auto">
+										{this.props.t("components.SignUp.Form.sequrityQuestionList.list12")}
 									</option>
 								</select>
 
 								<InputField
 									type="text"
-									labelText="질문 답변"
+									labelText="sequrityAnswer"
 									name="sequrityAnswer2"
 									onChange={this.handleInput}
 								/>
 							</div>
 						</fieldset>
 						<button ref={this.submit} type="submit">
-							회원가입
+							<Trans i18nKey="components.SignUp.Form.h2" />
 						</button>
 					</form>
 				</section>
@@ -291,3 +299,5 @@ export default class SignUp extends Component {
 		)
 	}
 }
+
+export default withTranslation()(SignUp)

@@ -1,19 +1,23 @@
 import React, { Component } from "react"
 import { Helmet } from "react-helmet"
+import { connect } from "react-redux"
+import { withTranslation } from "react-i18next"
 
-export default class AppHelmet extends Component {
+class AppHelmet extends Component {
 	constructor(props) {
 		super(props)
 		this.pageData = props.pageData ? props.pageData : []
 	}
 	render() {
+		const { t } = this.props
+
 		const {
-			title = "리액트 포트폴리오",
-			description = "구공찬, 프론트엔드 포트폴리오, 리액트",
-			keywords = "웹, 웹 개발, 프론트엔드, 프론트엔드 개발, UI, 접근성",
-			ogTitle = "리액트 포트폴리오",
-			ogDescription = "CRA를 통해 만든 UFC 홈페이지입니다. 이 사이트는 개인 포트폴리오 용도이며, 상업적인 의도가 없습니다.",
-			twitterTitle = "리액트 포트폴리오"
+			title = t("components.AppHelmet.title"),
+			description = t("components.AppHelmet.description"),
+			keywords = t("components.AppHelmet.keywords"),
+			ogTitle = t("components.AppHelmet.ogTitle"),
+			ogDescription = t("components.AppHelmet.titogDescriptionle"),
+			twitterTitle = t("components.AppHelmet.twitterTitle")
 		} = this.pageData
 		return (
 			<Helmet>
@@ -27,3 +31,11 @@ export default class AppHelmet extends Component {
 		)
 	}
 }
+
+const TransAppHelmet = withTranslation()(AppHelmet)
+
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransAppHelmet)

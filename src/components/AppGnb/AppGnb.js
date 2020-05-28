@@ -4,10 +4,8 @@ import { Link, NavLink, withRouter } from "react-router-dom"
 import styled from "styled-components"
 import throttle from "lodash.throttle"
 
-import store from "store"
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
-import language from "assets/language/language.json"
-import { expEmail } from "assets/lib/validation"
+import { withTranslation, Trans } from "react-i18next"
 
 const StyledLogo = styled(ufc)`
 	fill: ${({ theme }) => theme.logoColor};
@@ -112,10 +110,7 @@ class AppGnb extends Component {
 	}
 
 	render() {
-		const { className, location } = this.props
-		const { isAuth } = store.getState().authReducer
-		const { lang } = store.getState().langReducer
-		const languageText = language.appGnb
+		const { className, location, isAuth } = this.props
 		if (!(location.pathname === "/event" || location.pathname === "/fighter")) {
 			this.hasLandingContent = false
 		} else {
@@ -135,12 +130,12 @@ class AppGnb extends Component {
 				<ul className="gnb" onMouseLeave={this.handleMouseLeave}>
 					<li>
 						<NavLink to="/event" onMouseOver={this.handleMouseOver}>
-							{languageText.list.event[lang]}
+							<Trans i18nKey="components.AppGnb.list.event" />
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to="/fighter" onMouseOver={this.handleMouseOver}>
-							선수
+							<Trans i18nKey="components.AppGnb.list.fighter" />
 						</NavLink>
 					</li>
 					<li>
@@ -148,7 +143,7 @@ class AppGnb extends Component {
 							to="/article"
 							onMouseOver={this.handleMouseOver}
 							onClick={this.temporarilyForbidden}>
-							기사 및 이미지
+							<Trans i18nKey="components.AppGnb.list.article" />
 						</NavLink>
 					</li>
 					<li className="align-right">
@@ -156,7 +151,7 @@ class AppGnb extends Component {
 							to="/live"
 							onMouseOver={this.handleMouseOver}
 							onClick={this.temporarilyForbidden}>
-							Live
+							<Trans i18nKey="components.AppGnb.list.live" />
 						</NavLink>
 					</li>
 					<li>
@@ -164,7 +159,7 @@ class AppGnb extends Component {
 							to="/shop"
 							onMouseOver={this.handleMouseOver}
 							onClick={this.temporarilyForbidden}>
-							Shop
+							<Trans i18nKey="components.AppGnb.list.shop" />
 						</NavLink>
 					</li>
 					<li>
@@ -172,12 +167,16 @@ class AppGnb extends Component {
 							to="/support"
 							onMouseOver={this.handleMouseOver}
 							onClick={this.temporarilyForbidden}>
-							Support
+							<Trans i18nKey="components.AppGnb.list.support" />
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to="/my" onMouseOver={this.handleMouseOver}>
-							{isAuth ? "My" : "Login"}
+							{isAuth ? (
+								<Trans i18nKey="components.AppGnb.list.my" />
+							) : (
+								<Trans i18nKey="components.AppGnb.list.login" />
+							)}
 						</NavLink>
 					</li>
 					<li className="underline"></li>
@@ -187,11 +186,12 @@ class AppGnb extends Component {
 	}
 }
 
+const TransAppGnb = withTranslation()(AppGnb)
+
 const mapStateToProps = state => ({
-	isAuth: state.authReducer.isAuth,
-	lang: state.langReducer.lang
+	isAuth: state.authReducer.isAuth
 })
 
 const mapDispatchToProps = {}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppGnb))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TransAppGnb))

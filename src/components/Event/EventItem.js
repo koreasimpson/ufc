@@ -1,5 +1,6 @@
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
+import { withTranslation, Trans } from "react-i18next"
 
 const Container = styled.li`
 	display: flex;
@@ -32,7 +33,7 @@ const Container = styled.li`
 	}
 `
 
-export default class EventItem extends Component {
+class EventItem extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
@@ -65,14 +66,21 @@ export default class EventItem extends Component {
 			<Container>
 				{eventNumber === "fightPass" ? (
 					<p className="eventType">
-						<span>UFC</span>
+						<span>
+							<Trans i18nKey="common.ufc" />
+						</span>
 						<i>
-							FIGHT <span>NIGHT</span>
+							<Trans
+								i18nKey="components.EventItem.fightPass"
+								components={[<strong>NIGHT</strong>]}
+							/>
 						</i>
 					</p>
 				) : (
 					<p className="eventType">
-						<span>UFC</span>
+						<span>
+							<Trans i18nKey="common.ufc" />
+						</span>
 						<i>{eventNumber}</i>
 					</p>
 				)}
@@ -98,8 +106,12 @@ export default class EventItem extends Component {
 					<p>{eventDate ? `${eventDate} / ` : ""}</p>
 					<p>{eventLocation}</p>
 				</div>
-				<button className="moreInfo">상세 정보</button>
+				<button className="moreInfo">
+					<Trans i18nKey="common.moreInfo" />
+				</button>
 			</Container>
 		)
 	}
 }
+
+export default withTranslation()(EventItem)

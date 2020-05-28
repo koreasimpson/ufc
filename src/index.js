@@ -11,6 +11,7 @@ import App from "components/App/App"
 import * as serviceWorker from "config/serviceWorker"
 import { Provider } from "react-redux"
 import store from "store"
+import "./i18n"
 
 const StyledApp = styled(App)`
 	display: flex;

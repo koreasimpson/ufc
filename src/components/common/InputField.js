@@ -1,8 +1,8 @@
-// labelText로 placeholder 역할 대체
-
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
 import { expEmail, expPhone } from "assets/lib/validation"
+import { connect } from "react-redux"
+import { withTranslation, Trans } from "react-i18next"
 
 const Container = styled.div`
 	display: inline-block;
@@ -65,7 +65,7 @@ const Container = styled.div`
 	}
 `
 
-export default class InputField extends Component {
+class InputField extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
@@ -86,7 +86,11 @@ export default class InputField extends Component {
 			name
 		})
 		if (!value) {
-			this.alert.current.textContent = `${this.props.labelText}을(를) 입력해주세요`
+			// this.alert.current.textContent = `${this.props.labelText}을(를) 입력해주세요`
+			const labelText = this.props.t(`components.InputField.labelText.${this.props.labelText}`)
+			this.alert.current.textContent = this.props.t("components.InputField.validation.empty", {
+				labelText
+			})
 			this.setState({
 				validation: "empty"
 			})
@@ -94,7 +98,7 @@ export default class InputField extends Component {
 		} else if (value && name === "email") {
 			const result = expEmail.test(value)
 			if (!result) {
-				this.alert.current.textContent = "이메일 형식으로 입력해주세요"
+				this.alert.current.textContent = this.props.t("components.InputField.validation.emailForm")
 				this.setState({
 					validation: "notEmailForm"
 				})
@@ -127,6 +131,8 @@ export default class InputField extends Component {
 
 	render() {
 		const {
+			t,
+			tReady: tready,
 			type = "text",
 			name = "input",
 			labelText,
@@ -139,6 +145,7 @@ export default class InputField extends Component {
 		this.type = type
 		this.name = name
 		this.onChange = onChange
+
 		return (
 			<Container className={(className, "inputField")}>
 				<label htmlFor="">
@@ -152,7 +159,9 @@ export default class InputField extends Component {
 						value={this.state.value}
 						{...rest}
 					/>
-					<span className={this.state.value ? "small" : null}>{labelText}</span>
+					<span className={this.state.value ? "small" : null}>
+						<Trans i18nKey={`components.InputField.labelText.${labelText}`} />
+					</span>
 				</label>
 				<p
 					ref={this.alert}
@@ -162,3 +171,11 @@ export default class InputField extends Component {
 		)
 	}
 }
+
+const TransInputField = withTranslation()(InputField)
+
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransInputField)

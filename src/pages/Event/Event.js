@@ -4,6 +4,7 @@ import AppHelmet from "components/AppHelmet/AppHelmet"
 import styled from "styled-components"
 import langdingBg from "assets/img/background_event.jpg"
 import db from "firebaseInit"
+import { withTranslation, Trans } from "react-i18next"
 
 // const data = {
 // 	eventNumber: "fightPass",
@@ -60,7 +61,7 @@ const pageMetaData = {
 	twitterTitle: "UFC 이벤트"
 }
 
-export default class Event extends Component {
+class Event extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
@@ -92,18 +93,26 @@ export default class Event extends Component {
 			<Container className="">
 				<AppHelmet pageData={pageMetaData} />
 				<div className="landing bg">
-					<p className="desc">UFC Fight Events</p>
+					<h2 className="desc">
+						<Trans i18nKey="pages.Event.h2" />
+					</h2>
 					<div className="buttonWrap">
-						<button>경기 상세 정보</button>
+						<button>
+							<Trans i18nKey="pages.Event.moreInfo" />
+						</button>
 					</div>
 				</div>
 				<div className="contentWrap">
 					<ul className="category">
 						<li>
-							<button>예정 이벤트</button>
+							<button>
+								<Trans i18nKey="pages.Event.upcommingEvent" />
+							</button>
 						</li>
 						<li>
-							<button>과거 이벤트</button>
+							<button>
+								<Trans i18nKey="pages.Event.pastEvent" />
+							</button>
 						</li>
 					</ul>
 					<ul>
@@ -116,3 +125,5 @@ export default class Event extends Component {
 		)
 	}
 }
+
+export default withTranslation()(Event)
