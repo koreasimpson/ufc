@@ -5,6 +5,7 @@ import store from "store"
 import styled from "styled-components"
 import { Link, withRouter, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
+import { withTranslation, Trans } from "react-i18next"
 
 import { ACCESS_LOGIN } from "../../store/actions/auth"
 
@@ -93,10 +94,10 @@ class Login extends Component {
 		if (!(this.emailValidation === "pass" && this.passwordValidation === "pass")) return false
 		if (this.validUser === "pass") {
 			store.dispatch({ type: ACCESS_LOGIN })
-			alert("성공")
+			alert(this.props.t("common.success"))
 		} else {
 			this.alert.current.hidden = false
-			alert("실패")
+			alert(this.props.t("common.fail"))
 		}
 	}
 
@@ -114,10 +115,12 @@ class Login extends Component {
 			<Container className={className}>
 				<AppHelmet />
 				<section className="contentWrap">
-					<h2>로그인</h2>
+					<h2>
+						<Trans i18nKey="pages.Login.h2" />
+					</h2>
 					<form onSubmit={this.checkValidUser}>
 						<p ref={this.alert} className="alert" hidden>
-							UFC 계정 또는 비밀번호가 유효하지 않습니다.
+							<Trans i18nKey="pages.Login.validation" />
 						</p>
 						<div className="emailField">
 							<InputField
@@ -136,12 +139,11 @@ class Login extends Component {
 							/>
 						</div>
 						<button ref={this.submit} type="submit" className="button login" disabled>
-							로그인
+							<Trans i18nKey="pages.Login.h2" />
 						</button>
 						<br />
 						<Link to="/signup" className="signup">
-							UFC 아이디가 없으신가요? 지금 생성하시고 원하는 UFC 이벤트 및 선수의 정보를 메일로
-							받아보세요.
+							<Trans i18nKey="pages.Login.notAccount" />
 						</Link>
 					</form>
 					{/* <button onClick={this.handleLogin}>Login</button> */}
@@ -154,10 +156,12 @@ class Login extends Component {
 	}
 }
 
+const TransLogin = withTranslation()(Login)
+
 const mapStateToProps = state => ({
 	isAuth: state.authReducer.isAuth
 })
 
 const mapDispatchToProps = {}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TransLogin))

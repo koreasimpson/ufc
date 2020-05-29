@@ -1,19 +1,11 @@
 import React, { Component } from "react"
 import { NavLink, Route } from "react-router-dom"
-import Ranking from "components/Ranking/Ranking"
+import Ranking from "components/Fighter/Ranking"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import styled from "styled-components"
+import { withTranslation, Trans } from "react-i18next"
 
 import langdingBg from "assets/img/background_fighters.jpg"
-
-const pageMetaData = {
-	title: "선수",
-	description: "UFC 선수정보를 제공하는 페이지",
-	keywords: "UFC, UFC fighters, UFC 선수, UFC 체급별 선수",
-	ogTItle: "UFC 선수",
-	ogDescription: "UFC 선수정보를 제공하는 페이지",
-	twitterTitle: "UFC 선수"
-}
 
 const Container = styled.main`
 	.landing {
@@ -25,46 +17,82 @@ const Container = styled.main`
 	}
 `
 
-export default class Fighter extends Component {
+class Fighter extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
 	}
 
 	render() {
-		const { className } = this.props
+		const { className, t } = this.props
 		const { url } = this.props.match
+		const pageMetaData = {
+			title: t("meta.Fighter.title"),
+			description: t("meta.Fighter.description"),
+			keywords: t("meta.Fighter.keywords"),
+			ogTitle: t("meta.Fighter.ogTitle"),
+			ogDescription: t("meta.Fighter.ogDescription"),
+			twitterTitle: t("meta.Fighter.twitterTitle")
+		}
 		return (
 			<Container className={className}>
 				<AppHelmet pageData={pageMetaData} />
 				<section className="landing bg">
-					<p className="desc">UFC Fighters</p>
+					<h2 className="title">
+						<Trans i18nKey="pages.Fighter.h2" />
+					</h2>
 				</section>
 				<section className="contentWrap">
+					<select name="" id="">
+						<option value="all">{t("common.weightClass.all")}</option>
+						<option value="bantam">{t("common.weightClass.bantam")}</option>
+						<option value="feather">{t("common.weightClass.feather")}</option>
+						<option value="light">{t("common.weightClass.light")}</option>
+						<option value="welter">{t("common.weightClass.welter")}</option>
+						<option value="middle">{t("common.weightClass.middle")}</option>
+						<option value="lightheavy">{t("common.weightClass.lightheavy")}</option>
+						<option value="heavy">{t("common.weightClass.heavy")}</option>
+					</select>
 					<ul>
 						<li>
-							<NavLink to={`${url}/all`}>모든 선수</NavLink>
+							<NavLink to={`${url}/all`}>
+								<Trans i18nKey="common.weightClass.all" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/bantam`}>밴텀급</NavLink>
+							<NavLink to={`${url}/bantam`}>
+								<Trans i18nKey="common.weightClass.bantam" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/feather`}>페더급</NavLink>
+							<NavLink to={`${url}/feather`}>
+								<Trans i18nKey="common.weightClass.feather" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/light`}>라이트급</NavLink>
+							<NavLink to={`${url}/light`}>
+								<Trans i18nKey="common.weightClass.light" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/welter`}>웰터급</NavLink>
+							<NavLink to={`${url}/welter`}>
+								<Trans i18nKey="common.weightClass.welter" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/middle`}>미들급</NavLink>
+							<NavLink to={`${url}/middle`}>
+								<Trans i18nKey="common.weightClass.middle" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/lightheavy`}>라이트헤비급</NavLink>
+							<NavLink to={`${url}/lightheavy`}>
+								<Trans i18nKey="common.weightClass.lightheavy" />
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={`${url}/heavy`}>헤비급</NavLink>
+							<NavLink to={`${url}/heavy`}>
+								<Trans i18nKey="common.weightClass.heavy" />
+							</NavLink>
 						</li>
 					</ul>
 					<div className="route">
@@ -75,3 +103,5 @@ export default class Fighter extends Component {
 		)
 	}
 }
+
+export default withTranslation()(Fighter)

@@ -52,15 +52,6 @@ const Container = styled.main`
 	}
 `
 
-const pageMetaData = {
-	title: "이벤트",
-	description: "UFC 이벤트 정보를 제공하는 페이지",
-	keywords: "UFC, UFC event, UFC 이벤트",
-	ogTItle: "UFC 이벤트",
-	ogDescription: "UFC 이벤트 정보를 제공하는 페이지",
-	twitterTitle: "UFC 이벤트"
-}
-
 class Event extends Component {
 	constructor(props) {
 		super(props)
@@ -89,6 +80,15 @@ class Event extends Component {
 	}
 
 	render() {
+		const { t } = this.props
+		const pageMetaData = {
+			title: t("meta.Event.title"),
+			description: t("meta.Event.description"),
+			keywords: t("meta.Event.keywords"),
+			ogTitle: t("meta.Event.ogTitle"),
+			ogDescription: t("meta.Event.ogDescription"),
+			twitterTitle: t("meta.Event.twitterTitle")
+		}
 		return (
 			<Container className="">
 				<AppHelmet pageData={pageMetaData} />

@@ -5,7 +5,20 @@ const ko = {
 			confirm: "확인",
 			moreInfo: "상세 정보",
 			lightTheme: "라이트 테마",
-			darkTheme: "다크 테마"
+			darkTheme: "다크 테마",
+			commingSoon: "준비중입니다 :)",
+			success: "성공",
+			fail: "실패",
+			weightClass: {
+				all: "모든 체급",
+				bantam: "밴텀급",
+				feather: "페더급",
+				light: "라이트급",
+				welter: "웰터급",
+				middle: "미들급",
+				lightheavy: "라이트헤비급",
+				heavy: "헤비급"
+			}
 		},
 		modal: {
 			theme: {
@@ -17,7 +30,7 @@ const ko = {
 				title: "기사",
 				description: "UFC 소식을 제공하는 페이지",
 				keywords: "UFC, UFC article, UFC 기사, UFC 소식",
-				ogTItle: "UFC 기사",
+				ogTitle: "UFC 기사",
 				ogDescription: "UFC 소식을 제공하는 페이지",
 				twitterTitle: "UFC 기사"
 			},
@@ -25,9 +38,41 @@ const ko = {
 				title: "이벤트",
 				description: "UFC 이벤트 정보를 제공하는 페이지",
 				keywords: "UFC, UFC event, UFC 이벤트",
-				ogTItle: "UFC 이벤트",
+				ogTitle: "UFC 이벤트",
 				ogDescription: "UFC 이벤트 정보를 제공하는 페이지",
 				twitterTitle: "UFC 이벤트"
+			},
+			Fighter: {
+				title: "선수",
+				description: "UFC 선수정보를 제공하는 페이지",
+				keywords: "UFC, UFC fighters, UFC 선수, UFC 체급별 선수",
+				ogTItle: "UFC 선수",
+				ogDescription: "UFC 선수정보를 제공하는 페이지",
+				twitterTitle: "UFC 선수"
+			},
+			Live: {
+				title: "라이브",
+				description: "UFC 경기 영상을 라이브로 제공하는 페이지",
+				keywords: "UFC, UFC live, UFC 라이브",
+				ogTitle: "UFC 라이브",
+				ogDescription: "UFC 경기 영상을 라이브로 제공하는 페이지",
+				twitterTitle: "UFC 라이브"
+			},
+			Shop: {
+				title: "상점",
+				description: "UFC 제품을 제공하는 페이지",
+				keywords: "UFC, UFC product, UFC 상품, UFC 제품",
+				ogTitle: "UFC 상품",
+				ogDescription: "UFC 제품을 제공하는 페이지",
+				twitterTitle: "UFC 상품"
+			},
+			Support: {
+				title: "고객지원",
+				description: "고객지원 페이지",
+				keywords: "UFC, UFC support, UFC 고객지원",
+				ogTitle: "UFC 고객지원",
+				ogDescription: "고객지원 페이지",
+				twitterTitle: "UFC 고객지원"
 			}
 		},
 		components: {
@@ -136,12 +181,38 @@ const ko = {
 			}
 		},
 		pages: {
-			Article: {},
+			Article: {
+				h2: "비디오, 기사 및 갤러리"
+			},
 			Event: {
 				h2: "UFC Fight Events",
 				moreInfo: "경기 상세 정보",
 				upcommingEvent: "예정 이벤트",
 				pastEvent: "과거 이벤트"
+			},
+			Fighter: {
+				h2: "UFC Fighters"
+			},
+			Live: {
+				h2: "Live"
+			},
+			Login: {
+				h2: "로그인",
+				validation: "UFC 계정 또는 비밀번호가 유효하지 않습니다.",
+				notAccount:
+					"UFC 아이디가 없으신가요? 지금 생성하시고 원하는 UFC 이벤트 및 선수의 정보를 메일로 받아보세요."
+			},
+			My: {
+				h2: "My page"
+			},
+			PrivacyPolicy: {
+				h2: "개인정보 처리방침"
+			},
+			Shop: {
+				h2: "Shop"
+			},
+			Support: {
+				h2: "Support"
 			}
 		}
 	}

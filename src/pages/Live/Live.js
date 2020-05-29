@@ -1,34 +1,40 @@
 import React, { Component } from "react"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import styled from "styled-components"
+import { withTranslation, Trans } from "react-i18next"
 
 const Container = styled.main``
 
-const pageMetaData = {
-	title: "라이브",
-	description: "UFC 경기 영상을 라이브로 제공하는 페이지",
-	keywords: "UFC, UFC live, UFC 라이브",
-	ogTItle: "UFC 라이브",
-	ogDescription: "UFC 경기 영상을 라이브로 제공하는 페이지",
-	twitterTitle: "UFC 라이브"
-}
-
-export default class Live extends Component {
+class Live extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
 	}
 
 	render() {
-		const { className } = this.props
+		const { className, t } = this.props
+		const pageMetaData = {
+			title: t("meta.Live.title"),
+			description: t("meta.Live.description"),
+			keywords: t("meta.Live.keywords"),
+			ogTitle: t("meta.Live.ogTitle"),
+			ogDescription: t("meta.Live.ogDescription"),
+			twitterTitle: t("meta.Live.twitterTitle")
+		}
 		return (
 			<Container className={className}>
 				<AppHelmet pageData={pageMetaData} />
 				<section className="contentWrap">
-					<h2>Live</h2>
-					<div>준비중</div>
+					<h2>
+						<Trans i18nKey="pages.Live.h2" />
+					</h2>
+					<div>
+						<Trans i18nKey="common.commingSoon" />
+					</div>
 				</section>
 			</Container>
 		)
 	}
 }
+
+export default withTranslation()(Live)

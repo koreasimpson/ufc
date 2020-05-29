@@ -46,6 +46,10 @@
 		align-items: center;
 		flex-direction: column;
 
+		.title {
+			font-size: 5rem;
+		}
+
 		.desc {
 			font-size: 5rem;
 			font-weight: bold;

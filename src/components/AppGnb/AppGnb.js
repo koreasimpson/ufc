@@ -102,7 +102,7 @@ class AppGnb extends Component {
 
 	temporarilyForbidden = e => {
 		e.preventDefault()
-		alert("준비중입니다 :-)")
+		alert(this.props.t("common.commingSoon"))
 	}
 
 	componentWillUnmount() {
