@@ -1,34 +1,178 @@
 import React, { Component } from "react"
-import { withTranslation } from "react-i18next"
+import { withTranslation, Trans } from "react-i18next"
 import { withRouter, Redirect } from "react-router-dom"
-import store from "store"
 import { connect } from "react-redux"
+import styled from "styled-components"
+import defaultFighterImg from "assets/img/fighters/fighter_left.png"
+
+const Container = styled.section`
+	h3 {
+		font-size: 5rem;
+	}
+
+	dt {
+		font-size: 1rem;
+		color: #585b64;
+	}
+	dd {
+		font-size: 1.5rem;
+	}
+
+	.record {
+		display: flex;
+		justify-content: space-evenly;
+	}
+
+	.contentWrap {
+		display: flex;
+		min-height: 60vh;
+
+		.left,
+		.right {
+			flex: 1;
+		}
+
+		.left {
+			img {
+				height: 100%;
+			}
+		}
+
+		.right {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-evenly;
+
+			.breakLine {
+				display: flex;
+				text-align: left;
+				padding: 20px 0;
+				border-bottom: 1px solid #eee;
+
+				div {
+					flex: 1;
+				}
+			}
+		}
+	}
+`
 
 class FighterDetail extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		if (!this.props.fighters.length) {
-			console.log("hi")
-			this.props.history.replace("/")
-		}
 	}
 
-	static defaultProps = {
-		fighters: []
+	componentDidMount() {
+		const body = document.querySelector("body")
+		body.scrollIntoView({ behavior: "smooth" })
 	}
 
 	render() {
-		console.log(this.props)
-		const { fighters } = this.props
-		const { goBack } = this.props.history
-		return fighters.length ? (
-			<div>
-				<h3>{fighters[0].name}</h3>
-				<p>aka</p>
-				<p>weightClass</p>
-				<button onClick={goBack}>뒤로 가기</button>
-			</div>
+		const { target, className } = this.props
+		return target.name ? (
+			<Container className={className}>
+				<dl className="record">
+					<div>
+						<dt>
+							<Trans i18nKey="common.win" />
+						</dt>
+						<dd>{target.record.win}</dd>
+					</div>
+					<div>
+						<dt>
+							<Trans i18nKey="common.lose" />
+						</dt>
+						<dd>{target.record.lose}</dd>
+					</div>
+					<div>
+						<dt>
+							<Trans i18nKey="common.draw" />
+						</dt>
+						<dd>{target.record.draw}</dd>
+					</div>
+				</dl>
+				<div className="contentWrap">
+					<figure className="left">
+						<img src={defaultFighterImg} alt={target.name} />
+					</figure>
+					<dl className="right">
+						<div className="breakLine">
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.statue" />
+								</dt>
+								<dd>유효한</dd>
+							</div>
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.weightClass" />
+								</dt>
+								<dd>{target.weightClass}</dd>
+							</div>
+						</div>
+						<div className="breakLine">
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.hometown" />
+								</dt>
+								<dd>서울</dd>
+							</div>
+						</div>
+						<div className="breakLine">
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.age" />
+								</dt>
+								<dd>12</dd>
+							</div>
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.height" />
+								</dt>
+								<dd>122</dd>
+							</div>
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.weight" />
+								</dt>
+								<dd>11</dd>
+							</div>
+						</div>
+						<div className="breakLine">
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.octagonDebut" />
+								</dt>
+								<dd>어제</dd>
+							</div>
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.reach" />
+								</dt>
+								<dd>100</dd>
+							</div>
+							<div>
+								<dt>
+									<Trans i18nKey="common.label.legReach" />
+								</dt>
+								<dd>120</dd>
+							</div>
+						</div>
+					</dl>
+				</div>
+				<div>
+					<p>
+						<Trans i18nKey="components.FighterDetail.comment.title" />
+					</p>
+					<p>
+						<Trans i18nKey="components.FighterDetail.comment.desc" />
+					</p>
+					<button>
+						<Trans i18nKey="components.FighterDetail.comment.button" />
+					</button>
+				</div>
+			</Container>
 		) : (
 			<Redirect to="/fighter" />
 		)
@@ -38,7 +182,7 @@ class FighterDetail extends Component {
 const TransFighterDetail = withTranslation()(FighterDetail)
 
 const mapStateToProps = state => ({
-	fighters: state.fighterReducer.fighters
+	target: state.fighterReducer.target
 })
 
 const mapDispatchToProps = {}

@@ -9,7 +9,7 @@ import AppHelmet from "components/AppHelmet/AppHelmet"
 import FighterList from "components/Fighter/FighterList"
 import FighterDetail from "components/Fighter/FighterDetail"
 import store from "store"
-import { SET_FIGHTERS } from "store/actions/fighter"
+import { SET_ALL_FIGHTERS, SET_TARGET_FIGHTERS } from "store/actions/fighter"
 
 const Container = styled.main`
 	.landing {
@@ -18,6 +18,12 @@ const Container = styled.main`
 	.contentWrap {
 		background-color: ${({ theme }) => theme.bgColor};
 		color: ${({ theme }) => theme.textColor};
+	}
+	.goBack {
+		padding: 15px 35px;
+		transform: translateY(8rem);
+		background-color: ${({ theme }) => theme.bgColor};
+		color: ${({ theme }) => theme.majorColor};
 	}
 `
 
@@ -29,13 +35,18 @@ class Fighter extends Component {
 		fetch("//allaboutufc-26533.firebaseio.com/fighter.json")
 			.then(res => res.json())
 			.then(data => {
-				store.dispatch({ type: SET_FIGHTERS, value: data.data })
+				store.dispatch({ type: SET_ALL_FIGHTERS, value: data.data })
 			})
 			.catch(err => console.error(err.message))
 	}
 
+	handleGoBack = () => {
+		store.dispatch({ type: SET_TARGET_FIGHTERS, value: [] })
+		this.props.history.goBack()
+	}
+
 	render() {
-		const { className, t, fighters } = this.props
+		const { className, t, fighters, target } = this.props
 		const { pathname } = this.props.location
 		const { url } = this.props.match
 		const pageMetaData = {
@@ -50,9 +61,19 @@ class Fighter extends Component {
 			<Container className={className}>
 				<AppHelmet pageData={pageMetaData} />
 				<section className="landing bg">
-					<h2 className="title">
-						<Trans i18nKey="pages.Fighter.h2" />
-					</h2>
+					{target.name ? (
+						<Fragment>
+							<p>{target.aka}</p>
+							<h2 className="title">{target.name}</h2>
+							<button className="goBack" onClick={this.handleGoBack}>
+								<Trans i18nKey="common.goBack" />
+							</button>
+						</Fragment>
+					) : (
+						<h2 className="title">
+							<Trans i18nKey="pages.Fighter.h2" />
+						</h2>
+					)}
 				</section>
 				<section className="contentWrap">
 					{pathname.includes("/fighter/profile") ? (
@@ -77,7 +98,7 @@ class Fighter extends Component {
 							<div className="contentBody">
 								<div className="searchForm">
 									<span></span>
-									<input type="text" placeholder="운동 선수 검색" />
+									<input type="text" placeholder={t("pages.Fighter.searchPlaceholder")} />
 								</div>
 								<ul>
 									{fighters.map((fighter, index) => (
@@ -96,7 +117,8 @@ class Fighter extends Component {
 const TransFighter = withTranslation()(Fighter)
 
 const mapStateToProps = state => ({
-	fighters: state.fighterReducer.fighters
+	fighters: state.fighterReducer.fighters,
+	target: state.fighterReducer.target
 })
 
 const mapDispatchToProps = {}

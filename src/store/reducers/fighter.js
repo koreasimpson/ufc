@@ -1,25 +1,22 @@
-import { GET_TARGET_FIGHTERS, SET_FIGHTERS } from "../actions/fighter"
+import { SET_TARGET_FIGHTERS, SET_ALL_FIGHTERS } from "../actions/fighter"
 
 const initValue = {
-	fighters: []
+	fighters: [],
+	target: []
 }
 
 const fighterReducer = (state = initValue, action) => {
 	switch (action.type) {
-		case SET_FIGHTERS:
+		case SET_ALL_FIGHTERS:
 			return (state = {
 				...state,
 				fighters: action.value
 			})
-		case GET_TARGET_FIGHTERS:
-			const filteringState = state.fighters.filter(fighter => {
-				return fighter[action.criteria] === [action.value]
-			})
+		case SET_TARGET_FIGHTERS:
 			return (state = {
 				...state,
-				fighters: filteringState
+				target: action.value
 			})
-
 		default:
 			return state
 	}

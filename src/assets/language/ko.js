@@ -9,6 +9,28 @@ const ko = {
 			commingSoon: "준비중입니다 :)",
 			success: "성공",
 			fail: "실패",
+			win: "승리",
+			lose: "패배",
+			draw: "무승부",
+			goBack: "뒤로 가기",
+			sns: {
+				title: "SNS",
+				facebook: "페이스북",
+				instagram: "인스타그램",
+				twitter: "트위터"
+			},
+			label: {
+				statue: "statue",
+				weightClass: "체급",
+				hometown: "고향",
+				gym: "체육관",
+				age: "나이",
+				height: "신장",
+				weight: "무게",
+				octagonDebut: "옥타곤 데뷔",
+				reach: "리치",
+				legReach: "다리 리치"
+			},
 			weightClass: {
 				all: "모든 체급",
 				bantam: "밴텀급",
@@ -131,6 +153,18 @@ const ko = {
 			EventItem: {
 				fightPass: "FIGHT <0>NIGHT</0>"
 			},
+			FighterDetail: {
+				comment: {
+					title: "팬들의 목소리가 먼저입니다.",
+					desc: "좋아하는 선수, 보고 싶은 매치 업은? 여기에 코멘트 남겨주세요!",
+					button: "댓글 남기기"
+				}
+			},
+			FighterList: {
+				profile: {
+					button: "프로필 보기"
+				}
+			},
 			InputField: {
 				labelText: {
 					account: "UFC 계정",
@@ -191,7 +225,8 @@ const ko = {
 				pastEvent: "과거 이벤트"
 			},
 			Fighter: {
-				h2: "UFC Fighters"
+				h2: "UFC Fighters",
+				searchPlaceholder: "선수 검색"
 			},
 			Live: {
 				h2: "Live"
