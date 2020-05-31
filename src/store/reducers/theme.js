@@ -1,9 +1,12 @@
 import { SET_THEME_LIGHT, SET_THEME_DARK } from "../actions/theme"
+import { getCookie } from "assets/lib/cookie"
+
+const themeCookieValue = getCookie("nzc-ufc-theme").split("=")[1]
 
 const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: Dark)").matches
 
 const initValue = {
-	theme: prefersDark ? "dark" : "light"
+	theme: themeCookieValue ? themeCookieValue : prefersDark ? "dark" : "light"
 }
 
 const themeReducer = (state = initValue, action) => {
