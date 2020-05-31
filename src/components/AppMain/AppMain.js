@@ -4,9 +4,12 @@ import styled from "styled-components"
 import { Switch, Route } from "react-router-dom"
 import { withTranslation, Trans } from "react-i18next"
 
+import store from "store"
+import { SET_ALL_FIGHTERS } from "store/actions/fighter"
+
 import Event from "pages/Event/Event"
 import Fighter from "pages/Fighter/Fighter"
-import Article from "pages/Article/Article"
+import Ranking from "pages/Ranking/Ranking"
 import Live from "pages/Live/Live"
 import Shop from "pages/Shop/Shop"
 import Support from "pages/Support/Support"
@@ -37,6 +40,17 @@ const Container = styled.main`
 	}
 `
 class AppMain extends Component {
+	constructor(props) {
+		super(props)
+		this.props = props
+		fetch("//allaboutufc-26533.firebaseio.com/fighter.json")
+			.then(res => res.json())
+			.then(data => {
+				store.dispatch({ type: SET_ALL_FIGHTERS, value: data.data })
+			})
+			.catch(err => console.error(err.message))
+	}
+
 	render() {
 		const { className } = this.props
 
@@ -45,7 +59,7 @@ class AppMain extends Component {
 				<Switch>
 					<Route path="/event/" component={Event} className={className} />
 					<Route path="/fighter/" component={Fighter} className={className} />
-					<Route path="/article/" component={Article} className={className} />
+					<Route path="/ranking/" component={Ranking} className={className} />
 					<Route path="/live/" component={Live} className={className} />
 					<Route path="/shop/" component={Shop} className={className} />
 					<Route path="/support/" component={Support} />

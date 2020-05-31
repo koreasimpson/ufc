@@ -48,13 +48,13 @@ const ko = {
 			}
 		},
 		meta: {
-			Article: {
-				title: "기사",
-				description: "UFC 소식을 제공하는 페이지",
-				keywords: "UFC, UFC article, UFC 기사, UFC 소식",
-				ogTitle: "UFC 기사",
-				ogDescription: "UFC 소식을 제공하는 페이지",
-				twitterTitle: "UFC 기사"
+			Ranking: {
+				title: "랭킹",
+				description: "UFC 체급별 랭킹",
+				keywords: "UFC, UFC ranking, UFC 랭킹",
+				ogTitle: "UFC 랭킹",
+				ogDescription: "UFC 랭킹 정보를 제공하는 페이지",
+				twitterTitle: "UFC 랭킹"
 			},
 			Event: {
 				title: "이벤트",
@@ -120,7 +120,7 @@ const ko = {
 				list: {
 					event: "이벤트",
 					fighter: "선수",
-					article: "기사 및 이미지",
+					ranking: "랭킹",
 					live: "라이브",
 					shop: "상점",
 					support: "고객지원",
@@ -215,8 +215,8 @@ const ko = {
 			}
 		},
 		pages: {
-			Article: {
-				h2: "비디오, 기사 및 갤러리"
+			Ranking: {
+				h2: "랭킹"
 			},
 			Event: {
 				h2: "UFC Fight Events",

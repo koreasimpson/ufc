@@ -9,7 +9,7 @@ import AppHelmet from "components/AppHelmet/AppHelmet"
 import FighterList from "components/Fighter/FighterList"
 import FighterDetail from "components/Fighter/FighterDetail"
 import store from "store"
-import { SET_ALL_FIGHTERS, SET_TARGET_FIGHTERS } from "store/actions/fighter"
+import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
 
 const Container = styled.main`
 	.landing {
@@ -31,13 +31,6 @@ class Fighter extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-
-		fetch("//allaboutufc-26533.firebaseio.com/fighter.json")
-			.then(res => res.json())
-			.then(data => {
-				store.dispatch({ type: SET_ALL_FIGHTERS, value: data.data })
-			})
-			.catch(err => console.error(err.message))
 	}
 
 	handleGoBack = () => {

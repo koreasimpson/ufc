@@ -6,25 +6,6 @@ import langdingBg from "assets/img/background_event.jpg"
 import db from "firebaseInit"
 import { withTranslation, Trans } from "react-i18next"
 
-// const data = {
-// 	eventNumber: "fightPass",
-// 	eventLocation: "Ginasio Nilson Nelson, 브라질",
-// 	eventDate: "15.03.20 / 07:00 KST",
-// 	weightClass: "light",
-// 	mainEvent: [
-// 		{
-// 			fighter: "LEE"
-// 		},
-// 		{
-// 			fighter: "OLIVEIRA"
-// 		}
-// 	]
-// }
-
-// db.collection("event")
-// 	.doc("15.03.20")
-// 	.set(data)
-
 const Container = styled.main`
 	.landing {
 		background-image: url(${langdingBg});

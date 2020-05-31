@@ -1,70 +1,67 @@
 import React, { Component } from "react"
-import { NavLink, Route } from "react-router-dom"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import styled from "styled-components"
 import { withTranslation, Trans } from "react-i18next"
+import { connect } from "react-redux"
+import RankingList from "components/Ranking/RankingList"
 
-const Container = styled.main``
+const Container = styled.main`
+	.content {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.group {
+		width: 25%;
+		min-width: 250px;
+		padding: 20px;
+		box-sizing: border-box;
+	}
+`
 
 class Ranking extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.rankingListGroup = [
+			"pound-for-pound",
+			"flyWeight",
+			"bantamWeight",
+			"featherWeight",
+			"lightWeight",
+			"welterWeight",
+			"middleWeight",
+			"lightheavyWeight",
+			"heavyWeight"
+		]
 	}
 	render() {
-		const { className } = this.props
-		const { url } = this.props.match
+		const { className, t } = this.props
+		const pageMetaData = {
+			title: t("meta.Ranking.title"),
+			description: t("meta.Ranking.description"),
+			keywords: t("meta.Ranking.keywords"),
+			ogTitle: t("meta.Ranking.ogTitle"),
+			ogDescription: t("meta.Ranking.ogDescription"),
+			twitterTitle: t("meta.Ranking.twitterTitle")
+		}
 		return (
 			<Container className={className}>
-				<AppHelmet />
-				<ul>
-					<li>
-						<NavLink to={`${url}/all`}>
-							<Trans i18nKey="common.weightClass.all" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/bantam`}>
-							<Trans i18nKey="common.weightClass.bantam" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/feather`}>
-							<Trans i18nKey="common.weightClass.feather" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/light`}>
-							<Trans i18nKey="common.weightClass.light" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/welter`}>
-							<Trans i18nKey="common.weightClass.welter" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/middle`}>
-							<Trans i18nKey="common.weightClass.middle" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/lightheavy`}>
-							<Trans i18nKey="common.weightClass.lightheavy" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={`${url}/heavy`}>
-							<Trans i18nKey="common.weightClass.heavy" />
-						</NavLink>
-					</li>
-				</ul>
-				<div className="route">
-					<Route path={`${url}/:weight`} component={Ranking} />
-				</div>
+				<AppHelmet pageMetaData={pageMetaData} />
+				<section className="contentWrap">
+					<h2>ATHLETE RANKINGS</h2>
+					<div className="content">
+						{this.rankingListGroup.map((group, index) => {
+							return <RankingList className="group" group={group} key={index} />
+						})}
+					</div>
+				</section>
 			</Container>
 		)
 	}
 }
 
-export default withTranslation()(Ranking)
+const TransRanking = withTranslation()(Ranking)
+
+export default connect()(TransRanking)
