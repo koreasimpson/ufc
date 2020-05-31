@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import { withTranslation, Trans } from "react-i18next"
+import { device } from "config/responsive"
 
 const StyledLogo = styled(ufc)`
 	fill: ${({ theme }) => theme.logoColor};
@@ -51,6 +52,18 @@ const Container = styled.footer`
 		position: absolute;
 		left: 2em;
 		bottom: 5em;
+	}
+
+	@media screen and ${device.mobileOnly} {
+		#languageOptions {
+			display: block;
+			margin-left: 0;
+			margin-top: 1rem;
+			margin-right: 2em;
+		}
+		.footer-navigation dl {
+			text-align: center;
+		}
 	}
 `
 

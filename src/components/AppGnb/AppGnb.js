@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, createRef } from "react"
 import { connect } from "react-redux"
 import { Link, NavLink, withRouter } from "react-router-dom"
 import styled from "styled-components"
@@ -6,19 +6,25 @@ import throttle from "lodash.throttle"
 
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import { withTranslation, Trans } from "react-i18next"
+import { breakpoint, device } from "config/responsive"
+import { ReactComponent as arrow } from "assets/img/arrow.svg"
 
 const StyledLogo = styled(ufc)`
 	fill: ${({ theme }) => theme.logoColor};
 `
 
+const StyledArrow = styled(arrow)`
+	width: 1rem;
+	height: 1rem;
+	fill: ${({ theme }) => theme.textColor};
+	vertical-align: middle;
+	margin-left: 10px;
+	transform: rotate(90deg);
+`
+
 const Container = styled.nav`
 	background-color: ${({ theme }) => theme.bgColor};
 	color: ${({ theme }) => theme.textColor};
-
-	position: absolute;
-	top: 50px;
-	left: 50%;
-	transform: translateX(-50%);
 	width: 1024px;
 	transition: width 1s;
 
@@ -27,7 +33,6 @@ const Container = styled.nav`
 		position: fixed;
 		top: 0px;
 		width: 100vw;
-		min-width: 1024px;
 		box-shadow: 0 -5px 10px 0px #000;
 
 		.gnb .underline {
@@ -56,8 +61,6 @@ const Container = styled.nav`
 		display: flex;
 
 		li {
-			padding: 1rem;
-
 			&.align-right {
 				margin-left: auto;
 			}
@@ -74,9 +77,60 @@ const Container = styled.nav`
 				transition: all 1s ease-in-out;
 			}
 
+			a {
+				padding: 1rem;
+				display: inline-block;
+			}
 			a.active {
 				color: #cc0b0b;
 			}
+		}
+	}
+
+	.toggleGnb {
+		display: none;
+	}
+
+	@media screen and ${device.laptop} {
+		position: absolute;
+		top: 50px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	@media screen and ${device.mobileTabletOnly} {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px;
+		width: 100%;
+
+		.logo {
+			position: static;
+			transform: none;
+		}
+		.gnb {
+			display: none;
+			&.is-show {
+				position: absolute;
+				display: block;
+				width: 100%;
+				top: 67px;
+				height: calc(100vh - 67px);
+				left: 0;
+				z-index: 1;
+				background-color: ${({ theme }) => theme.bgColor};
+			}
+
+			a {
+				width: 100%;
+				height: 100%;
+				&:hover {
+					background-color: #eee;
+				}
+			}
+		}
+		.toggleGnb {
+			display: block;
 		}
 	}
 `
@@ -87,22 +141,40 @@ class AppGnb extends Component {
 		this.state = {
 			isFixed: false
 		}
+		this.gnb = createRef()
+		this.gnbList = ["event", "fighter", "ranking", "live", "shop", "support", "my"]
 		this.hasLandingContent = true
 		this.detectScrollThrottled = throttle(this.detectScroll, 100)
 		window.addEventListener("scroll", this.detectScrollThrottled)
 	}
 
 	detectScroll = () => {
-		if (window.scrollY > 50 && !this.state.isFixed) {
+		if (window.scrollY > 50 && !this.state.isFixed && window.innerWidth > breakpoint.laptop) {
 			this.setState({ isFixed: true })
-		} else if (window.scrollY <= 50 && this.state.isFixed) {
+		} else if (
+			window.scrollY <= 50 &&
+			this.state.isFixed &&
+			window.innerWidth > breakpoint.laptop
+		) {
 			this.setState({ isFixed: false })
 		}
 	}
 
-	temporarilyForbidden = e => {
-		e.preventDefault()
-		alert(this.props.t("common.commingSoon"))
+	toggleGnb = e => {
+		if (this.gnb.current.classList.contains("is-show")) {
+			this.gnb.current.classList.remove("is-show")
+		} else {
+			this.gnb.current.classList.add("is-show")
+		}
+	}
+
+	handleLink = (e, gnb) => {
+		if (gnb === "live" || gnb === "shop" || gnb === "support") {
+			e.preventDefault()
+			alert(this.props.t("common.commingSoon"))
+			return
+		}
+		this.gnb.current.classList.remove("is-show")
 	}
 
 	componentWillUnmount() {
@@ -127,58 +199,26 @@ class AppGnb extends Component {
 						<StyledLogo />
 					</Link>
 				</h1>
-				<ul className="gnb" onMouseLeave={this.handleMouseLeave}>
-					<li>
-						<NavLink to="/event" onMouseOver={this.handleMouseOver}>
-							<Trans i18nKey="components.AppGnb.list.event" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/fighter" onMouseOver={this.handleMouseOver}>
-							<Trans i18nKey="components.AppGnb.list.fighter" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to="/article"
-							onMouseOver={this.handleMouseOver}
-							onClick={this.temporarilyForbidden}>
-							<Trans i18nKey="components.AppGnb.list.article" />
-						</NavLink>
-					</li>
-					<li className="align-right">
-						<NavLink
-							to="/live"
-							onMouseOver={this.handleMouseOver}
-							onClick={this.temporarilyForbidden}>
-							<Trans i18nKey="components.AppGnb.list.live" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to="/shop"
-							onMouseOver={this.handleMouseOver}
-							onClick={this.temporarilyForbidden}>
-							<Trans i18nKey="components.AppGnb.list.shop" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to="/support"
-							onMouseOver={this.handleMouseOver}
-							onClick={this.temporarilyForbidden}>
-							<Trans i18nKey="components.AppGnb.list.support" />
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/my" onMouseOver={this.handleMouseOver}>
-							{isAuth ? (
-								<Trans i18nKey="components.AppGnb.list.my" />
-							) : (
-								<Trans i18nKey="components.AppGnb.list.login" />
-							)}
-						</NavLink>
-					</li>
+				<button className="toggleGnb" onClick={this.toggleGnb}>
+					Menu
+					<StyledArrow />
+				</button>
+				<ul ref={this.gnb} className="gnb" onMouseLeave={this.handleMouseLeave}>
+					{this.gnbList.map((gnb, index) => {
+						return (
+							<li key={index} className={gnb === "live" ? "align-right" : null}>
+								<NavLink to={`/${gnb}`} onClick={e => this.handleLink(e, gnb)}>
+									{gnb !== "my" ? (
+										<Trans i18nKey={`components.AppGnb.list.${gnb}`} />
+									) : isAuth ? (
+										<Trans i18nKey="components.AppGnb.list.my" />
+									) : (
+										<Trans i18nKey="components.AppGnb.list.login" />
+									)}
+								</NavLink>
+							</li>
+						)
+					})}
 					<li className="underline"></li>
 				</ul>
 			</Container>
