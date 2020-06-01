@@ -7,7 +7,7 @@ import { withTranslation, Trans } from "react-i18next"
 const Container = styled.div`
 	display: inline-block;
 	position: relative;
-	padding-bottom: 1.5rem;
+	padding-bottom: 32px;
 	flex: 1;
 
 	label {
@@ -59,9 +59,8 @@ const Container = styled.div`
 	.alert {
 		position: absolute;
 		left: 10px;
-		bottom: 0;
+		bottom: 10px;
 		font-size: 1rem;
-		color: red;
 	}
 `
 
@@ -86,7 +85,6 @@ class InputField extends Component {
 			name
 		})
 		if (!value) {
-			// this.alert.current.textContent = `${this.props.labelText}을(를) 입력해주세요`
 			const labelText = this.props.t(`components.InputField.labelText.${this.props.labelText}`)
 			this.alert.current.textContent = this.props.t("components.InputField.validation.empty", {
 				labelText

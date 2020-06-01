@@ -61,22 +61,6 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  @media screen and ${device.laptop} {
-    body {
-      font-size: 16px;
-    }
-  }
-  @media screen and ${device.tabletOnly} {
-    body {
-      font-size: 14px;
-    }
-  }
-  @media screen and ${device.mobileOnly} {
-    body {
-      font-size: 12px;
-    }
-  }
-
   /**  common style  **/
  .a11yHidden {
     overflow: hidden;
@@ -138,8 +122,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .contentWrap {
-    padding-top: 100px;
-    padding-bottom: 100px;
     margin: 0 auto;
     text-align: center;
 
@@ -154,7 +136,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   :disabled {
-    opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -171,5 +152,58 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  [class*=alert],
+  [class*=Alert] {
+    color: red;
+    white-space: nowrap;
+  }
+
+  div.inputField + div.inputField {
+    margin-left: 20px;
+  }
+
+  @media screen and ${device.laptop} {
+    body {
+      font-size: 16px;
+    }
+    .contentWrap {
+      padding-top: 100px;
+      padding-bottom: 100px;
+
+      h2 {
+        margin-top: 100px;
+        margin-bottom: 60px;
+      }
+    }
+  }
+  @media screen and ${device.tabletOnly} {
+    body {
+      font-size: 14px;
+    }
+    .contentWrap {
+      padding-top: 50px;
+      padding-bottom: 50px;
+
+      h2 {
+        margin-top: 50px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+  @media screen and ${device.mobileOnly} {
+    body {
+      font-size: 12px;
+    }
+    .contentWrap {
+      padding-top: 40px;
+      padding-bottom: 40px;
+
+      h2 {
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+    }
   }
 `

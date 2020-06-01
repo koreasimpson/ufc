@@ -17,7 +17,6 @@ const Container = styled.main`
 
 	form {
 		min-width: 300px;
-		max-width: 1200px;
 
 		fieldset {
 			border: none;
@@ -56,7 +55,7 @@ const Container = styled.main`
 			border-radius: 12px;
 			padding: 15px 0;
 			box-sizing: border-box;
-			color: ${({ theme }) => theme.textColorInvert};
+			color: #fff;
 			font-size: 2rem;
 			font-family: inherit;
 		}
@@ -71,6 +70,7 @@ class SignUp extends Component {
 			familyName: "",
 			firstName: "",
 			email: "",
+			account: "",
 			password: "",
 			passwordConfirm: "",
 			phone: "",
@@ -84,6 +84,7 @@ class SignUp extends Component {
 			familyName: "",
 			firstName: "",
 			email: "",
+			account: "",
 			password: "",
 			passwordConfirm: "",
 			phone: "",
@@ -184,9 +185,17 @@ class SignUp extends Component {
 							</div>
 							<div className="emailField">
 								<InputField
-									type="email"
+									type="text"
 									labelText="email"
 									name="email"
+									onChange={this.handleInput}
+								/>
+							</div>
+							<div className="accountField">
+								<InputField
+									type="text"
+									labelText="account"
+									name="account"
 									onChange={this.handleInput}
 								/>
 							</div>

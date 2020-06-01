@@ -16,7 +16,9 @@ const Container = styled.main`
 	font-size: 2rem;
 
 	form {
+		position: relative;
 		display: inline-block;
+
 		& [class*="Field"] {
 			width: 100%;
 		}
@@ -25,12 +27,21 @@ const Container = styled.main`
 			margin-top: 20px;
 			width: 300px;
 			background-color: ${({ theme }) => theme.majorColor};
+			color: #fff;
 			border-radius: 12px;
 			padding: 15px 0;
 			box-sizing: border-box;
-			color: ${({ theme }) => theme.textColorInvert};
 			font-size: 2rem;
 			font-family: inherit;
+		}
+
+		.loginAlert {
+			position: absolute;
+			top: -3rem;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 2rem;
+			padding-bottom: 20px;
 		}
 	}
 
@@ -44,8 +55,7 @@ class Login extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		this.submit = createRef()
-		this.alert = createRef()
+		this.loginAlert = createRef()
 		this.email = ""
 		this.emailValidation = ""
 		this.password = ""
@@ -56,56 +66,48 @@ class Login extends Component {
 	handleInput = (value, name, isPassed) => {
 		this[name] = value
 		this[`${name}Validation`] = isPassed
-		if (this.emailValidation === "pass" && this.passwordValidation === "pass") {
-			this.submit.current.disabled = false
-		} else {
-			this.submit.current.disabled = true
-		}
 	}
 
 	checkValidUser = e => {
 		e.preventDefault()
-		const inputEmail = this.email
-		const inputPassword = this.password
-
 		this.validUser = "invalid"
 
-		import("assets/dummyData/user.json")
-			.then(({ default: userList }) => {
-				for (let i = 0; i < userList.length; i++) {
-					const { email, password } = userList[i]
-					if (inputEmail === email) {
-						if (inputPassword === password) {
+		if (!(this.emailValidation === "pass" && this.passwordValidation === "pass")) {
+			alert("입력필드를 모두 입력해주세요")
+			return
+		}
+
+		if (this.email.length) {
+			import("assets/dummyData/user.json")
+				.then(({ default: userList }) => {
+					for (let i = 0; i < userList.length; i++) {
+						const { email, password } = userList[i]
+						if (this.email === email && this.password === password) {
 							this.validUser = "pass"
+							break
 						}
-						break
 					}
-				}
-			})
-			.then(() => {
-				this.handleSubmit()
-			})
-			.catch(error => {
-				console.error("error = ", error)
-			})
+				})
+				.then(() => {
+					this.handleSubmit()
+				})
+				.catch(error => {
+					console.log("error = ", error)
+				})
+		}
 	}
 
 	handleSubmit = e => {
 		if (!(this.emailValidation === "pass" && this.passwordValidation === "pass")) return false
 		if (this.validUser === "pass") {
 			store.dispatch({ type: ACCESS_LOGIN })
-			alert(this.props.t("common.success"))
+			this.props.history.push("/")
+			// const wantedPath = this.props.to.state.from.pathname
+			// wantedPath ? this.props.history.push(wantedPath) : this.props.history.push("/")
 		} else {
-			this.alert.current.hidden = false
-			alert(this.props.t("common.fail"))
+			this.loginAlert.current.hidden = false
 		}
 	}
-
-	// handleLogin = () => {
-	// 	store.dispatch({ type: ACCESS_LOGIN })
-	// 	const wantedPath = this.props.to.state.from.pathname
-	// 	this.props.history.push(wantedPath)
-	// }
 
 	render() {
 		const { className } = this.props
@@ -119,12 +121,12 @@ class Login extends Component {
 						<Trans i18nKey="pages.Login.h2" />
 					</h2>
 					<form onSubmit={this.checkValidUser}>
-						<p ref={this.alert} className="alert" hidden>
+						<p ref={this.loginAlert} className="loginAlert" hidden>
 							<Trans i18nKey="pages.Login.validation" />
 						</p>
 						<div className="emailField">
 							<InputField
-								type="email"
+								type="text"
 								labelText="account"
 								name="email"
 								onChange={this.handleInput}
@@ -138,7 +140,7 @@ class Login extends Component {
 								onChange={this.handleInput}
 							/>
 						</div>
-						<button ref={this.submit} type="submit" className="button login" disabled>
+						<button type="submit" className="button login">
 							<Trans i18nKey="pages.Login.h2" />
 						</button>
 						<br />
@@ -146,7 +148,6 @@ class Login extends Component {
 							<Trans i18nKey="pages.Login.notAccount" />
 						</Link>
 					</form>
-					{/* <button onClick={this.handleLogin}>Login</button> */}
 					<p>
 						<small>id: TEST_USER1@ufc.com | password: TEST1234! </small>
 					</p>

@@ -1,32 +1,31 @@
 {
   "files": {
-    "main.css": "/ufc/static/css/main.70afa3b8.chunk.css",
-    "main.js": "/ufc/static/js/main.fa48a37e.chunk.js",
-    "main.js.map": "/ufc/static/js/main.fa48a37e.chunk.js.map",
-    "runtime-main.js": "/ufc/static/js/runtime-main.11ce9777.js",
-    "runtime-main.js.map": "/ufc/static/js/runtime-main.11ce9777.js.map",
-    "static/js/2.78b41936.chunk.js": "/ufc/static/js/2.78b41936.chunk.js",
-    "static/js/2.78b41936.chunk.js.map": "/ufc/static/js/2.78b41936.chunk.js.map",
-    "static/js/3.27a26295.chunk.js": "/ufc/static/js/3.27a26295.chunk.js",
-    "static/js/3.27a26295.chunk.js.map": "/ufc/static/js/3.27a26295.chunk.js.map",
+    "main.js": "/ufc/static/js/main.bed4b81a.chunk.js",
+    "main.js.map": "/ufc/static/js/main.bed4b81a.chunk.js.map",
+    "runtime-main.js": "/ufc/static/js/runtime-main.b97e52cb.js",
+    "runtime-main.js.map": "/ufc/static/js/runtime-main.b97e52cb.js.map",
+    "static/js/2.8dc5d663.chunk.js": "/ufc/static/js/2.8dc5d663.chunk.js",
+    "static/js/2.8dc5d663.chunk.js.map": "/ufc/static/js/2.8dc5d663.chunk.js.map",
+    "static/js/3.d4561c03.chunk.js": "/ufc/static/js/3.d4561c03.chunk.js",
+    "static/js/3.d4561c03.chunk.js.map": "/ufc/static/js/3.d4561c03.chunk.js.map",
     "index.html": "/ufc/index.html",
-    "precache-manifest.cc2967ef0dc6e71c9af48710953b11b9.js": "/ufc/precache-manifest.cc2967ef0dc6e71c9af48710953b11b9.js",
+    "precache-manifest.6467e95c13b04ea91f50c53b62310fae.js": "/ufc/precache-manifest.6467e95c13b04ea91f50c53b62310fae.js",
     "service-worker.js": "/ufc/service-worker.js",
-    "static/css/main.70afa3b8.chunk.css.map": "/ufc/static/css/main.70afa3b8.chunk.css.map",
-    "static/js/2.78b41936.chunk.js.LICENSE.txt": "/ufc/static/js/2.78b41936.chunk.js.LICENSE.txt",
+    "static/js/2.8dc5d663.chunk.js.LICENSE.txt": "/ufc/static/js/2.8dc5d663.chunk.js.LICENSE.txt",
     "static/media/BURNS.png": "/ufc/static/media/BURNS.264e0b4b.png",
     "static/media/WOODLEY.png": "/ufc/static/media/WOODLEY.3bd439ea.png",
+    "static/media/arrow.679da070.svg": "/ufc/static/media/arrow.679da070.svg",
     "static/media/background_event.jpg": "/ufc/static/media/background_event.6870e21d.jpg",
     "static/media/background_fighters.jpg": "/ufc/static/media/background_fighters.40e64a61.jpg",
     "static/media/background_header.jpg": "/ufc/static/media/background_header.27d2ac65.jpg",
     "static/media/fighter_left.png": "/ufc/static/media/fighter_left.de8ab076.png",
+    "static/media/fighter_profile.png": "/ufc/static/media/fighter_profile.f254606e.png",
     "static/media/fighter_right.png": "/ufc/static/media/fighter_right.e7d3cd5d.png",
     "static/media/ufc.88f7e369.svg": "/ufc/static/media/ufc.88f7e369.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.11ce9777.js",
-    "static/js/2.78b41936.chunk.js",
-    "static/css/main.70afa3b8.chunk.css",
-    "static/js/main.fa48a37e.chunk.js"
+    "static/js/runtime-main.b97e52cb.js",
+    "static/js/2.8dc5d663.chunk.js",
+    "static/js/main.bed4b81a.chunk.js"
   ]
 }
