@@ -4,13 +4,15 @@ import authReducer from "./auth"
 import langReducer from "./lang"
 import themeReducer from "./theme"
 import fighterReducer from "./fighter"
+import eventReducer from "./event"
 
 const rootReducer = combineReducers({
 	weightClassReducer,
 	authReducer,
 	langReducer,
 	themeReducer,
-	fighterReducer
+	fighterReducer,
+	eventReducer
 })
 
 export default rootReducer

@@ -39,6 +39,7 @@ class Fighter extends Component {
 	}
 
 	render() {
+		console.log("fighter props =", this.props)
 		const { className, t, fighters, target } = this.props
 		const { pathname } = this.props.location
 		const { url } = this.props.match

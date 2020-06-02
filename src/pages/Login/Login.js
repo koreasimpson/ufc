@@ -13,8 +13,6 @@ import AppHelmet from "components/AppHelmet/AppHelmet"
 import InputField from "components/Common/InputField"
 
 const Container = styled.main`
-	font-size: 2rem;
-
 	form {
 		position: relative;
 		display: inline-block;

@@ -1,0 +1,1 @@
+export const SET_ALL_EVENTS = "SET_ALL_EVENTS"

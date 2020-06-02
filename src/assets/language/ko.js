@@ -222,7 +222,8 @@ const ko = {
 				h2: "UFC Fight Events",
 				moreInfo: "경기 상세 정보",
 				upcommingEvent: "예정 이벤트",
-				pastEvent: "과거 이벤트"
+				pastEvent: "과거 이벤트",
+				noEvents: "예정된 이벤트가 없습니다"
 			},
 			Fighter: {
 				h2: "UFC Fighters",

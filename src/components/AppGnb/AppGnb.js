@@ -124,13 +124,16 @@ const Container = styled.nav`
 			a {
 				width: 100%;
 				height: 100%;
+				font-size: 2rem;
 				&:hover {
-					background-color: #eee;
+					background-color: ${({ theme }) => theme.textColor};
+					color: ${({ theme }) => theme.bgColor};
 				}
 			}
 		}
 		.toggleGnb {
 			display: block;
+			font-size: 2rem;
 		}
 	}
 `

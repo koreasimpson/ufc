@@ -1,20 +1,12 @@
 import React, { Component } from "react"
 import styled from "styled-components"
-import InputField from "components/Common/InputField"
-import { expPassword } from "assets/lib/validation"
 import { withTranslation, Trans } from "react-i18next"
 
+import InputField from "components/Common/InputField"
+import { expPassword } from "assets/lib/validation"
+import { breakpoint, device } from "config/responsive"
+
 const Container = styled.main`
-	font-size: 2rem;
-
-	.landing {
-		padding-top: 200px;
-		width: 980px;
-		margin-left: auto;
-		margin-right: auto;
-		min-height: initial;
-	}
-
 	form {
 		min-width: 300px;
 
@@ -59,6 +51,12 @@ const Container = styled.main`
 			font-size: 2rem;
 			font-family: inherit;
 		}
+	}
+
+	@media screen and ${device.laptop} {
+	}
+
+	@media screen and ${device.mobileTabletOnly} {
 	}
 `
 

@@ -14,7 +14,7 @@ const Container = styled.footer`
 	background-color: ${({ theme }) => theme.bgColor};
 	color: ${({ theme }) => theme.textColor};
 	border-top: 5px solid ${({ theme }) => theme.majorColor};
-	padding: 5em 2em;
+	padding: 5rem 2rem;
 	display: flex;
 	justify-content: space-between;
 	position: relative;
@@ -23,14 +23,14 @@ const Container = styled.footer`
 		display: inline-block;
 		margin: 0;
 		svg {
-			height: 2em;
-			width: 5em;
+			height: 2rem;
+			width: 5rem;
 		}
 	}
 
 	#languageOptions {
 		vertical-align: bottom;
-		margin-left: 2em;
+		margin-left: 2rem;
 	}
 
 	.footer-navigation {
@@ -40,18 +40,18 @@ const Container = styled.footer`
 		dl {
 			flex: 1;
 			dt {
-				font-size: 2em;
+				font-size: 1.5rem;
 			}
 			dd {
-				margin-top: 1em;
+				margin-top: 1rem;
 			}
 		}
 	}
 
 	.copyright {
 		position: absolute;
-		left: 2em;
-		bottom: 5em;
+		left: 2rem;
+		bottom: 5rem;
 	}
 
 	@media screen and ${device.mobileOnly} {
@@ -59,10 +59,10 @@ const Container = styled.footer`
 			display: block;
 			margin-left: 0;
 			margin-top: 1rem;
-			margin-right: 2em;
+			margin-right: 2rem;
 		}
-		.footer-navigation dl {
-			text-align: center;
+		.copyright {
+			bottom: 2rem;
 		}
 	}
 `

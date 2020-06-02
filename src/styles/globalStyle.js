@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components"
-import { device } from "config/responsive"
+import { breakpoint, device } from "config/responsive"
 
 export const GlobalStyle = createGlobalStyle`
   /**  reset style  **/
@@ -11,9 +11,9 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: ${({ theme }) => theme.bgColor};
     color: ${({ theme }) => theme.textColor};
-    min-width: 100%;
+    min-width: ${breakpoint.mobileS}px;
+    width: 100%;
     overflow-x: hidden;
-    overflow-y: auto;
     line-height: 1;
   }
 
@@ -61,6 +61,10 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+  }
+
   /**  common style  **/
  .a11yHidden {
     overflow: hidden;
@@ -103,20 +107,20 @@ export const GlobalStyle = createGlobalStyle`
     &.bg {
       color: #fff;
       min-height: 100vh;
-      padding-top: 10vh;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
 
       .title {
-        font-size: 5rem;
+        font-size: 4rem;
       }
 
       .desc {
-        font-size: 5rem;
+        font-size: 3rem;
         font-weight: bold;
-        // text-shadow: 1px 1px 1px ${({ theme }) => theme.majorColor};
+        text-shadow: 1px 1px 1px ${({ theme }) => theme.majorColor};
+        padding: 0 10%;
       }
     }
   }
@@ -124,15 +128,7 @@ export const GlobalStyle = createGlobalStyle`
   .contentWrap {
     margin: 0 auto;
     text-align: center;
-
-    h2 {
-      margin-top: 100px;
-      margin-bottom: 60px;
-
-      & + .desc {
-        margin-bottom: 50px;
-      }
-    }
+    padding-bottom: 4rem;
   }
 
   :disabled {
@@ -165,44 +161,55 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   @media screen and ${device.laptop} {
-    body {
-      font-size: 16px;
+    html {
+      font-size: 18px;
     }
     .contentWrap {
       padding-top: 100px;
-      padding-bottom: 100px;
 
       h2 {
         margin-top: 100px;
         margin-bottom: 60px;
+
+        & + .desc {
+          margin-bottom: 50px;
+        }
       }
     }
   }
+
+  @media screen and ${device.mobileTabletOnly} {
+    .contentWrap {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+  }
+
   @media screen and ${device.tabletOnly} {
-    body {
-      font-size: 14px;
+    html {
+      font-size: 16px;
     }
     .contentWrap {
-      padding-top: 50px;
-      padding-bottom: 50px;
-
       h2 {
         margin-top: 50px;
         margin-bottom: 30px;
+        & + .desc {
+          margin-bottom: 50px;
+        }
       }
     }
   }
   @media screen and ${device.mobileOnly} {
-    body {
+    html {
       font-size: 12px;
     }
     .contentWrap {
-      padding-top: 40px;
-      padding-bottom: 40px;
-
       h2 {
         margin-top: 40px;
         margin-bottom: 20px;
+        & + .desc {
+          margin-bottom: 50px;
+        }
       }
     }
   }

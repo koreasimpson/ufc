@@ -4,9 +4,6 @@ import styled from "styled-components"
 import { Switch, Route } from "react-router-dom"
 import { withTranslation, Trans } from "react-i18next"
 
-import store from "store"
-import { SET_ALL_FIGHTERS } from "store/actions/fighter"
-
 import Event from "pages/Event/Event"
 import Fighter from "pages/Fighter/Fighter"
 import Ranking from "pages/Ranking/Ranking"
@@ -21,6 +18,7 @@ import Auth from "components/Auth/Auth"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 
 import langdingBg from "assets/img/background_header.jpg"
+import { fetchFighters, fetchEvents } from "assets/lib/fetch"
 
 const Container = styled.main`
 	background-color: ${({ theme }) => theme.bgColor};
@@ -34,7 +32,13 @@ const Container = styled.main`
 			dt {
 				font-size: 2rem;
 				font-weight: bold;
-				padding-bottom: 2rem;
+				padding: 1rem;
+				border: 1px solid #fff;
+			}
+			dd {
+				font-size: 1.5rem;
+				font-weight: bold;
+				padding: 0.5rem;
 			}
 		}
 	}
@@ -43,12 +47,8 @@ class AppMain extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		fetch("//allaboutufc-26533.firebaseio.com/fighter.json")
-			.then(res => res.json())
-			.then(data => {
-				store.dispatch({ type: SET_ALL_FIGHTERS, value: data.data })
-			})
-			.catch(err => console.error(err.message))
+		fetchFighters()
+		fetchEvents()
 	}
 
 	render() {
@@ -78,22 +78,22 @@ class AppMain extends Component {
 								</p>
 								<dl>
 									<dt>
-										<Trans i18nKey="components.AppMain.skills.title" />{" "}
+										<Trans i18nKey="components.AppMain.skills.title" />
 									</dt>
 									<dd>
-										<Trans i18nKey="components.AppMain.skills.react" />{" "}
+										<Trans i18nKey="components.AppMain.skills.react" />
 									</dd>
 									<dd>
-										<Trans i18nKey="components.AppMain.skills.reactHooks" />{" "}
+										<Trans i18nKey="components.AppMain.skills.reactHooks" />
 									</dd>
 									<dd>
-										<Trans i18nKey="components.AppMain.skills.styledComponent" />{" "}
+										<Trans i18nKey="components.AppMain.skills.styledComponent" />
 									</dd>
 									<dd>
-										<Trans i18nKey="components.AppMain.skills.redux" />{" "}
+										<Trans i18nKey="components.AppMain.skills.redux" />
 									</dd>
 									<dd>
-										<Trans i18nKey="components.AppMain.skills.reactRouter" />{" "}
+										<Trans i18nKey="components.AppMain.skills.reactRouter" />
 									</dd>
 								</dl>
 							</div>

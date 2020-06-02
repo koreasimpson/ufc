@@ -1,10 +1,13 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
+import styled from "styled-components"
+import { withTranslation, Trans } from "react-i18next"
+
+import store from "store"
+import { device } from "config/responsive"
 import EventItem from "components/Event/EventItem"
 import AppHelmet from "components/AppHelmet/AppHelmet"
-import styled from "styled-components"
 import langdingBg from "assets/img/background_event.jpg"
-import db from "firebaseInit"
-import { withTranslation, Trans } from "react-i18next"
 
 const Container = styled.main`
 	.landing {
@@ -16,19 +19,36 @@ const Container = styled.main`
 	}
 	.category {
 		text-align: center;
-		li {
+		button {
 			display: inline-block;
 			font-size: 3rem;
 			font-weight: bold;
 			padding-left: 20px;
 			padding-right: 20px;
 			color: ${({ theme }) => theme.textColor};
-			opacity: 0.5;
 
 			&.selected {
 				color: ${({ theme }) => theme.majorColor};
-				opacity: 1;
+				border-bottom: 1px solid ${({ theme }) => theme.majorColor};
 			}
+		}
+	}
+	.eventItemList {
+		margin-top: 80px;
+	}
+
+	@media screen and ${device.mobileTabletOnly} {
+		.category {
+			margin-top: 3rem;
+		}
+		.eventItemList {
+			margin-top: 5rem;
+		}
+	}
+
+	@media screen and ${device.mobileOnly} {
+		.category {
+			display: flex;
 		}
 	}
 `
@@ -37,31 +57,46 @@ class Event extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.today = new Date()
 		this.state = {
-			eventData: [],
-			getData: async () => {
-				await db
-					.collection("event")
-					.get()
-					.then(res => {
-						res.forEach(doc => {
-							let newData = this.state.eventData
-							newData.push(doc.data())
-							this.setState({
-								eventData: newData
-							})
-						})
-					})
-					.catch(err => {
-						console.error("error =", err)
-					})
-			}
+			category: "upcoming"
 		}
-		this.state.getData()
+	}
+
+	toggleEventCategory = value => {
+		this.setState({
+			category: value
+		})
+	}
+
+	filteredEvent = events => {
+		return this.setCategoryEvent(events).sort((a, b) => {
+			return a.eventDate - b.eventDate
+		})
+	}
+
+	setEventDateFormat = value => {
+		value = value.map((val, index) => {
+			return index === 0 ? Number("20" + val) : index === 1 ? Number(val - 1) : Number(val)
+		})
+		return value
+	}
+
+	setCategoryEvent = (events, value = this.state.category) => {
+		let eventDate = []
+		return events.filter(event => {
+			eventDate = event.eventDate.split("/")[0].split(".")
+			const [year, month, day] = this.setEventDateFormat(eventDate)
+			if (value === "upcoming") {
+				return this.today < new Date(year, month, day)
+			} else {
+				return this.today > new Date(year, month, day)
+			}
+		})
 	}
 
 	render() {
-		const { t } = this.props
+		const { t, events } = this.props
 		const pageMetaData = {
 			title: t("meta.Event.title"),
 			description: t("meta.Event.description"),
@@ -70,6 +105,8 @@ class Event extends Component {
 			ogDescription: t("meta.Event.ogDescription"),
 			twitterTitle: t("meta.Event.twitterTitle")
 		}
+		const filteredEvent = this.filteredEvent(events)
+
 		return (
 			<Container className="">
 				<AppHelmet pageData={pageMetaData} />
@@ -77,29 +114,28 @@ class Event extends Component {
 					<h2 className="desc">
 						<Trans i18nKey="pages.Event.h2" />
 					</h2>
-					<div className="buttonWrap">
-						<button>
-							<Trans i18nKey="pages.Event.moreInfo" />
-						</button>
-					</div>
 				</div>
 				<div className="contentWrap">
-					<ul className="category">
-						<li>
-							<button>
-								<Trans i18nKey="pages.Event.upcommingEvent" />
-							</button>
-						</li>
-						<li>
-							<button>
-								<Trans i18nKey="pages.Event.pastEvent" />
-							</button>
-						</li>
-					</ul>
-					<ul>
-						{this.state.eventData.map((event, index) => (
-							<EventItem key={index} eventData={event} />
-						))}
+					<div className="category">
+						<button
+							onClick={e => this.toggleEventCategory("upcoming")}
+							className={this.state.category === "upcoming" ? "selected" : null}>
+							<Trans i18nKey="pages.Event.upcommingEvent" />
+						</button>
+						<button
+							onClick={e => this.toggleEventCategory("past")}
+							className={this.state.category === "past" ? "selected" : null}>
+							<Trans i18nKey="pages.Event.pastEvent" />
+						</button>
+					</div>
+					<ul className="eventItemList">
+						{events.length ? (
+							filteredEvent.map((event, index) => <EventItem key={index} eventData={event} />)
+						) : (
+							<p>
+								<Trans i18nKey="pages.Event.noEvents" />
+							</p>
+						)}
 					</ul>
 				</div>
 			</Container>
@@ -107,4 +143,12 @@ class Event extends Component {
 	}
 }
 
-export default withTranslation()(Event)
+const TransEvent = withTranslation()(Event)
+
+const mapStateToProps = state => ({
+	events: state.eventReducer.events
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransEvent)
