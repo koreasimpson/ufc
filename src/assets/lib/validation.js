@@ -9,3 +9,6 @@ export const expPassword = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/
 // 핸드폰번호 정규식
 // 조건. 숫자만 입력 가능
 export const expPhone = /[^0-9]/g
+
+// 특수문자 체크 정규식
+export const replaceSpecialChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi

@@ -3,10 +3,11 @@ import styled from "styled-components"
 import { withTranslation, Trans } from "react-i18next"
 import { Link, withRouter } from "react-router-dom"
 
+import store from "store"
 import defaultProfileFrontImage from "assets/img/fighters/fighter_profile.png"
 import defaultProfileBackImage from "assets/img/fighters/fighter_right.png"
-import store from "store"
 import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
+import { breakpoint, device } from "config/responsive"
 
 const Container = styled.li`
 	position: relative;
@@ -18,8 +19,10 @@ const Container = styled.li`
 	transform-style: preserve-3d;
 	perspective: 400px;
 	box-sizing: border-box;
+	margin-top: 2rem;
 
-	&:hover {
+	&:hover,
+	&:focus {
 		animation: 0.3s hoverstyle alternate infinite;
 		.front {
 			transform: translateX(-50%) rotateY(180deg);
@@ -32,7 +35,6 @@ const Container = styled.li`
 	.front,
 	.back {
 		width: 100%;
-		max-width: 300px;
 		margin: 0 auto;
 		height: 100%;
 		backface-visibility: hidden;
@@ -44,15 +46,24 @@ const Container = styled.li`
 	}
 
 	.aka {
-		letter-spacing: 0.3rem;
+		letter-spacing: 0.1rem;
 		color: #acadb1;
+		margin-top: 10px;
 	}
 	.name {
 		font-weight: bold;
-		font-size: 2rem;
+		font-size: 1.3rem;
+		margin-top: 10px;
+	}
+	.weightClass {
+		text-transform: capitalize;
+		font-size: 0.8rem;
+		margin-top: 5px;
 	}
 	.record {
 		color: #585b64;
+		font-size: 0.8rem;
+		margin-top: 5px;
 	}
 	.aka,
 	.name,
@@ -64,30 +75,46 @@ const Container = styled.li`
 		transform: translateX(-50%) rotateY(180deg);
 		display: flex;
 		flex-direction: column;
-		.left {
-			float: left;
-			width: 50%;
-		}
-		.right {
-			float: right;
-			width: 50%;
 
-			img {
-				width: 100%;
-			}
-		}
 		.info {
 			flex: 1;
-			display: flex;
 			align-items: center;
+			display: flex;
+			justify-content: space-between;
+
+			.left {
+				.aka {
+					font-size: 0.6rem;
+				}
+				.name {
+					font-size: 0.7rem;
+				}
+				.buttonMoreInfo {
+					margin-top: 20px;
+					display: inline-block;
+					border: 1px solid #000;
+					padding: 10px;
+				}
+			}
+			.right {
+				img {
+					width: 100%;
+				}
+			}
 		}
-		dl {
+		.snsWrap {
 			height: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
 			dt {
 				display: inline-block;
+				margin-right: 15px;
 			}
 
 			dd {
+				font-size: 0.7rem;
 				display: inline-block;
 				padding: 5px;
 			}
@@ -96,15 +123,16 @@ const Container = styled.li`
 
 	@keyframes hoverstyle {
 		from {
-			box-shadow: 0 0 0 1px ${({ theme }) => theme.majorColor} inset,
-				0 0 20px 5px rgba(204, 11, 11, 0.3);
 			transform: scale(1);
 		}
 		to {
-			box-shadow: 0 0 0 1px ${({ theme }) => theme.majorColor} inset,
-				0 0 10px 1px rgba(204, 11, 11, 0.3);
 			transform: scale(1.01);
 		}
+	}
+
+	@media screen and ${device.mobileTabletOnly} {
+		width: 100%;
+		max-width: 320px;
 	}
 `
 
@@ -128,7 +156,9 @@ class FighterList extends Component {
 					<figure>
 						<img src={defaultProfileFrontImage} alt={name} />
 					</figure>
-					<p className="aka">"{aka}"</p>
+					<p className="aka" hidden={!aka.length}>
+						"{aka}"
+					</p>
 					<p className="name">{name}</p>
 					<p className="weightClass">{weightClass}</p>
 					<p className="record">
@@ -138,12 +168,15 @@ class FighterList extends Component {
 				<div className="back">
 					<div className="info">
 						<div className="left">
-							<p className="aka">"{aka}"</p>
+							<p className="aka" hidden={!aka.length}>
+								"{aka}"
+							</p>
 							<p className="name">{name}</p>
 							<Link
 								to={`${url}/profile/${name}`}
 								data-name={name}
-								onClick={() => this.setTargetFighterData(this.props.data)}>
+								onClick={() => this.setTargetFighterData(this.props.data)}
+								className="buttonMoreInfo">
 								<Trans i18nKey="components.FighterList.profile.button" />
 							</Link>
 						</div>
@@ -151,7 +184,7 @@ class FighterList extends Component {
 							<img src={defaultProfileBackImage} alt={name} />
 						</figure>
 					</div>
-					<dl>
+					<dl className="snsWrap">
 						<dt>
 							<Trans i18nKey="common.sns.title" />
 						</dt>

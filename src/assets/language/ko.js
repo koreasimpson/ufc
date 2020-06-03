@@ -13,6 +13,7 @@ const ko = {
 			lose: "패배",
 			draw: "무승부",
 			goBack: "뒤로 가기",
+			active: "현역",
 			sns: {
 				title: "SNS",
 				facebook: "페이스북",
@@ -33,6 +34,7 @@ const ko = {
 			},
 			weightClass: {
 				all: "모든 체급",
+				fly: "플라이급",
 				bantam: "밴텀급",
 				feather: "페더급",
 				light: "라이트급",

@@ -4,20 +4,58 @@ import { withTranslation, Trans } from "react-i18next"
 import { withRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
 
+import store from "store"
+import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
 import langdingBg from "assets/img/background_fighters.jpg"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import FighterList from "components/Fighter/FighterList"
 import FighterDetail from "components/Fighter/FighterDetail"
-import store from "store"
-import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
+import weightClassConfig from "config/weightClass"
+import { breakpoint, device } from "config/responsive"
+import { replaceSpecialChar } from "assets/lib/validation"
 
 const Container = styled.main`
 	.landing {
 		background-image: url(${langdingBg});
 	}
+	.targetFighter.aka {
+		font-size: 2rem;
+	}
+	.targetFighter.title {
+		margin-top: 1rem;
+	}
 	.contentWrap {
 		background-color: ${({ theme }) => theme.bgColor};
 		color: ${({ theme }) => theme.textColor};
+
+		.contentHeader,
+		.contentBody {
+			max-width: ${breakpoint.laptop}px;
+			margin: 0 auto;
+		}
+		.contentHeader {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-bottom: 20px;
+			margin-bottom: 20px;
+			border-bottom: 1px solid ${({ theme }) => theme.textColor};
+		}
+	}
+	.searchForm {
+		input {
+			padding: 10px 20px;
+		}
+		.searchResultLength {
+			display: inline-block;
+			margin-right: 1rem;
+		}
+	}
+	.fighterList {
+		width: 100%;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
 	}
 	.goBack {
 		padding: 15px 35px;
@@ -25,12 +63,34 @@ const Container = styled.main`
 		background-color: ${({ theme }) => theme.bgColor};
 		color: ${({ theme }) => theme.majorColor};
 	}
+
+	@media screen and ${device.mobileTabletOnly} {
+		.contentHeader {
+			padding-top: 20px;
+
+			.searchForm input {
+				width: 150px;
+			}
+		}
+
+		.fighterList {
+			flex-wrap: nowrap;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
 `
 
 class Fighter extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.state = {
+			weightClass: "all",
+			searchValue: ""
+		}
+		this.filteredFighters = []
+		console.log("constructor")
 	}
 
 	handleGoBack = () => {
@@ -38,9 +98,48 @@ class Fighter extends Component {
 		this.props.history.goBack()
 	}
 
+	handleSelect = e => {
+		this.setState({
+			weightClass: e.currentTarget.value
+		})
+	}
+
+	handleSearchInput = e => {
+		let value = e.currentTarget.value.trim()
+		if (value.match(replaceSpecialChar)) {
+			value = value.replace(replaceSpecialChar, "")
+		}
+		this.setState({
+			searchValue: value
+		})
+	}
+
+	filteringFighters = fighters => {
+		// select 값(state)으로 먼저 필터시키고
+		if (!fighters.length) return
+		this.filteredFighters = fighters.filter(fighter => {
+			if (this.state.weightClass === "all") {
+				return fighter
+			} else {
+				return fighter.weightClass === `${this.state.weightClass}Weight`
+			}
+		})
+		// input 값(state)으로 필터시키고
+		if (this.state.searchValue.length > 0) {
+			this.filteredFighters = this.filteredFighters.filter(fighter => {
+				const reg = new RegExp(this.state.searchValue, "i")
+				return fighter.name.match(reg)
+			})
+		}
+		// 오름차순
+		this.filteredFighters = this.filteredFighters.sort((a, b) => {
+			return a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+		})
+	}
+
 	render() {
-		console.log("fighter props =", this.props)
-		const { className, t, fighters, target } = this.props
+		console.log("render")
+		const { className, t, target, fighters } = this.props
 		const { pathname } = this.props.location
 		const { url } = this.props.match
 		const pageMetaData = {
@@ -51,14 +150,16 @@ class Fighter extends Component {
 			ogDescription: t("meta.Fighter.ogDescription"),
 			twitterTitle: t("meta.Fighter.twitterTitle")
 		}
+		this.filteringFighters(fighters)
+
 		return (
 			<Container className={className}>
 				<AppHelmet pageData={pageMetaData} />
 				<section className="landing bg">
 					{target.name ? (
 						<Fragment>
-							<p>{target.aka}</p>
-							<h2 className="title">{target.name}</h2>
+							<p className="targetFighter aka">"{target.aka}"</p>
+							<h2 className="targetFighter title">{target.name}</h2>
 							<button className="goBack" onClick={this.handleGoBack}>
 								<Trans i18nKey="common.goBack" />
 							</button>
@@ -78,26 +179,39 @@ class Fighter extends Component {
 					) : (
 						<Fragment>
 							<div className="contentHeader">
-								<select name="" id="">
-									<option value="all">{t("common.weightClass.all")}</option>
-									<option value="bantam">{t("common.weightClass.bantam")}</option>
-									<option value="feather">{t("common.weightClass.feather")}</option>
-									<option value="light">{t("common.weightClass.light")}</option>
-									<option value="welter">{t("common.weightClass.welter")}</option>
-									<option value="middle">{t("common.weightClass.middle")}</option>
-									<option value="lightheavy">{t("common.weightClass.lightheavy")}</option>
-									<option value="heavy">{t("common.weightClass.heavy")}</option>
+								<select onChange={this.handleSelect} value={this.state.weightClass}>
+									<option value="all" key="0">
+										{t("common.weightClass.all")}
+									</option>
+									{weightClassConfig.map((weightClass, index) => {
+										return (
+											<option value={weightClass} key={index + 1}>
+												{t(`common.weightClass.${weightClass}`)}
+											</option>
+										)
+									})}
 								</select>
+								<div className="searchForm">
+									<span className="searchResultLength">
+										{this.filteredFighters.length}명의 선수 검색됨
+									</span>
+									<input
+										type="text"
+										placeholder={t("pages.Fighter.searchPlaceholder")}
+										onChange={this.handleSearchInput}
+										value={this.state.searchValue}
+									/>
+								</div>
 							</div>
 							<div className="contentBody">
-								<div className="searchForm">
-									<span></span>
-									<input type="text" placeholder={t("pages.Fighter.searchPlaceholder")} />
-								</div>
-								<ul>
-									{fighters.map((fighter, index) => (
-										<FighterList data={fighter} key={index} />
-									))}
+								<ul className="fighterList">
+									{this.filteredFighters.length ? (
+										this.filteredFighters.map((fighter, index) => (
+											<FighterList data={fighter} key={index} />
+										))
+									) : (
+										<li>해당 조건의 선수가 없습니다</li>
+									)}
 								</ul>
 							</div>
 						</Fragment>

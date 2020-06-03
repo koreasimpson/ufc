@@ -16,6 +16,7 @@ const Container = styled.section`
 	}
 	dd {
 		font-size: 1.5rem;
+		text-transform: uppercase;
 	}
 
 	.record {
@@ -70,6 +71,7 @@ class FighterDetail extends Component {
 
 	render() {
 		const { target, className } = this.props
+		console.log("target =", target)
 		return target.name ? (
 			<Container className={className}>
 				<dl className="record">
@@ -102,7 +104,9 @@ class FighterDetail extends Component {
 								<dt>
 									<Trans i18nKey="common.label.statue" />
 								</dt>
-								<dd>유효한</dd>
+								<dd>
+									<Trans i18nKey="common.active" />
+								</dd>
 							</div>
 							<div>
 								<dt>
@@ -116,7 +120,7 @@ class FighterDetail extends Component {
 								<dt>
 									<Trans i18nKey="common.label.hometown" />
 								</dt>
-								<dd>서울</dd>
+								<dd>{target.hometown}</dd>
 							</div>
 						</div>
 						<div className="breakLine">
@@ -124,19 +128,19 @@ class FighterDetail extends Component {
 								<dt>
 									<Trans i18nKey="common.label.age" />
 								</dt>
-								<dd>12</dd>
+								<dd>{target.age}</dd>
 							</div>
 							<div>
 								<dt>
 									<Trans i18nKey="common.label.height" />
 								</dt>
-								<dd>122</dd>
+								<dd>{target.height}</dd>
 							</div>
 							<div>
 								<dt>
 									<Trans i18nKey="common.label.weight" />
 								</dt>
-								<dd>11</dd>
+								<dd>{target.weight}</dd>
 							</div>
 						</div>
 						<div className="breakLine">
@@ -144,19 +148,19 @@ class FighterDetail extends Component {
 								<dt>
 									<Trans i18nKey="common.label.octagonDebut" />
 								</dt>
-								<dd>어제</dd>
+								<dd>{target.octagonDebut}</dd>
 							</div>
 							<div>
 								<dt>
 									<Trans i18nKey="common.label.reach" />
 								</dt>
-								<dd>100</dd>
+								<dd>{target.reach}</dd>
 							</div>
 							<div>
 								<dt>
 									<Trans i18nKey="common.label.legReach" />
 								</dt>
-								<dd>120</dd>
+								<dd>{target.legReach}</dd>
 							</div>
 						</div>
 					</dl>
