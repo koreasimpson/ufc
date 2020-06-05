@@ -13,6 +13,7 @@ import Support from "pages/Support/Support"
 import My from "pages/My/My"
 import Login from "pages/Login/Login"
 import SignUp from "pages/SignUp/SignUp"
+import PageNotFound from "pages/PageNotFound/PageNotFound"
 
 import Auth from "components/Auth/Auth"
 import AppHelmet from "components/AppHelmet/AppHelmet"
@@ -66,7 +67,7 @@ class AppMain extends Component {
 					<Route path="/login/" component={Login} />
 					<Auth path="/my/" component={My} className={className} />
 					<Route path="/signup/" component={SignUp} />
-					<Route path="/">
+					<Route path="/" exact>
 						<Container>
 							<AppHelmet />
 							<h2 className="a11yHidden">
@@ -99,6 +100,7 @@ class AppMain extends Component {
 							</div>
 						</Container>
 					</Route>
+					<Route component={PageNotFound} />
 				</Switch>
 			</Fragment>
 		)
