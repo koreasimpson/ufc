@@ -6,19 +6,19 @@ import { withTranslation } from "react-i18next"
 class AppHelmet extends Component {
 	constructor(props) {
 		super(props)
-		this.pageData = props.pageData ? props.pageData : []
+		const { t, metaData = "Default" } = props
+		this.pageMataData = {
+			title: t(`meta.${metaData}.title`),
+			description: t(`meta.${metaData}.description`),
+			keywords: t(`meta.${metaData}.keywords`),
+			ogTitle: t(`meta.${metaData}.ogTitle`),
+			ogDescription: t(`meta.${metaData}.titogDescriptionle`),
+			twitterTitle: t(`meta.${metaData}.twitterTitle`)
+		}
 	}
-	render() {
-		const { t } = this.props
 
-		const {
-			title = t("components.AppHelmet.title"),
-			description = t("components.AppHelmet.description"),
-			keywords = t("components.AppHelmet.keywords"),
-			ogTitle = t("components.AppHelmet.ogTitle"),
-			ogDescription = t("components.AppHelmet.titogDescriptionle"),
-			twitterTitle = t("components.AppHelmet.twitterTitle")
-		} = this.pageData
+	render() {
+		const { title, description, keywords, ogTitle, ogDescription, twitterTitle } = this.pageMataData
 		return (
 			<Helmet>
 				<title>{`${title} | UFC`}</title>
@@ -32,10 +32,4 @@ class AppHelmet extends Component {
 	}
 }
 
-const TransAppHelmet = withTranslation()(AppHelmet)
-
-const mapStateToProps = state => ({})
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TransAppHelmet)
+export default withTranslation()(AppHelmet)

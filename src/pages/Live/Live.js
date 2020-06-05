@@ -12,18 +12,10 @@ class Live extends Component {
 	}
 
 	render() {
-		const { className, t } = this.props
-		const pageMetaData = {
-			title: t("meta.Live.title"),
-			description: t("meta.Live.description"),
-			keywords: t("meta.Live.keywords"),
-			ogTitle: t("meta.Live.ogTitle"),
-			ogDescription: t("meta.Live.ogDescription"),
-			twitterTitle: t("meta.Live.twitterTitle")
-		}
+		const { className } = this.props
 		return (
 			<Container className={className}>
-				<AppHelmet pageData={pageMetaData} />
+				<AppHelmet metaData="Live" />
 				<section className="contentWrap">
 					<h2>
 						<Trans i18nKey="pages.Live.h2" />

@@ -12,19 +12,11 @@ class Support extends Component {
 	}
 
 	render() {
-		const { className, t } = this.props
-		const pageMetaData = {
-			title: t("meta.Support.title"),
-			description: t("meta.Support.description"),
-			keywords: t("meta.Support.keywords"),
-			ogTitle: t("meta.Support.ogTitle"),
-			ogDescription: t("meta.Support.ogDescription"),
-			twitterTitle: t("meta.Support.twitterTitle")
-		}
+		const { className } = this.props
 
 		return (
 			<Container className={className}>
-				<AppHelmet pageData={pageMetaData} />
+				<AppHelmet metaData="Support" />
 				<section className="contentWrap">
 					<h2>
 						<Trans i18nKey="pages.Support.h2" />

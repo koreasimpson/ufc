@@ -50,6 +50,15 @@ const ko = {
 			}
 		},
 		meta: {
+			Default: {
+				title: "리액트 포트폴리오",
+				description: "구공찬, 프론트엔드 포트폴리오, 리액트",
+				keywords: "웹, 웹 개발, 프론트엔드, 프론트엔드 개발, UI, 접근성",
+				ogTitle: "리액트 포트폴리오",
+				ogDescription:
+					"CRA를 통해 만든 UFC 홈페이지입니다. 이 사이트는 개인 포트폴리오 용도이며, 상업적인 의도가 없습니다.",
+				twitterTitle: "리액트 포트폴리오"
+			},
 			Ranking: {
 				title: "랭킹",
 				description: "UFC 체급별 랭킹",
@@ -131,15 +140,6 @@ const ko = {
 				}
 			},
 			AppHeader: {},
-			AppHelmet: {
-				title: "리액트 포트폴리오",
-				description: "구공찬, 프론트엔드 포트폴리오, 리액트",
-				keywords: "웹, 웹 개발, 프론트엔드, 프론트엔드 개발, UI, 접근성",
-				ogTitle: "리액트 포트폴리오",
-				ogDescription:
-					"CRA를 통해 만든 UFC 홈페이지입니다. 이 사이트는 개인 포트폴리오 용도이며, 상업적인 의도가 없습니다.",
-				twitterTitle: "리액트 포트폴리오"
-			},
 			AppMain: {
 				h2: "메인 페이지",
 				desc: '"CRA를 사용하여 제작한 UFC 홈페이지"',

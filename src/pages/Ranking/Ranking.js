@@ -37,18 +37,10 @@ class Ranking extends Component {
 		]
 	}
 	render() {
-		const { className, t } = this.props
-		const pageMetaData = {
-			title: t("meta.Ranking.title"),
-			description: t("meta.Ranking.description"),
-			keywords: t("meta.Ranking.keywords"),
-			ogTitle: t("meta.Ranking.ogTitle"),
-			ogDescription: t("meta.Ranking.ogDescription"),
-			twitterTitle: t("meta.Ranking.twitterTitle")
-		}
+		const { className } = this.props
 		return (
 			<Container className={className}>
-				<AppHelmet pageMetaData={pageMetaData} />
+				<AppHelmet metaData="Ranking" />
 				<section className="contentWrap">
 					<h2>ATHLETE RANKINGS</h2>
 					<div className="content">

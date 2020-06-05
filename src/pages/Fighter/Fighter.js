@@ -67,6 +67,11 @@ const Container = styled.main`
 	@media screen and ${device.mobileTabletOnly} {
 		.contentHeader {
 			padding-top: 20px;
+			flex-direction: column;
+
+			& > * {
+				margin-top: 15px;
+			}
 
 			.searchForm input {
 				width: 150px;
@@ -90,7 +95,6 @@ class Fighter extends Component {
 			searchValue: ""
 		}
 		this.filteredFighters = []
-		console.log("constructor")
 	}
 
 	handleGoBack = () => {
@@ -121,7 +125,7 @@ class Fighter extends Component {
 			if (this.state.weightClass === "all") {
 				return fighter
 			} else {
-				return fighter.weightClass === `${this.state.weightClass}Weight`
+				return fighter.weightClass === `${this.state.weightClass}`
 			}
 		})
 		// input 값(state)으로 필터시키고
@@ -138,27 +142,20 @@ class Fighter extends Component {
 	}
 
 	render() {
-		console.log("render")
 		const { className, t, target, fighters } = this.props
 		const { pathname } = this.props.location
 		const { url } = this.props.match
-		const pageMetaData = {
-			title: t("meta.Fighter.title"),
-			description: t("meta.Fighter.description"),
-			keywords: t("meta.Fighter.keywords"),
-			ogTitle: t("meta.Fighter.ogTitle"),
-			ogDescription: t("meta.Fighter.ogDescription"),
-			twitterTitle: t("meta.Fighter.twitterTitle")
-		}
 		this.filteringFighters(fighters)
 
 		return (
 			<Container className={className}>
-				<AppHelmet pageData={pageMetaData} />
+				<AppHelmet metaData="Fighter" />
 				<section className="landing bg">
 					{target.name ? (
 						<Fragment>
-							<p className="targetFighter aka">"{target.aka}"</p>
+							<p className="targetFighter aka" hidden={!target.aka.length}>
+								"{target.aka}"
+							</p>
 							<h2 className="targetFighter title">{target.name}</h2>
 							<button className="goBack" onClick={this.handleGoBack}>
 								<Trans i18nKey="common.goBack" />
@@ -179,6 +176,9 @@ class Fighter extends Component {
 					) : (
 						<Fragment>
 							<div className="contentHeader">
+								<span className="searchResultLength">
+									{this.filteredFighters.length}명의 선수 검색됨
+								</span>
 								<select onChange={this.handleSelect} value={this.state.weightClass}>
 									<option value="all" key="0">
 										{t("common.weightClass.all")}
@@ -192,9 +192,6 @@ class Fighter extends Component {
 									})}
 								</select>
 								<div className="searchForm">
-									<span className="searchResultLength">
-										{this.filteredFighters.length}명의 선수 검색됨
-									</span>
 									<input
 										type="text"
 										placeholder={t("pages.Fighter.searchPlaceholder")}

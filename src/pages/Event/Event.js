@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 import { withTranslation, Trans } from "react-i18next"
 
-import store from "store"
 import { device } from "config/responsive"
 import EventItem from "components/Event/EventItem"
 import AppHelmet from "components/AppHelmet/AppHelmet"
@@ -96,20 +95,12 @@ class Event extends Component {
 	}
 
 	render() {
-		const { t, events } = this.props
-		const pageMetaData = {
-			title: t("meta.Event.title"),
-			description: t("meta.Event.description"),
-			keywords: t("meta.Event.keywords"),
-			ogTitle: t("meta.Event.ogTitle"),
-			ogDescription: t("meta.Event.ogDescription"),
-			twitterTitle: t("meta.Event.twitterTitle")
-		}
+		const { events } = this.props
 		const filteredEvent = this.filteredEvent(events)
 
 		return (
 			<Container className="">
-				<AppHelmet pageData={pageMetaData} />
+				<AppHelmet metaData="Event" />
 				<div className="landing bg">
 					<h2 className="desc">
 						<Trans i18nKey="pages.Event.h2" />

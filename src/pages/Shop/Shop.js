@@ -12,18 +12,10 @@ class Shop extends Component {
 	}
 
 	render() {
-		const { className, t } = this.props
-		const pageMetaData = {
-			title: t("meta.Shop.title"),
-			description: t("meta.Shop.description"),
-			keywords: t("meta.Shop.keywords"),
-			ogTitle: t("meta.Shop.ogTitle"),
-			ogDescription: t("meta.Shop.ogDescription"),
-			twitterTitle: t("meta.Shop.twitterTitle")
-		}
+		const { className } = this.props
 		return (
 			<Container className={className}>
-				<AppHelmet pageData={pageMetaData} />
+				<AppHelmet metaData="Shop" />
 				<section className="contentWrap">
 					<h2>
 						<Trans i18nKey="pages.Shop.h2" />
