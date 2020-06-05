@@ -4,8 +4,9 @@ import { withRouter, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import defaultFighterImg from "assets/img/fighters/fighter_left.png"
+import { breakpoint, device } from "config/responsive"
 
-const Container = styled.section`
+const Container = styled.div`
 	h3 {
 		font-size: 5rem;
 	}
@@ -17,6 +18,7 @@ const Container = styled.section`
 	dd {
 		font-size: 1.5rem;
 		text-transform: uppercase;
+		margin-top: 1rem;
 	}
 
 	.record {
@@ -24,9 +26,10 @@ const Container = styled.section`
 		justify-content: space-evenly;
 	}
 
-	.contentWrap {
+	.detailInfo {
 		display: flex;
 		min-height: 60vh;
+		margin-top: 3rem;
 
 		.left,
 		.right {
@@ -56,6 +59,24 @@ const Container = styled.section`
 			}
 		}
 	}
+
+	.commentWrap {
+		margin-top: 20px;
+		line-height: 1.5rem;
+	}
+
+	@media screen and ${device.mobileTabletOnly} {
+		margin-top: 20px;
+
+		.detailInfo {
+			flex-direction: column;
+			margin-top: 20px;
+
+			dd {
+				font-size: 1rem;
+			}
+		}
+	}
 `
 
 class FighterDetail extends Component {
@@ -71,7 +92,6 @@ class FighterDetail extends Component {
 
 	render() {
 		const { target, className } = this.props
-		console.log("target =", target)
 		return target.name ? (
 			<Container className={className}>
 				<dl className="record">
@@ -94,7 +114,7 @@ class FighterDetail extends Component {
 						<dd>{target.record.draw}</dd>
 					</div>
 				</dl>
-				<div className="contentWrap">
+				<div className="detailInfo">
 					<figure className="left">
 						<img src={defaultFighterImg} alt={target.name} />
 					</figure>
@@ -165,7 +185,7 @@ class FighterDetail extends Component {
 						</div>
 					</dl>
 				</div>
-				<div>
+				<div className="commentWrap">
 					<p>
 						<Trans i18nKey="components.FighterDetail.comment.title" />
 					</p>

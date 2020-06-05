@@ -4,12 +4,10 @@ import { withTranslation, Trans } from "react-i18next"
 
 import InputField from "components/Common/InputField"
 import { expPassword } from "assets/lib/validation"
-import { breakpoint, device } from "config/responsive"
+import { device } from "config/responsive"
 
 const Container = styled.main`
 	form {
-		min-width: 300px;
-
 		fieldset {
 			border: none;
 			padding: 0;
@@ -54,9 +52,25 @@ const Container = styled.main`
 	}
 
 	@media screen and ${device.laptop} {
+		form {
+			min-width: 300px;
+		}
 	}
 
 	@media screen and ${device.mobileTabletOnly} {
+		form {
+			width: 100%;
+
+			[class*="Field"] {
+				width: 100%;
+				margin: 0 auto;
+				display: flex;
+			}
+
+			button {
+				width: 100%;
+			}
+		}
 	}
 `
 

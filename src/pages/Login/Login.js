@@ -41,11 +41,17 @@ const Container = styled.main`
 			font-size: 2rem;
 			padding-bottom: 20px;
 		}
+
+		.signup {
+			display: block;
+			font-size: 1rem;
+			text-decoration: underline;
+			margin-top: 20px;
+		}
 	}
 
-	.signup {
-		font-size: 1rem;
-		text-decoration: underline;
+	.testAccount {
+		margin-top: 20px;
 	}
 `
 
@@ -146,7 +152,7 @@ class Login extends Component {
 							<Trans i18nKey="pages.Login.notAccount" />
 						</Link>
 					</form>
-					<p>
+					<p className="testAccount">
 						<small>id: TEST_USER1@ufc.com | password: TEST1234! </small>
 					</p>
 				</section>
