@@ -129,6 +129,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     text-align: center;
     padding-bottom: 4rem;
+
+    h2 {
+      font-size: 3rem;
+    }
   }
 
   :disabled {
