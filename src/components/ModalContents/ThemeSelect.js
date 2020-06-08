@@ -87,6 +87,7 @@ const ThemeSelect = () => {
 			<ul>
 				<li
 					ref={lightThemeItem}
+					tabIndex="0"
 					className={`${theme === "light" ? "selected" : null} item light`}
 					onClick={e => {
 						selectedTheme(e)
@@ -98,6 +99,7 @@ const ThemeSelect = () => {
 				</li>
 				<li
 					ref={darkThemeItem}
+					tabIndex="0"
 					className={`${theme === "dark" ? "selected" : null} item dark`}
 					onClick={e => {
 						selectedTheme(e)

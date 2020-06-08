@@ -42,7 +42,7 @@ const App = props => {
 					<AppHeader props={props} />
 					<AppMain test="hello" />
 					<AppFooter />
-					<Modal open={!cookies.nzcUfcTheme} closeButton handleConfirm={setThemeCookies}>
+					<Modal open={!cookies.nzcUfcTheme} handleConfirm={setThemeCookies}>
 						<Modal.Header>
 							<Trans i18nKey="modal.theme.header" />
 						</Modal.Header>
