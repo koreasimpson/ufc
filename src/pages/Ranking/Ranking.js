@@ -1,9 +1,12 @@
 import React, { Component } from "react"
-import AppHelmet from "components/AppHelmet/AppHelmet"
-import styled from "styled-components"
-import { withTranslation, Trans } from "react-i18next"
+import { withTranslation } from "react-i18next"
 import { connect } from "react-redux"
+import styled from "styled-components"
+
+import AppHelmet from "components/AppHelmet/AppHelmet"
 import RankingList from "components/Ranking/RankingList"
+import weightClassConfig from "config/weightClass"
+import { device } from "config/responsive"
 
 const Container = styled.main`
 	.content {
@@ -11,6 +14,8 @@ const Container = styled.main`
 		flex-wrap: wrap;
 		justify-content: space-between;
 		align-items: center;
+		max-width: 1024px;
+		margin: 0 auto;
 	}
 	.group {
 		width: 25%;
@@ -18,23 +23,24 @@ const Container = styled.main`
 		padding: 20px;
 		box-sizing: border-box;
 	}
+
+	@media screen and ${device.mobileTabletOnly} {
+		.content {
+			justify-content: space-evenly;
+		}
+	}
+
+	@media screen and ${device.mobileOnly} {
+		.content {
+			justify-content: space-evenly;
+		}
+	}
 `
 
 class Ranking extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		this.rankingListGroup = [
-			"pound-for-pound",
-			"flyWeight",
-			"bantamWeight",
-			"featherWeight",
-			"lightWeight",
-			"welterWeight",
-			"middleWeight",
-			"lightheavyWeight",
-			"heavyWeight"
-		]
 	}
 	render() {
 		const { className } = this.props
@@ -43,11 +49,11 @@ class Ranking extends Component {
 				<AppHelmet metaData="Ranking" />
 				<section className="contentWrap">
 					<h2>ATHLETE RANKINGS</h2>
-					<div className="content">
-						{this.rankingListGroup.map((group, index) => {
-							return <RankingList className="group" group={group} key={index} />
+					<ul className="content">
+						{weightClassConfig.map((weightClass, index) => {
+							return <RankingList className="group" weightClass={weightClass} key={index} />
 						})}
-					</div>
+					</ul>
 				</section>
 			</Container>
 		)

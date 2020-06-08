@@ -7,7 +7,7 @@ import store from "store"
 import defaultProfileFrontImage from "assets/img/fighters/fighter_profile.png"
 import defaultProfileBackImage from "assets/img/fighters/fighter_right.png"
 import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
-import { breakpoint, device } from "config/responsive"
+import { device } from "config/responsive"
 
 const Container = styled.li`
 	position: relative;

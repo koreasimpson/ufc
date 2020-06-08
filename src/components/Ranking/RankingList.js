@@ -1,40 +1,84 @@
 import React, { Component } from "react"
 import { withTranslation, Trans } from "react-i18next"
 import styled from "styled-components"
-import defaultFighterImg from "assets/img/fighters/fighter_profile.png"
+import { connect } from "react-redux"
+import { Link } from "react-router-dom"
 
-const Container = styled.div`
+import { device } from "config/responsive"
+import defaultFighterImg from "assets/img/fighters/fighter_profile.png"
+import store from "store"
+import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
+
+const Container = styled.li`
+	text-align: left;
+
 	.groupTitle {
 		text-transform: uppercase;
 		color: ${({ theme }) => theme.majorColor};
 	}
+
 	.champion {
-		position: relative;
-		height: 150px;
-		border-bottom: 1px solid #eee;
+		p {
+			margin-top: 10px;
+		}
 
-		figure {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			transition: transform 0.5s;
-			transform-origin: bottom;
+		dd {
+			position: relative;
+			height: 150px;
+			border-bottom: 1px solid #eee;
+			align-items: normal;
 
-			&:hover {
-				transform: scale(1.1);
+			figure {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				transition: transform 0.5s;
+				transform-origin: bottom;
+				width: 80%;
+
+				&:hover {
+					transform: scale(1.1);
+				}
+
+				img {
+					width: 100%;
+				}
 			}
 		}
 	}
 
 	dd {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0 10%;
-		box-sizing: border-box;
+		a {
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 10px;
+		}
+
+		.rank {
+			display: inline-block;
+			width: 30px;
+		}
+
+		.name {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			display: inline-block;
+			width: calc(100% - 60px);
+			flex: 1;
+		}
 	}
 
 	.icon {
+		width: 30px;
+		position: relative;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
 		i {
 			display: inline-block;
 			margin-right: 5px;
@@ -60,6 +104,10 @@ const Container = styled.div`
 				display: inline-block;
 				font-size: 0.8rem;
 				color: gold;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
 			}
 		}
 
@@ -79,45 +127,70 @@ class RankingList extends Component {
 		this.props = props
 	}
 
+	setRankingList = weightClass => {
+		if (this.props.fighters.length === 0) return []
+		let rankingList = this.props.fighters.filter(fighter => {
+			return fighter.ranking.hasOwnProperty(weightClass)
+		})
+		rankingList.sort((a, b) => {
+			return a.ranking[weightClass].current - b.ranking[weightClass].current
+		})
+		let champion = rankingList[0]
+		rankingList.splice(0, 1)
+		return { champion, rankingList }
+	}
+
+	setRankChange = ranking => {
+		const { current, past } = ranking
+		let type, value
+		type = past == null ? "new" : current === past ? "equal" : current > past ? "up" : "down"
+		if (type === "up" || type === "down") {
+			value = Math.abs(past - current)
+		}
+		return { type, value }
+	}
+
+	handleLink = ranker => {
+		store.dispatch({ type: SET_TARGET_FIGHTERS, value: ranker })
+	}
+
 	render() {
-		const { className, group } = this.props
+		const { className, weightClass } = this.props
+		const { champion, rankingList = [] } = this.setRankingList(weightClass)
+
 		return (
 			<Container className={className}>
 				<dl>
-					<div>
-						<dt className="groupTitle">{group}</dt>
-						<dd className="champion">
-							<p>챔피온 네임</p>
+					<div className="champion">
+						<dt className="groupTitle">{weightClass} Weight</dt>
+						<dd>
+							<p className="name" title={champion ? champion.name : null}>
+								{champion ? champion.name : null}
+							</p>
 							<figure>
 								<img src={defaultFighterImg} alt="챔피언 사진" />
 							</figure>
 						</dd>
 					</div>
-					<div>
-						<dd>
-							<span>rank</span>
-							<span className="icon">
-								<i className="up"></i>1
-							</span>
-						</dd>
-						<dd>
-							<span>rank</span>
-							<span className="icon">
-								<i className="down"></i>2
-							</span>
-						</dd>
-						<dd>
-							<span>rank</span>
-							<span className="icon">
-								<i className="new"></i>
-							</span>
-						</dd>
-						<dd>
-							<span>rank</span>
-							<span className="icon">
-								<i className="equal"></i>
-							</span>
-						</dd>
+					<div className="rankers">
+						{rankingList.map((ranker, index) => {
+							return (
+								<dd key={index}>
+									<Link
+										to={`/fighter/profile/${ranker.name}`}
+										onClick={() => this.handleLink(ranker)}>
+										<span className="rank">{ranker.ranking[weightClass].current}</span>
+										<span className="name" title={ranker.name}>
+											{ranker.name}
+										</span>
+										<span className="icon">
+											<i className={this.setRankChange(ranker.ranking[weightClass]).type}></i>
+											{this.setRankChange(ranker.ranking[weightClass]).value}
+										</span>
+									</Link>
+								</dd>
+							)
+						})}
 					</div>
 				</dl>
 			</Container>
@@ -125,4 +198,12 @@ class RankingList extends Component {
 	}
 }
 
-export default withTranslation()(RankingList)
+const TransRankingList = withTranslation()(RankingList)
+
+const mapStateToProps = state => ({
+	fighters: state.fighterReducer.fighters
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransRankingList)
