@@ -54,7 +54,6 @@ class AppMain extends Component {
 
 	render() {
 		const { className } = this.props
-
 		return (
 			<Fragment>
 				<Switch>

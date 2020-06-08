@@ -15,7 +15,7 @@ export const fetchEvents = () => {
 	fetch("//allaboutufc-26533.firebaseio.com/event.json")
 		.then(res => res.json())
 		.then(data => {
-			store.dispatch({ type: SET_ALL_EVENTS, value: data })
+			store.dispatch({ type: SET_ALL_EVENTS, value: data.data })
 		})
 		.catch(err => console.error(err.message))
 }
