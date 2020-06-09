@@ -19,36 +19,35 @@ class My extends Component {
 					<h2>
 						<Trans i18nKey="pages.My.h2" />
 					</h2>
-					<div>
-						<p>계정</p>
-						<dl>
+					<form action="">
+						<fieldset disabled>
+							<legend>계정</legend>
 							<div>
-								<dt>계정</dt>
-								<dd></dd>
+								<label>계정</label>
+								<input type="text" />
 							</div>
 							<div>
-								<dt>이메일</dt>
-								<dd></dd>
+								<label>이메일</label>
+								<input type="text" />
 							</div>
 							<div>
-								<dt>ID</dt>
-								<dd></dd>
+								<label>아이디</label>
+								<input type="text" />
 							</div>
-						</dl>
-					</div>
-					<div>
-						<p>보안</p>
-						<dl>
+						</fieldset>
+						<fieldset disabled>
+							<legend>보안</legend>
 							<div>
-								<dt>암호</dt>
-								<dd>암호 변경</dd>
+								<label>암호 변경</label>
+								<input type="password" />
+								<input type="password" />
 							</div>
 							<div>
-								<dt>신뢰하는 연락처</dt>
-								<dd>핸드폰 번호</dd>
+								<label>핸드폰 번호</label>
+								<input type="text" />
 							</div>
-						</dl>
-					</div>
+						</fieldset>
+					</form>
 				</section>
 			</Container>
 		)
