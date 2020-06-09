@@ -53,5 +53,8 @@
 		"redux-thunk": "^2.3.0",
 		"serve": "^11.3.0",
 		"styled-components": "^5.1.0"
+	},
+	"devDependencies": {
+		"disqus-react": "^1.0.8"
 	}
 }

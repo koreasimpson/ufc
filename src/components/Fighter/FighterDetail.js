@@ -4,7 +4,8 @@ import { withRouter, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import defaultFighterImg from "assets/img/fighters/fighter_left.png"
-import { breakpoint, device } from "config/responsive"
+import { device } from "config/responsive"
+import { DiscussionEmbed } from "disqus-react"
 
 const Container = styled.div`
 	h3 {
@@ -65,6 +66,12 @@ const Container = styled.div`
 		line-height: 1.5rem;
 	}
 
+	[shortname="ufc"] {
+		width: 100%;
+		margin: 0 auto;
+		max-width: 800px;
+	}
+
 	@media screen and ${device.mobileTabletOnly} {
 		margin-top: 20px;
 
@@ -83,6 +90,11 @@ class FighterDetail extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+	}
+
+	toggleComment = () => {
+		const target = document.querySelector("[shortname=90chanho]")
+		console.log("target =", target)
 	}
 
 	componentDidMount() {
@@ -192,9 +204,18 @@ class FighterDetail extends Component {
 					<p>
 						<Trans i18nKey="components.FighterDetail.comment.desc" />
 					</p>
-					<button>
-						<Trans i18nKey="components.FighterDetail.comment.button" />
+					<button onClick={this.toggleComment}>
+						<Trans i18nKey="components.FighterDetail.comment.button.show" />
 					</button>
+					<DiscussionEmbed
+						shortname="ufc"
+						config={{
+							url: `https://90chanho.github.io/ufc/${target.name.replace(/ /g, "")}`,
+							identifier: target.name.replace(/ /g, ""),
+							title: target.name.replace(/ /g, ""),
+							category_id: target.name.replace(/ /g, "")
+						}}
+					/>
 				</div>
 			</Container>
 		) : (

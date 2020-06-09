@@ -159,7 +159,10 @@ const ko = {
 				comment: {
 					title: "팬들의 목소리가 먼저입니다.",
 					desc: "좋아하는 선수, 보고 싶은 매치 업은? 여기에 코멘트 남겨주세요!",
-					button: "댓글 남기기"
+					button: {
+						show: "댓글 보이기",
+						hide: "댓글 숨기기"
+					}
 				}
 			},
 			FighterList: {
