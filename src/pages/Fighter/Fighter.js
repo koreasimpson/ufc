@@ -12,7 +12,7 @@ import FighterList from "components/Fighter/FighterList"
 import FighterDetail from "components/Fighter/FighterDetail"
 import weightClassConfig from "config/weightClass"
 import { breakpoint, device } from "config/responsive"
-import { replaceSpecialChar } from "assets/lib/validation"
+import { replaceSpecialChar } from "assets/lib/regExp"
 
 const Container = styled.main`
 	.landing {

@@ -1,6 +1,6 @@
 import React, { Component, createRef } from "react"
 import styled from "styled-components"
-import { expEmail, expPhone } from "assets/lib/validation"
+import { expEmail, expPhone } from "assets/lib/regExp"
 import { connect } from "react-redux"
 import { withTranslation, Trans } from "react-i18next"
 

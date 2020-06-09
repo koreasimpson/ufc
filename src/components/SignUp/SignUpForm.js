@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { withTranslation, Trans } from "react-i18next"
 
 import InputField from "components/Common/InputField"
-import { expPassword } from "assets/lib/validation"
+import { expPassword } from "assets/lib/regExp"
 import { device } from "config/responsive"
 
 const Container = styled.main`
@@ -107,6 +107,18 @@ class SignUp extends Component {
 		this.allPass = false
 	}
 
+	state = {
+		test: false
+	}
+
+	makeUniqueStr = () => {
+		return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+	}
+
+	setUid = () => {
+		return `${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()}`
+	}
+
 	isAllPass = () => {
 		this.allPass = true
 		for (let key in this.formValidation) {
@@ -134,6 +146,8 @@ class SignUp extends Component {
 
 	handleSubmit = e => {
 		e.preventDefault()
+		console.log("this.form =", this.form)
+		return
 		if (!this.isAllPass()) {
 			alert(this.props.t("components.SignUp.Form.validation.notAllPass"))
 		} else {
@@ -144,6 +158,7 @@ class SignUp extends Component {
 	checkPasswordExp = e => {
 		const email = this.form["email"]
 		const password = this.form["password"]
+		const passwordConfirm = this.form["passwordConfirm"]
 		const result = expPassword.test(password)
 		if (result) {
 			if (this.form["email"] && password.includes(email)) {
@@ -151,8 +166,9 @@ class SignUp extends Component {
 					valid: false,
 					validationText: this.props.t("components.InputField.validation.passwordInValidationText")
 				}
-			} else {
-				return null
+			} else if (passwordConfirm.length) {
+				const confirmElement = document.querySelector("[name=passwordConfirm]")
+				confirmElement.focus()
 			}
 		} else if (password) {
 			return {
@@ -162,7 +178,7 @@ class SignUp extends Component {
 		}
 	}
 
-	checkPasswordConfirm = () => {
+	checkPasswordConfirm = e => {
 		if (
 			this.form["password"] &&
 			this.form["passwordConfirm"] &&
@@ -311,7 +327,7 @@ class SignUp extends Component {
 								/>
 							</div>
 						</fieldset>
-						<button ref={this.submit} type="submit">
+						<button type="submit">
 							<Trans i18nKey="components.SignUp.Form.h2" />
 						</button>
 					</form>
