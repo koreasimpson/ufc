@@ -12,26 +12,17 @@ import AppFooter from "components/AppFooter/AppFooter"
 import Modal from "components/Common/Modal"
 import ThemeSelect from "components/ModalContents/ThemeSelect"
 import ThemeStyle from "theme/theme"
-import store from "store"
 
 // components
 const App = props => {
 	const [cookies, setCookie] = useCookies(["name"])
-	let theme
-
-	if (cookies.nzcUfcTheme) {
-		theme = cookies.nzcUfcTheme
-	} else {
-		theme = store.getState().themeReducer.theme
-	}
+	const theme = props.theme || cookies.nzcUfcTheme
 
 	const setThemeCookies = () => {
-		if (!cookies.nzcUfcTheme) {
-			const dayTime = 86400000
-			let expireDate = new Date()
-			expireDate.setTime(expireDate.getTime() + 7 * dayTime)
-			setCookie("nzcUfcTheme", theme, { path: "/", expires: expireDate })
-		}
+		const dayTime = 86400000
+		let expireDate = new Date()
+		expireDate.setTime(expireDate.getTime() + 7 * dayTime)
+		setCookie("nzcUfcTheme", theme, { path: "/", expires: expireDate })
 	}
 
 	return (
