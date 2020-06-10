@@ -1,142 +1,14 @@
 import React, { Component, createRef } from "react"
 import { connect } from "react-redux"
 import { Link, NavLink, withRouter } from "react-router-dom"
-import styled from "styled-components"
-import throttle from "lodash.throttle"
-
-import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import { withTranslation, Trans } from "react-i18next"
-import { breakpoint, device } from "config/responsive"
-import { ReactComponent as arrow } from "assets/img/arrow.svg"
+import throttle from "lodash.throttle"
+import { withCookies } from "react-cookie"
 
-const StyledLogo = styled(ufc)`
-	fill: ${({ theme }) => theme.logoColor};
-`
-
-const StyledArrow = styled(arrow)`
-	width: 1rem;
-	height: 1rem;
-	fill: ${({ theme }) => theme.textColor};
-	vertical-align: middle;
-	margin-left: 10px;
-	transform: rotate(90deg);
-`
-
-const Container = styled.nav`
-	background-color: ${({ theme }) => theme.bgColor};
-	color: ${({ theme }) => theme.textColor};
-	width: 1024px;
-	transition: width 1s;
-
-	&.fixed {
-		z-index: 100;
-		position: fixed;
-		top: 0px;
-		width: 100vw;
-		box-shadow: 0 -5px 10px 0px #000;
-
-		.gnb .underline {
-			width: 100%;
-		}
-	}
-
-	&.shadow {
-		box-shadow: 0 0px 10px 0px #000;
-	}
-
-	.logo {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-
-		svg {
-			display: inline-block;
-			width: 80px;
-			height: auto;
-		}
-	}
-
-	.gnb {
-		display: flex;
-
-		li {
-			&.align-right {
-				margin-left: auto;
-			}
-
-			&.underline {
-				position: absolute;
-				bottom: 0;
-				left: 50%;
-				transform: translateX(-50%);
-				width: 0px;
-				height: 2px;
-				border-bottom: 4px solid #cc0b0b;
-				padding: 0;
-				transition: all 1s ease-in-out;
-			}
-
-			a {
-				padding: 1rem;
-				display: inline-block;
-			}
-			a.active {
-				color: #cc0b0b;
-			}
-		}
-	}
-
-	.toggleGnb {
-		display: none;
-	}
-
-	@media screen and ${device.laptop} {
-		position: absolute;
-		top: 50px;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	@media screen and ${device.mobileTabletOnly} {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 20px;
-		width: 100%;
-
-		.logo {
-			position: static;
-			transform: none;
-		}
-		.gnb {
-			display: none;
-			&.is-show {
-				position: absolute;
-				display: block;
-				width: 100%;
-				top: 67px;
-				height: calc(100vh - 67px);
-				left: 0;
-				z-index: 1;
-				background-color: ${({ theme }) => theme.bgColor};
-			}
-
-			a {
-				width: 100%;
-				height: 100%;
-				font-size: 2rem;
-				&:hover {
-					background-color: ${({ theme }) => theme.textColor};
-					color: ${({ theme }) => theme.bgColor};
-				}
-			}
-		}
-		.toggleGnb {
-			display: block;
-			font-size: 2rem;
-		}
-	}
-`
+import store from "store"
+import { breakpoint } from "config/responsive"
+import { SET_THEME_LIGHT, SET_THEME_DARK } from "store/actions/theme"
+import Wrapper, { StyledLogo, StyledArrow } from "./AppGnbStyled"
 
 class AppGnb extends Component {
 	constructor(props) {
@@ -145,10 +17,14 @@ class AppGnb extends Component {
 			isFixed: false
 		}
 		this.gnb = createRef()
-		this.gnbList = ["event", "fighter", "ranking", "live", "shop", "support", "my"]
+		this.accountMenuList = createRef()
+		this.gnbList = ["event", "fighter", "ranking", "live", "shop", "support"]
 		this.hasLandingContent = true
 		this.detectScrollThrottled = throttle(this.detectScroll, 100)
+		this.cookies = props.cookies
+
 		window.addEventListener("scroll", this.detectScrollThrottled)
+		window.addEventListener("click", this.hideAccountMenuItem)
 	}
 
 	detectScroll = () => {
@@ -171,7 +47,7 @@ class AppGnb extends Component {
 		}
 	}
 
-	handleLink = (e, gnb) => {
+	handleLink = (e, gnb = "") => {
 		if (gnb === "live" || gnb === "shop" || gnb === "support") {
 			e.preventDefault()
 			alert(this.props.t("common.commingSoon"))
@@ -180,29 +56,57 @@ class AppGnb extends Component {
 		this.gnb.current.classList.remove("is-show")
 	}
 
+	handleAccountMenuItem = e => {
+		e.preventDefault()
+		e.stopPropagation()
+		this.accountMenuList.current.hidden = !this.accountMenuList.current.hidden
+	}
+
+	hideAccountMenuItem = () => {
+		this.accountMenuList.current.hidden = true
+	}
+
+	toggleTheme = () => {
+		const dayTime = 86400000
+		let expireDate = new Date()
+		expireDate.setTime(expireDate.getTime() + 7 * dayTime)
+		if (this.props.theme === "light") {
+			store.dispatch({ type: SET_THEME_DARK })
+			this.cookies.set("nzcUfcTheme", "dark", { path: "/", expires: expireDate })
+		} else {
+			store.dispatch({ type: SET_THEME_LIGHT })
+			this.cookies.set("nzcUfcTheme", "light", { path: "/", expires: expireDate })
+		}
+	}
+
 	componentWillUnmount() {
 		this.detectScrollThrottled.cancel()
+		window.removeEventListener("click", this.hideAccountMenuItem)
 	}
 
 	render() {
-		const { className, location, isAuth } = this.props
+		const { className, location, isAuth, theme } = this.props
 		if (!(location.pathname === "/event" || location.pathname === "/fighter")) {
 			this.hasLandingContent = false
 		} else {
 			this.hasLandingContent = true
 		}
 		return (
-			<Container
+			<Wrapper
 				className={`${className}
 				${this.state.isFixed ? "fixed" : null}
 				${this.hasLandingContent ? null : "shadow"}
 			`}>
 				<h1 className="logo noTextContent">
-					<Link to="/" title="go to home" className="noTextContent">
+					<Link
+						to="/"
+						title="go to home"
+						className="noTextContent"
+						onClick={e => this.handleLink(e)}>
 						<StyledLogo />
 					</Link>
 				</h1>
-				<button className="toggleGnb" onClick={this.toggleGnb}>
+				<button className="toggleGnb mobileTabletOnly" onClick={this.toggleGnb}>
 					Menu
 					<StyledArrow />
 				</button>
@@ -211,28 +115,56 @@ class AppGnb extends Component {
 						return (
 							<li key={index} className={gnb === "live" ? "align-right" : null}>
 								<NavLink to={`/${gnb}`} onClick={e => this.handleLink(e, gnb)}>
-									{gnb !== "my" ? (
-										<Trans i18nKey={`components.AppGnb.list.${gnb}`} />
-									) : isAuth ? (
-										<Trans i18nKey="components.AppGnb.list.my" />
-									) : (
-										<Trans i18nKey="components.AppGnb.list.login" />
-									)}
+									<Trans i18nKey={`components.AppGnb.list.${gnb}`} />
 								</NavLink>
 							</li>
 						)
 					})}
+					<li className="account">
+						<a href="/" onClick={this.handleAccountMenuItem}>
+							계정
+						</a>
+						<ul ref={this.accountMenuList} className="depth2" hidden>
+							<li>
+								{isAuth ? (
+									<button>로그아웃</button>
+								) : (
+									<NavLink to="/login" onClick={e => this.handleLink(e)}>
+										로그인
+									</NavLink>
+								)}
+							</li>
+							<li>
+								{isAuth ? (
+									<NavLink to="/my" onClick={e => this.handleLink(e)}>
+										내 정보
+									</NavLink>
+								) : (
+									<NavLink to="/signup" onClick={e => this.handleLink(e)}>
+										회원가입
+									</NavLink>
+								)}
+							</li>
+							<li>
+								<button className={`toggle ${theme}`} onClick={this.toggleTheme}>
+									<i className="circle"></i>
+									{theme === "light" ? "☼" : "☾"}
+								</button>
+							</li>
+						</ul>
+					</li>
 					<li className="underline"></li>
 				</ul>
-			</Container>
+			</Wrapper>
 		)
 	}
 }
 
-const TransAppGnb = withTranslation()(AppGnb)
+const TransAppGnb = withTranslation()(withCookies(AppGnb))
 
 const mapStateToProps = state => ({
-	isAuth: state.authReducer.isAuth
+	isAuth: state.authReducer.isAuth,
+	theme: state.themeReducer.theme
 })
 
 const mapDispatchToProps = {}
