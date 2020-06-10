@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { withTranslation, Trans } from "react-i18next"
 import styled from "styled-components"
 import { connect } from "react-redux"
@@ -164,12 +164,22 @@ class RankingList extends Component {
 					<div className="champion">
 						<dt className="groupTitle">{weightClass} Weight</dt>
 						<dd>
-							<p className="name" title={champion ? champion.name : null}>
-								{champion ? champion.name : null}
-							</p>
-							<figure>
-								<img src={defaultFighterImg} alt="챔피언 사진" />
-							</figure>
+							{champion ? (
+								<Fragment>
+									<Link
+										to={`/fighter/profile/${champion.name}`}
+										className="name"
+										title={champion ? champion.name : null}
+										onClick={() => this.handleLink(champion)}>
+										{champion ? champion.name : null}
+									</Link>
+									<figure>
+										<img src={defaultFighterImg} alt="챔피언 사진" />
+									</figure>
+								</Fragment>
+							) : (
+								<p>공석</p>
+							)}
 						</dd>
 					</div>
 					<div className="rankers">
