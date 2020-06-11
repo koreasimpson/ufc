@@ -140,6 +140,10 @@ export const GlobalStyle = createGlobalStyle`
     pointer-events: none;
   }
 
+  button:disabled {
+    opacity: 0.3;
+  }
+
   .dimmed {
     position: fixed;
     z-index: 10000;
@@ -160,11 +164,10 @@ export const GlobalStyle = createGlobalStyle`
     white-space: nowrap;
   }
 
-  div.inputField + div.inputField {
-    margin-left: 20px;
-  }
-
   @media screen and ${device.laptop} {
+    .mobileTabletOnly {
+      display: none;
+    }
     html {
       font-size: 18px;
     }
@@ -183,6 +186,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   @media screen and ${device.mobileTabletOnly} {
+    .mobileTabletOnly {
+      display: block;
+    }
     .contentWrap {
       padding-left: 10%;
       padding-right: 10%;

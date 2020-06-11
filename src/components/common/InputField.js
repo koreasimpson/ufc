@@ -1,53 +1,43 @@
-import React, { Component, createRef } from "react"
-import styled from "styled-components"
-import { expEmail, expPhone } from "assets/lib/regExp"
-import { connect } from "react-redux"
+import React, { Component } from "react"
 import { withTranslation, Trans } from "react-i18next"
+import styled from "styled-components"
 
-const Container = styled.div`
-	display: inline-block;
+const StyledWrapper = styled.div`
 	position: relative;
-	padding-bottom: 32px;
+	display: inline-block;
+	padding-bottom: 1rem;
+	width: 100%;
 	flex: 1;
 
-	label {
-		display: inline-block;
-		position: relative;
-		width: 100%;
-
+	&.error {
 		input {
-			width: 100%;
-			height: 100%;
-			border-radius: 5px;
-			box-sizing: border-box;
-			padding: 1.5rem 5px 0.5rem;
-			font-size: 1rem;
-			border: 1px solid #e7e7e7;
-
-			&:not(.null):not(.pass) {
-				border: 1px solid red;
-			}
+			border: 1px solid red;
 		}
-
-		input:focus {
-			& + span {
-				top: 5px;
-				left: 5px;
-				font-size: 1rem;
-				transform: none;
-			}
+		.alert {
+			display: flex;
 		}
+	}
+	&.pass {
+		input {
+			border: 1px solid green;
+		}
+	}
 
-		span {
-			transition: all 0.3s;
-			position: absolute;
-			top: 50%;
-			left: 10px;
-			transform: translateY(-50%);
-			font-size: 1.5rem;
-			color: #86868b;
+	.inputWrapper {
+		position: relative;
+	}
 
-			&.small {
+	input {
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		box-sizing: border-box;
+		padding: 1.5rem 5px 0.5rem;
+		font-size: 1rem;
+		border: 1px solid #e7e7e7;
+
+		&:focus {
+			& + .labelText {
 				top: 5px;
 				left: 5px;
 				font-size: 1rem;
@@ -56,11 +46,36 @@ const Container = styled.div`
 		}
 	}
 
-	.alert {
+	.labelText {
+		transition: all 0.3s;
 		position: absolute;
+		top: 50%;
 		left: 10px;
-		bottom: 10px;
+		transform: translateY(-50%);
+		font-size: 1.5rem;
+		color: #86868b;
+
+		&.small {
+			top: 5px;
+			left: 5px;
+			font-size: 1rem;
+			transform: none;
+		}
+	}
+
+	.alert {
+		white-space: nowrap;
+		display: none;
+		align-items: center;
+		width: 90%;
+		height: 2rem;
+		margin: 1rem auto 0;
+		color: red;
 		font-size: 1rem;
+		text-indent: 10px;
+		border-radius: 5px;
+		box-sizing: border-box;
+		background-color: ${({ theme }) => theme.errorBgColor};
 	}
 `
 
@@ -68,112 +83,33 @@ class InputField extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		this.alert = createRef()
 	}
 
-	state = {
-		value: "",
-		name: "",
-		validation: "null"
-	}
-
-	handleChange = e => {
-		let { value, name } = e.currentTarget
-		value = value.trim()
-		this.setState({
-			value,
-			name
-		})
-		if (!value) {
-			const labelText = this.props.t(`components.InputField.labelText.${this.props.labelText}`)
-			this.alert.current.textContent = this.props.t("components.InputField.validation.empty", {
-				labelText
-			})
-			this.setState({
-				validation: "empty"
-			})
-			return
-		} else if (value && name === "email") {
-			const result = expEmail.test(value)
-			if (!result) {
-				this.alert.current.textContent = this.props.t("components.InputField.validation.emailForm")
-				this.setState({
-					validation: "notEmailForm"
-				})
-				return
-			}
-		} else if (value && name === "phone") {
-			this.setState({
-				value: value.replace(expPhone, "")
-			})
-		}
-		this.setState({
-			validation: "pass"
-		})
-	}
-
-	handleFocus = e => {}
-
-	handleBlur = (e, propsBlur) => {
-		if (propsBlur && !propsBlur.valid && propsBlur.validationText) {
-			this.setState({
-				validation: "notValid"
-			})
-			this.alert.current.textContent = propsBlur.validationText
-		}
-	}
-
-	componentDidUpdate() {
-		this.onChange(this.state.value, this.state.name, this.state.validation)
+	static defaultProps = {
+		handleChange: () => {},
+		handleBlur: () => {}
 	}
 
 	render() {
-		const {
-			t,
-			tReady: tready,
-			type = "text",
-			name = "input",
-			labelText,
-			className,
-			children,
-			onChange = () => {},
-			onBlur = () => {},
-			...rest
-		} = this.props
-		this.type = type
-		this.name = name
-		this.onChange = onChange
-
+		const { labelText, type, name, value, error, errorText, handleChange, handleBlur } = this.props
 		return (
-			<Container className={(className, "inputField")}>
-				<label htmlFor="">
+			<StyledWrapper className={`inputField ${error ? "error" : value.length ? "pass" : null}`}>
+				<div className="inputWrapper">
 					<input
 						type={type}
 						name={name}
-						onFocus={this.handleFocus}
-						onBlur={e => this.handleBlur(e, onBlur())}
-						onChange={e => this.handleChange(e)}
-						className={this.state.validation}
-						value={this.state.value}
-						{...rest}
+						value={value}
+						onChange={e => handleChange(name, e.target.value)}
+						onBlur={e => handleBlur(name, e.target.value)}
 					/>
-					<span className={this.state.value ? "small" : null}>
+					<span className={`labelText ${value.length ? "small" : null}`}>
 						<Trans i18nKey={`components.InputField.labelText.${labelText}`} />
 					</span>
-				</label>
-				<p
-					ref={this.alert}
-					className="alert"
-					hidden={this.state.validation === "pass" || this.state.validation === "null"}></p>
-			</Container>
+				</div>
+				<p className="alert">! {errorText}</p>
+			</StyledWrapper>
 		)
 	}
 }
 
-const TransInputField = withTranslation()(InputField)
-
-const mapStateToProps = state => ({})
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TransInputField)
+export default withTranslation()(InputField)

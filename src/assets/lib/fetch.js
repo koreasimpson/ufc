@@ -19,3 +19,12 @@ export const fetchEvents = () => {
 		})
 		.catch(err => console.error(err.message))
 }
+
+export const fetchUsers = async () => {
+	return await fetch("//allaboutufc-26533.firebaseio.com/users.json")
+		.then(res => res.json())
+		.then(data => {
+			return data.data
+		})
+		.catch(err => console.error(err.message))
+}

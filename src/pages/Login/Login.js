@@ -1,150 +1,155 @@
-// todo : 로그인 된 상태에서 url로 접속할 수 있으니 -> 체크해서 mypage로 이동
-// todo : 로그인 후 mypage로 이동
-import React, { Component, createRef } from "react"
-import store from "store"
-import styled from "styled-components"
+import React, { Component } from "react"
 import { Link, withRouter, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
 import { withTranslation, Trans } from "react-i18next"
 
-import { ACCESS_LOGIN } from "../../store/actions/auth"
-
+import store from "store"
+import { ACCESS_LOGIN } from "store/actions/auth"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import InputField from "components/Common/InputField"
-
-const Container = styled.main`
-	form {
-		position: relative;
-		display: inline-block;
-
-		& [class*="Field"] {
-			width: 100%;
-		}
-
-		button {
-			margin-top: 20px;
-			width: 300px;
-			background-color: ${({ theme }) => theme.majorColor};
-			color: #fff;
-			border-radius: 12px;
-			padding: 15px 0;
-			box-sizing: border-box;
-			font-size: 2rem;
-			font-family: inherit;
-		}
-
-		.loginAlert {
-			position: absolute;
-			top: -3rem;
-			left: 50%;
-			transform: translateX(-50%);
-			font-size: 2rem;
-			padding-bottom: 20px;
-		}
-
-		.signup {
-			display: block;
-			font-size: 1rem;
-			text-decoration: underline;
-			margin-top: 20px;
-		}
-	}
-
-	.testAccount {
-		margin-top: 20px;
-	}
-`
+import StyledWrapper from "./LoginStyled"
+import { fetchUsers } from "assets/lib/fetch"
 
 class Login extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		this.loginAlert = createRef()
-		this.email = ""
-		this.emailValidation = ""
-		this.password = ""
-		this.passwordValidation = ""
-		this.validUser = "null"
 	}
 
-	handleInput = (value, name, isPassed) => {
-		this[name] = value
-		this[`${name}Validation`] = isPassed
+	state = {
+		val: {
+			account: "",
+			password: ""
+		},
+		error: {
+			account: false,
+			password: false
+		},
+		errorText: {
+			account: "",
+			password: ""
+		}
 	}
 
-	checkValidUser = e => {
+	getInputValue = (name, value) => {
+		this.setState({
+			...this.state,
+			val: {
+				...this.state.val,
+				[name]: value
+			}
+		})
+	}
+
+	checkInputError = (name, value) => {
+		let error, errorText
+		switch (name) {
+			case "account":
+				if (value.length) {
+					error = false
+					errorText = ""
+				} else {
+					error = true
+					errorText = "값을 입력해주세요"
+				}
+				break
+
+			default:
+				break
+		}
+		this.setState({
+			...this.state,
+			error: {
+				...this.state.error,
+				[name]: error
+			},
+			errorText: {
+				...this.state.errorText,
+				[name]: errorText
+			}
+		})
+	}
+
+	checkValidUser = async () => {
+		const userData = await fetchUsers()
+		let result = false
+		for (let i = 0; i < userData.length; i++) {
+			const { account, password, uid } = userData[i]
+			if (this.state.val.account === account && this.state.val.password === password) {
+				result = true
+				this.setAuthToLocalstorage(uid)
+				break
+			}
+		}
+		return result
+	}
+
+	setAuthToLocalstorage = uid => {
+		const today = new Date()
+		const timeStamp = today.getTime()
+		const expireTime = timeStamp + 1000 * 60 * 1
+		const data = {
+			expireTime,
+			uid
+		}
+		localStorage.setItem("nzcUfcAuth", JSON.stringify(data))
+	}
+
+	handleSubmit = async e => {
 		e.preventDefault()
-		this.validUser = "invalid"
-
-		if (!(this.emailValidation === "pass" && this.passwordValidation === "pass")) {
-			alert("입력필드를 모두 입력해주세요")
-			return
-		}
-
-		if (this.email.length) {
-			import("assets/dummyData/user.json")
-				.then(({ default: userList }) => {
-					for (let i = 0; i < userList.length; i++) {
-						const { email, password } = userList[i]
-						if (this.email === email && this.password === password) {
-							this.validUser = "pass"
-							break
-						}
-					}
-				})
-				.then(() => {
-					this.handleSubmit()
-				})
-				.catch(error => {
-					console.error("error = ", error)
-				})
-		}
-	}
-
-	handleSubmit = e => {
-		if (!(this.emailValidation === "pass" && this.passwordValidation === "pass")) return false
-		if (this.validUser === "pass") {
+		const result = await this.checkValidUser()
+		if (result) {
 			store.dispatch({ type: ACCESS_LOGIN })
-			this.props.history.push("/")
-			// const wantedPath = this.props.to.state.from.pathname
-			// wantedPath ? this.props.history.push(wantedPath) : this.props.history.push("/")
+			if (this.props.location.state) {
+				const wantedPath = this.props.location.state.from.pathname
+				this.props.history.push(wantedPath)
+			} else {
+				this.props.history.push("/")
+			}
 		} else {
-			this.loginAlert.current.hidden = false
+			document.querySelector(".loginAlert").hidden = false
 		}
 	}
 
 	render() {
-		const { className } = this.props
-		return this.props.isAuth ? (
+		const { className, isAuth } = this.props
+		return isAuth ? (
 			<Redirect to="/my/" />
 		) : (
-			<Container className={className}>
+			<StyledWrapper className={className}>
 				<AppHelmet />
 				<section className="contentWrap">
 					<h2>
 						<Trans i18nKey="pages.Login.h2" />
 					</h2>
-					<form onSubmit={this.checkValidUser}>
-						<p ref={this.loginAlert} className="loginAlert" hidden>
+					<form onSubmit={this.handleSubmit}>
+						<p className="loginAlert" hidden>
 							<Trans i18nKey="pages.Login.validation" />
 						</p>
-						<div className="emailField">
-							<InputField
-								type="text"
-								labelText="account"
-								name="email"
-								onChange={this.handleInput}
-							/>
-						</div>
-						<div className="passwordField">
-							<InputField
-								type="password"
-								labelText="password"
-								name="password"
-								onChange={this.handleInput}
-							/>
-						</div>
-						<button type="submit" className="button login">
+						<InputField
+							labelText="account"
+							type="text"
+							name="account"
+							value={this.state.val.account || ""}
+							error={this.state.error.account || ""}
+							errorText={this.state.errorText.account || ""}
+							handleChange={this.getInputValue}
+							handleBlur={this.checkInputError}
+						/>
+						<InputField
+							labelText="password"
+							type="password"
+							name="password"
+							value={this.state.val.password || ""}
+							error={this.state.error.password || ""}
+							errorText={this.state.errorText.password || ""}
+							handleChange={this.getInputValue}
+							handleBlur={this.checkInputError}
+						/>
+						<button
+							type="submit"
+							className="button login"
+							disabled={!(this.state.val.account && this.state.val.password)}>
 							<Trans i18nKey="pages.Login.h2" />
 						</button>
 						<br />
@@ -153,10 +158,10 @@ class Login extends Component {
 						</Link>
 					</form>
 					<p className="testAccount">
-						<small>id: TEST_USER1@ufc.com | password: TEST1234! </small>
+						<small>account: TEST_USER1@ufc.com | password: TEST1234! </small>
 					</p>
 				</section>
-			</Container>
+			</StyledWrapper>
 		)
 	}
 }
