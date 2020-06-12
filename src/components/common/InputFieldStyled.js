@@ -1,11 +1,29 @@
 import styled from "styled-components"
 
 const StyledWrapper = styled.div`
-	display: inline-block;
 	position: relative;
-	padding-bottom: 32px;
-	flex: 1;
+	display: inline-block;
+	padding-bottom: 1rem;
 	width: 100%;
+	flex: 1;
+
+	&.error {
+		input {
+			border: 1px solid red;
+		}
+		.alert {
+			display: flex;
+		}
+	}
+	&.pass {
+		input {
+			border: 1px solid green;
+		}
+	}
+
+	.inputWrapper {
+		position: relative;
+	}
 
 	input {
 		width: 100%;
@@ -16,21 +34,17 @@ const StyledWrapper = styled.div`
 		font-size: 1rem;
 		border: 1px solid #e7e7e7;
 
-		&:not(.null):not(.pass) {
-			border: 1px solid red;
+		&:focus {
+			& + .labelText {
+				top: 5px;
+				left: 5px;
+				font-size: 1rem;
+				transform: none;
+			}
 		}
 	}
 
-	input:focus {
-		& + span {
-			top: 5px;
-			left: 5px;
-			font-size: 1rem;
-			transform: none;
-		}
-	}
-
-	span {
+	.labelText {
 		transition: all 0.3s;
 		position: absolute;
 		top: 50%;
@@ -48,10 +62,18 @@ const StyledWrapper = styled.div`
 	}
 
 	.alert {
-		position: absolute;
-		left: 10px;
-		bottom: 10px;
+		white-space: nowrap;
+		display: none;
+		align-items: center;
+		width: 90%;
+		height: 2rem;
+		margin: 1rem auto 0;
+		color: red;
 		font-size: 1rem;
+		text-indent: 10px;
+		border-radius: 5px;
+		box-sizing: border-box;
+		background-color: ${({ theme }) => theme.errorBgColor};
 	}
 `
 
