@@ -57,15 +57,15 @@ class AppMain extends Component {
 		return (
 			<Fragment>
 				<Switch>
-					<Route path="/event/" component={Event} className={className} />
-					<Route path="/fighter/" component={Fighter} className={className} />
-					<Route path="/ranking/" component={Ranking} className={className} />
-					<Route path="/live/" component={Live} className={className} />
-					<Route path="/shop/" component={Shop} className={className} />
-					<Route path="/support/" component={Support} />
-					<Route path="/login/" component={Login} />
-					<Auth path="/my/" component={My} className={className} />
-					<Route path="/signup/" component={SignUp} />
+					<Route path="/event/" component={Event} className={className} exact />
+					<Route path="/fighter/" component={Fighter} className={className} exact />
+					<Route path="/ranking/" component={Ranking} className={className} exact />
+					<Route path="/live/" component={Live} className={className} exact />
+					<Route path="/shop/" component={Shop} className={className} exact />
+					<Route path="/support/" component={Support} exact />
+					<Route path="/login/" component={Login} exact />
+					<Auth path="/my/" component={My} className={className} exact />
+					<Route path="/signup/" component={SignUp} exact />
 					<Route path="/" exact>
 						<Container>
 							<AppHelmet />
