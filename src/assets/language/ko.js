@@ -179,7 +179,8 @@ const ko = {
 					phone: "핸드폰 번호",
 					firstName: "이름",
 					familyName: "성",
-					sequrityAnswer: "질문 답변"
+					sequrityAnswer1: "질문 답변1",
+					sequrityAnswer2: "질문 답변2"
 				},
 				validation: {
 					empty: "{{ labelText }}을(를) 입력해주세요",

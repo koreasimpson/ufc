@@ -1,137 +1,122 @@
 import React, { Component } from "react"
-import styled from "styled-components"
 import { withTranslation, Trans } from "react-i18next"
-
 import InputField from "components/Common/InputField"
-import { expPassword } from "assets/lib/regExp"
-import { device } from "config/responsive"
-
-const Container = styled.main`
-	form {
-		fieldset {
-			border: none;
-			padding: 0;
-			&::after {
-				content: "";
-				display: block;
-				width: 80%;
-				height: 1px;
-				margin: 0 auto;
-				padding-bottom: 1.5rem;
-				border-top: 1px solid #e7e7e7;
-			}
-		}
-
-		[class*="Field"] {
-			width: 460px;
-			margin: 0 auto;
-			display: flex;
-		}
-
-		.sequrityQuestionContainer {
-			select {
-				margin-bottom: 20px;
-			}
-
-			.inputField {
-				display: block;
-			}
-		}
-
-		button {
-			margin-top: 20px;
-			width: 300px;
-			background-color: ${({ theme }) => theme.majorColor};
-			border-radius: 12px;
-			padding: 15px 0;
-			box-sizing: border-box;
-			color: #fff;
-			font-size: 2rem;
-			font-family: inherit;
-		}
-	}
-
-	@media screen and ${device.laptop} {
-		form {
-			min-width: 300px;
-		}
-	}
-
-	@media screen and ${device.mobileTabletOnly} {
-		form {
-			width: 100%;
-
-			[class*="Field"] {
-				width: 100%;
-				margin: 0 auto;
-				display: flex;
-			}
-
-			button {
-				width: 100%;
-			}
-		}
-	}
-`
+import { expPassword, expEmail, expPhone } from "assets/lib/regExp"
+import StyledWrapper from "./SignUpFormStyled"
 
 class SignUp extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		this.form = {
-			familyName: "",
-			firstName: "",
-			email: "",
-			account: "",
-			password: "",
-			passwordConfirm: "",
-			phone: "",
-			// address: "",
-			sequrityQuestion1: "1",
-			sequrityAnswer1: "",
-			sequrityQuestion2: "7",
-			sequrityAnswer2: ""
-		}
-		this.formValidation = {
-			familyName: "",
-			firstName: "",
-			email: "",
-			account: "",
-			password: "",
-			passwordConfirm: "",
-			phone: "",
-			// address: "",
-			sequrityAnswer1: "",
-			sequrityAnswer2: ""
-		}
-		this.allPass = false
 	}
 
 	state = {
-		test: false
+		val: {
+			familyName: "",
+			firstName: "",
+			email: "",
+			account: "",
+			password: "",
+			passwordConfirm: "",
+			phone: "",
+			sequrityQuestion1: "",
+			sequrityAnswer1: "",
+			sequrityQuestion2: "",
+			sequrityAnswer2: ""
+		},
+		error: {
+			familyName: "",
+			firstName: "",
+			email: "",
+			account: "",
+			password: "",
+			passwordConfirm: "",
+			phone: "",
+			sequrityQuestion1: false,
+			sequrityAnswer1: "",
+			sequrityQuestion2: false,
+			sequrityAnswer2: ""
+		},
+		errorText: {
+			familyName: "",
+			firstName: "",
+			email: "",
+			account: "",
+			password: "",
+			passwordConfirm: "",
+			phone: "",
+			sequrityQuestion1: "",
+			sequrityAnswer1: "",
+			sequrityQuestion2: "",
+			sequrityAnswer2: ""
+		}
 	}
 
-	makeUniqueStr = () => {
+	makeUniqueId = () => {
 		return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
 	}
 
 	setUid = () => {
-		return `${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()} + '-' + ${this.makeUniqueStr()}`
+		return `${this.makeUniqueId()}-${this.makeUniqueId()}-${this.makeUniqueId()}-${this.makeUniqueId()}-${this.makeUniqueId()}`
 	}
 
-	isAllPass = () => {
-		this.allPass = true
-		for (let key in this.formValidation) {
-			if (this.formValidation[key] !== "pass") {
-				this.allPass = false
+	getInputValue = (name, value) => {
+		if (name === "phone") value = value.replace(expPhone, "")
+		this.setState({
+			...this.state,
+			val: {
+				...this.state.val,
+				[name]: value
+			}
+		})
+	}
+
+	checkInputError = (name, value) => {
+		let error = false
+		let errorText = ""
+		let labelText = this.props.t(`components.InputField.labelText.${name}`)
+		if (!value.length) {
+			error = true
+			errorText = this.props.t("components.InputField.validation.empty", { labelText })
+		} else {
+			switch (name) {
+				case "email":
+				case "account":
+					const emailTestResult = expEmail.test(value)
+					if (!emailTestResult) {
+						error = true
+						errorText = this.props.t("components.InputField.validation.emailForm")
+					}
+					break
+				case "password":
+					const passwordTestResult = expPassword.test(value)
+					if (!passwordTestResult) {
+						error = true
+						errorText = this.props.t("components.InputField.validation.passwordRules")
+					}
+					break
+				case "passwordConfirm":
+					const isSame = this.state.val.password === value
+					if (!isSame) {
+						error = true
+						errorText = this.props.t("components.InputField.validation.notSamePassword")
+					}
+					break
+				default:
+					break
 			}
 		}
-		return this.allPass
-	}
-
-	handleInput = (value, name, isPassed) => {
-		this.form[name] = value
-		this.formValidation[name] = isPassed
+		this.setState({
+			...this.state,
+			error: {
+				...this.state.error,
+				[name]: error
+			},
+			errorText: {
+				...this.state.errorText,
+				[name]: errorText
+			}
+		})
 	}
 
 	handleSelect = e => {
@@ -140,61 +125,40 @@ class SignUp extends Component {
 		const selectedOptions = options.filter(option => option.selected)
 		const selectedOptionsValue = selectedOptions.map(option => option.value)
 
-		this.form[name] = selectedOptionsValue[0]
-		this.formValidation[name] = "pass"
+		this.setState({
+			...this.state,
+			val: {
+				...this.state.val,
+				[name]: selectedOptionsValue[0]
+			}
+		})
 	}
 
 	handleSubmit = e => {
 		e.preventDefault()
-		console.log("this.form =", this.form)
-		return
-		if (!this.isAllPass()) {
-			alert(this.props.t("components.SignUp.Form.validation.notAllPass"))
-		} else {
+		const isAllPass = this.isAllPass()
+		if (isAllPass) {
 			this.props.completeSignUp()
+		} else {
+			alert(this.props.t("components.SignUp.Form.validation.notAllPass"))
 		}
 	}
 
-	checkPasswordExp = e => {
-		const email = this.form["email"]
-		const password = this.form["password"]
-		const passwordConfirm = this.form["passwordConfirm"]
-		const result = expPassword.test(password)
-		if (result) {
-			if (this.form["email"] && password.includes(email)) {
-				return {
-					valid: false,
-					validationText: this.props.t("components.InputField.validation.passwordInValidationText")
-				}
-			} else if (passwordConfirm.length) {
-				const confirmElement = document.querySelector("[name=passwordConfirm]")
-				confirmElement.focus()
-			}
-		} else if (password) {
-			return {
-				valid: false,
-				validationText: this.props.t("components.InputField.validation.passwordRules")
-			}
+	isAllPass = () => {
+		let isAllPass = true
+		for (let key in this.state.error) {
+			// console.log(key, " = ", this.state.error[key])
+			if (this.state.error[key] !== false) isAllPass = false
 		}
-	}
-
-	checkPasswordConfirm = e => {
-		if (
-			this.form["password"] &&
-			this.form["passwordConfirm"] &&
-			this.form["password"] !== this.form["passwordConfirm"]
-		) {
-			return {
-				valid: false,
-				validationText: this.props.t("components.InputField.validation.notSamePassword")
-			}
-		}
+		return isAllPass
 	}
 
 	render() {
 		const { className } = this.props
+		const { val, error, errorText } = this.state
+
 		return (
-			<Container className={className}>
+			<StyledWrapper className={className}>
 				<section className="contentWrap">
 					<h2>
 						<Trans i18nKey="components.SignUp.Form.h2" />
@@ -207,58 +171,78 @@ class SignUp extends Component {
 							<legend className="a11yHidden">
 								<Trans i18nKey="components.SignUp.Form.legend.required" />
 							</legend>
-							<div className="nameField">
-								<InputField labelText="familyName" name="familyName" onChange={this.handleInput} />
-								<InputField labelText="firstName" name="firstName" onChange={this.handleInput} />
-							</div>
-							<div className="emailField">
+							<div className="fieldWrapper">
 								<InputField
+									labelText="familyName"
 									type="text"
-									labelText="email"
-									name="email"
-									onChange={this.handleInput}
+									name="familyName"
+									value={val.familyName}
+									error={error.familyName}
+									errorText={errorText.familyName}
+									handleChange={this.getInputValue}
+									handleBlur={this.checkInputError}
 								/>
-							</div>
-							<div className="accountField">
 								<InputField
+									labelText="firstName"
 									type="text"
-									labelText="account"
-									name="account"
-									onChange={this.handleInput}
+									name="firstName"
+									value={val.firstName}
+									error={error.firstName}
+									errorText={errorText.firstName}
+									handleChange={this.getInputValue}
+									handleBlur={this.checkInputError}
 								/>
 							</div>
-							<div className="passwordField">
-								<InputField
-									type="password"
-									labelText="password"
-									name="password"
-									onChange={this.handleInput}
-									onBlur={this.checkPasswordExp}
-								/>
-							</div>
-							<div className="passwordConfirmField">
-								<InputField
-									type="password"
-									labelText="passwordConfirm"
-									name="passwordConfirm"
-									onChange={this.handleInput}
-									onBlur={this.checkPasswordConfirm}
-								/>
-							</div>
-						</fieldset>
-						<fieldset>
-							<legend className="a11yHidden">
-								<Trans i18nKey="components.SignUp.Form.legend.required" />
-							</legend>
-							<div className="phoneField">
-								<InputField
-									type="text"
-									labelText="phone"
-									name="phone"
-									onChange={this.handleInput}
-								/>
-							</div>
-							<div className="addressField">{/* API 연동 */}</div>
+							<InputField
+								labelText="email"
+								type="text"
+								name="email"
+								value={val.email}
+								error={error.email}
+								errorText={errorText.email}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
+							<InputField
+								labelText="account"
+								type="text"
+								name="account"
+								value={val.account}
+								error={error.account}
+								errorText={errorText.account}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
+							<InputField
+								labelText="password"
+								type="text"
+								name="password"
+								value={val.password}
+								error={error.password}
+								errorText={errorText.password}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
+							<InputField
+								labelText="passwordConfirm"
+								type="text"
+								name="passwordConfirm"
+								value={val.passwordConfirm}
+								error={error.passwordConfirm}
+								errorText={errorText.passwordConfirm}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
+							<InputField
+								labelText="phone"
+								type="text"
+								name="phone"
+								value={val.phone}
+								error={error.phone}
+								errorText={errorText.phone}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
 						</fieldset>
 						<fieldset>
 							<legend className="a11yHidden">
@@ -288,12 +272,15 @@ class SignUp extends Component {
 										{this.props.t("components.SignUp.Form.sequrityQuestionList.list6")}
 									</option>
 								</select>
-
 								<InputField
+									labelText="sequrityAnswer1"
 									type="text"
-									labelText="sequrityAnswer"
 									name="sequrityAnswer1"
-									onChange={this.handleInput}
+									value={val.sequrityAnswer1}
+									error={error.sequrityAnswer1}
+									errorText={errorText.sequrityAnswer1}
+									handleChange={this.getInputValue}
+									handleBlur={this.checkInputError}
 								/>
 								<select
 									name="sequrityQuestion2"
@@ -318,21 +305,24 @@ class SignUp extends Component {
 										{this.props.t("components.SignUp.Form.sequrityQuestionList.list12")}
 									</option>
 								</select>
-
 								<InputField
+									labelText="sequrityAnswer2"
 									type="text"
-									labelText="sequrityAnswer"
 									name="sequrityAnswer2"
-									onChange={this.handleInput}
+									value={val.sequrityAnswer2}
+									error={error.sequrityAnswer2}
+									errorText={errorText.sequrityAnswer2}
+									handleChange={this.getInputValue}
+									handleBlur={this.checkInputError}
 								/>
 							</div>
 						</fieldset>
-						<button type="submit">
+						<button type="submit" className="button submit">
 							<Trans i18nKey="components.SignUp.Form.h2" />
 						</button>
 					</form>
 				</section>
-			</Container>
+			</StyledWrapper>
 		)
 	}
 }
