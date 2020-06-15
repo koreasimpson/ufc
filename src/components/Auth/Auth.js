@@ -1,10 +1,12 @@
 import React, { Component } from "react"
 import { Route, Redirect, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
+import store from "store"
 
 class Auth extends Component {
 	render() {
-		const { isAuth, component: Component, ...rest } = this.props
+		const { component: Component, ...rest } = this.props
+		const isAuth = store.getState().authReducer.isAuth
 		return (
 			<Route
 				{...rest}
@@ -25,10 +27,5 @@ class Auth extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	isAuth: state.authReducer.isAuth
-})
-
-const mapDispatchToProps = {}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth))
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth))
+export default withRouter(Auth)
