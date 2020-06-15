@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
-import styled from "styled-components"
 import { Switch, Route } from "react-router-dom"
 import { withTranslation, Trans } from "react-i18next"
 
@@ -16,34 +15,10 @@ import SignUp from "pages/SignUp/SignUp"
 import PageNotFound from "pages/PageNotFound/PageNotFound"
 
 import Auth from "components/Auth/Auth"
-import AppHelmet from "components/AppHelmet/AppHelmet"
+import Main from "components/Main/Main"
 
-import langdingBg from "assets/img/background_header.jpg"
 import { fetchFighters, fetchEvents } from "assets/lib/fetch"
 
-const Container = styled.main`
-	background-color: ${({ theme }) => theme.bgColor};
-	color: ${({ theme }) => theme.textColor};
-
-	.landing {
-		background-image: url(${langdingBg});
-
-		dl {
-			margin-top: 2rem;
-			dt {
-				font-size: 2rem;
-				font-weight: bold;
-				padding: 1rem;
-				border: 1px solid #fff;
-			}
-			dd {
-				font-size: 1.5rem;
-				font-weight: bold;
-				padding: 0.5rem;
-			}
-		}
-	}
-`
 class AppMain extends Component {
 	constructor(props) {
 		super(props)
@@ -57,48 +32,18 @@ class AppMain extends Component {
 		return (
 			<Fragment>
 				<Switch>
-					<Route path="/event/" component={Event} className={className} exact />
-					<Route path="/fighter/" component={Fighter} className={className} exact />
-					<Route path="/ranking/" component={Ranking} className={className} exact />
-					<Route path="/live/" component={Live} className={className} exact />
-					<Route path="/shop/" component={Shop} className={className} exact />
-					<Route path="/support/" component={Support} exact />
-					<Route path="/login/" component={Login} exact />
-					<Auth path="/my/" component={My} className={className} exact />
-					<Route path="/signup/" component={SignUp} exact />
 					<Route path="/" exact>
-						<Container>
-							<AppHelmet />
-							<h2 className="a11yHidden">
-								<Trans i18nKey="components.AppMain.h2" />
-							</h2>
-							<div className="landing bg">
-								<p className="desc">
-									<Trans i18nKey="components.AppMain.desc" />
-								</p>
-								<dl>
-									<dt>
-										<Trans i18nKey="components.AppMain.skills.title" />
-									</dt>
-									<dd>
-										<Trans i18nKey="components.AppMain.skills.react" />
-									</dd>
-									<dd>
-										<Trans i18nKey="components.AppMain.skills.reactHooks" />
-									</dd>
-									<dd>
-										<Trans i18nKey="components.AppMain.skills.styledComponent" />
-									</dd>
-									<dd>
-										<Trans i18nKey="components.AppMain.skills.redux" />
-									</dd>
-									<dd>
-										<Trans i18nKey="components.AppMain.skills.reactRouter" />
-									</dd>
-								</dl>
-							</div>
-						</Container>
+						<Main />
 					</Route>
+					<Route path="/event/" component={Event} className={className} />
+					<Route path="/fighter/" component={Fighter} className={className} />
+					<Route path="/ranking/" component={Ranking} className={className} />
+					<Route path="/live/" component={Live} className={className} />
+					<Route path="/shop/" component={Shop} className={className} />
+					<Route path="/support/" component={Support} />
+					<Route path="/login/" component={Login} />
+					<Auth path="/my/" component={My} className={className} />
+					<Route path="/signup/" component={SignUp} />
 					<Route component={PageNotFound} />
 				</Switch>
 			</Fragment>
@@ -108,8 +53,4 @@ class AppMain extends Component {
 
 const TransAppMain = withTranslation()(AppMain)
 
-const mapStateToProps = state => ({})
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TransAppMain)
+export default TransAppMain

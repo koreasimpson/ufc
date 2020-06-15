@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom"
 import { CookiesProvider, useCookies } from "react-cookie"
 import { connect } from "react-redux"
 import { Trans } from "react-i18next"
+import { BackTop } from "antd"
+import { UpSquareFilled } from "@ant-design/icons"
 
 import { GlobalStyle } from "styles/globalStyle"
 import AppHeader from "components/AppHeader/AppHeader"
@@ -42,6 +44,9 @@ const App = props => {
 						</Modal.Contents>
 						<Modal.Footer />
 					</Modal>
+					<BackTop>
+						<UpSquareFilled style={{ fontSize: "50px", color: "#CC0B0B" }} />
+					</BackTop>
 				</div>
 			</ThemeProvider>
 		</CookiesProvider>

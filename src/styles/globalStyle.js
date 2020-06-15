@@ -164,6 +164,10 @@ export const GlobalStyle = createGlobalStyle`
     white-space: nowrap;
   }
 
+  .highlight {
+    background-color: ${({ theme }) => theme.highlight};
+  }
+
   @media screen and ${device.laptop} {
     .mobileTabletOnly {
       display: none;

@@ -6,7 +6,8 @@ const theme = {
 		textColorInvert: "#fff",
 		logoColor: "#000",
 		majorColor: "#CC0B0B",
-		errorBgColor: "#FFCEC6"
+		errorBgColor: "#FFCEC6",
+		highlight: "#D5648B"
 	},
 	dark: {
 		bgColor: "#202020",
@@ -18,7 +19,8 @@ const theme = {
 		textColorInvert: "#000",
 		logoColor: "#CC0B0B",
 		majorColor: "#CC0B0B",
-		errorBgColor: "#FFCEC6"
+		errorBgColor: "#FFCEC6",
+		highlight: "#F73651"
 	}
 }
 
