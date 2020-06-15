@@ -9,6 +9,7 @@ import store from "store"
 import { breakpoint } from "config/responsive"
 import { SET_THEME_LIGHT, SET_THEME_DARK } from "store/actions/theme"
 import Wrapper, { StyledLogo, StyledArrow } from "./AppGnbStyled"
+import { ACCESS_LOGOUT } from "store/actions/auth"
 
 class AppGnb extends Component {
 	constructor(props) {
@@ -54,6 +55,10 @@ class AppGnb extends Component {
 			return
 		}
 		this.gnb.current.classList.remove("is-show")
+	}
+
+	onLogOut = () => {
+		store.dispatch({ type: ACCESS_LOGOUT })
 	}
 
 	handleAccountMenuItem = e => {
@@ -127,7 +132,9 @@ class AppGnb extends Component {
 						<ul ref={this.accountMenuList} className="depth2" hidden>
 							<li>
 								{isAuth ? (
-									<button>로그아웃</button>
+									<button className="button logout" onClick={this.onLogOut}>
+										로그아웃
+									</button>
 								) : (
 									<NavLink to="/login" onClick={e => this.handleLink(e)}>
 										로그인

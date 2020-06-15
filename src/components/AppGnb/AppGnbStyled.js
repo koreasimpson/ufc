@@ -95,7 +95,8 @@ const StyledWrapper = styled.nav`
 				}
 			}
 
-			a {
+			a,
+			.button.logout {
 				padding: 1rem;
 				display: inline-block;
 			}
