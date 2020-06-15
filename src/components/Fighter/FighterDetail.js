@@ -92,11 +92,6 @@ class FighterDetail extends Component {
 		this.props = props
 	}
 
-	toggleComment = () => {
-		const target = document.querySelector("[shortname=90chanho]")
-		console.log("target =", target)
-	}
-
 	componentDidMount() {
 		const body = document.querySelector("body")
 		body.scrollIntoView({ behavior: "smooth" })
@@ -204,9 +199,6 @@ class FighterDetail extends Component {
 					<p>
 						<Trans i18nKey="components.FighterDetail.comment.desc" />
 					</p>
-					<button onClick={this.toggleComment}>
-						<Trans i18nKey="components.FighterDetail.comment.button.show" />
-					</button>
 					<DiscussionEmbed
 						shortname="ufc"
 						config={{
