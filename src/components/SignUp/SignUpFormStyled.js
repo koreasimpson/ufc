@@ -30,6 +30,7 @@ const StyledWrapper = styled.main`
 		.sequrityQuestionContainer {
 			select {
 				width: 100%;
+				height: 2rem;
 				margin-bottom: 20px;
 			}
 		}
@@ -44,6 +45,11 @@ const StyledWrapper = styled.main`
 			color: #fff;
 			font-size: 2rem;
 			font-family: inherit;
+		}
+
+		.ant-alert {
+			display: none;
+			margin-top: 20px;
 		}
 	}
 

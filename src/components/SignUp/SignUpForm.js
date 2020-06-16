@@ -3,6 +3,7 @@ import { withTranslation, Trans } from "react-i18next"
 import InputField from "components/Common/InputField"
 import { expPassword, expEmail, expPhone } from "assets/lib/regExp"
 import StyledWrapper from "./SignUpFormStyled"
+import { Alert } from "antd"
 
 class SignUp extends Component {
 	constructor(props) {
@@ -140,21 +141,24 @@ class SignUp extends Component {
 		if (isAllPass) {
 			this.props.completeSignUp()
 		} else {
-			alert(this.props.t("components.SignUp.Form.validation.notAllPass"))
+			const alertElement = document.querySelector(".ant-alert")
+			alertElement.style.display = "block"
+			setTimeout(() => {
+				alertElement.style.display = "none"
+			}, 5000)
 		}
 	}
 
 	isAllPass = () => {
 		let isAllPass = true
 		for (let key in this.state.error) {
-			// console.log(key, " = ", this.state.error[key])
 			if (this.state.error[key] !== false) isAllPass = false
 		}
 		return isAllPass
 	}
 
 	render() {
-		const { className } = this.props
+		const { className, t } = this.props
 		const { val, error, errorText } = this.state
 
 		return (
@@ -208,6 +212,7 @@ class SignUp extends Component {
 								type="text"
 								name="account"
 								value={val.account}
+								tooltipText="이메일 형식으로 입력해주세요"
 								error={error.account}
 								errorText={errorText.account}
 								handleChange={this.getInputValue}
@@ -218,6 +223,7 @@ class SignUp extends Component {
 								type="text"
 								name="password"
 								value={val.password}
+								tooltipText="숫자와 특수문자를 각각 최소 1개씩 포함하는 8글자 이상"
 								error={error.password}
 								errorText={errorText.password}
 								handleChange={this.getInputValue}
@@ -320,6 +326,12 @@ class SignUp extends Component {
 						<button type="submit" className="button submit">
 							<Trans i18nKey="components.SignUp.Form.h2" />
 						</button>
+						<Alert
+							message="회원가입 안내"
+							description={t("components.SignUp.Form.validation.notAllPass")}
+							type="error"
+							showIcon
+						/>
 					</form>
 				</section>
 			</StyledWrapper>
