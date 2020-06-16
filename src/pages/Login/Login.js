@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link, withRouter, Redirect } from "react-router-dom"
-import { connect } from "react-redux"
 import { withTranslation, Trans } from "react-i18next"
+import { message } from "antd"
 
 import store from "store"
 import { ACCESS_LOGIN } from "store/actions/auth"
@@ -42,20 +42,12 @@ class Login extends Component {
 	}
 
 	checkInputError = (name, value) => {
-		let error, errorText
-		switch (name) {
-			case "account":
-				if (value.length) {
-					error = false
-					errorText = ""
-				} else {
-					error = true
-					errorText = "값을 입력해주세요"
-				}
-				break
-
-			default:
-				break
+		let error = false
+		let errorText = ""
+		let labelText = this.props.t(`components.InputField.labelText.${name}`)
+		if (!value.length) {
+			error = true
+			errorText = this.props.t("components.InputField.validation.empty", { labelText })
 		}
 		this.setState({
 			...this.state,
@@ -87,7 +79,7 @@ class Login extends Component {
 	setAuthToLocalstorage = uid => {
 		const today = new Date()
 		const timeStamp = today.getTime()
-		const expireTime = timeStamp + 1000 * 60 * 1
+		const expireTime = timeStamp + 1000 * 60 * 10
 		const data = {
 			expireTime,
 			uid
@@ -99,6 +91,7 @@ class Login extends Component {
 		e.preventDefault()
 		const result = await this.checkValidUser()
 		if (result) {
+			message.success("로그인에 성공하였습니다.")
 			store.dispatch({ type: ACCESS_LOGIN })
 			if (this.props.location.state) {
 				const wantedPath = this.props.location.state.from.pathname
@@ -107,12 +100,14 @@ class Login extends Component {
 				this.props.history.push("/")
 			}
 		} else {
-			document.querySelector(".loginAlert").hidden = false
+			document.querySelector(".alert").hidden = false
 		}
 	}
 
 	render() {
-		const { className, isAuth } = this.props
+		const { className } = this.props
+		const isAuth = store.getState().authReducer.isAuth
+
 		return isAuth ? (
 			<Redirect to="/my/" />
 		) : (
@@ -123,7 +118,7 @@ class Login extends Component {
 						<Trans i18nKey="pages.Login.h2" />
 					</h2>
 					<form onSubmit={this.handleSubmit}>
-						<p className="loginAlert" hidden>
+						<p className="alert" hidden>
 							<Trans i18nKey="pages.Login.validation" />
 						</p>
 						<InputField
@@ -168,10 +163,4 @@ class Login extends Component {
 
 const TransLogin = withTranslation()(Login)
 
-const mapStateToProps = state => ({
-	isAuth: state.authReducer.isAuth
-})
-
-const mapDispatchToProps = {}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TransLogin))
+export default withRouter(TransLogin)

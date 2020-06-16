@@ -23,13 +23,8 @@ const StyledWrapper = styled.main`
 			font-family: inherit;
 		}
 
-		.loginAlert {
-			position: absolute;
-			top: -3rem;
-			left: 50%;
-			transform: translateX(-50%);
-			font-size: 2rem;
-			padding-bottom: 20px;
+		.alert {
+			margin-bottom: 1rem;
 		}
 
 		.signup {
