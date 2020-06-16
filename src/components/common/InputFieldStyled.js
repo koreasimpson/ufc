@@ -61,7 +61,7 @@ const StyledWrapper = styled.div`
 		}
 	}
 
-	.alert {
+	/* .alert {
 		white-space: nowrap;
 		display: none;
 		align-items: center;
@@ -74,7 +74,7 @@ const StyledWrapper = styled.div`
 		border-radius: 5px;
 		box-sizing: border-box;
 		background-color: ${({ theme }) => theme.errorBgColor};
-	}
+	} */
 `
 
 export default StyledWrapper
