@@ -18,7 +18,7 @@ class EventItem extends Component {
 	}
 
 	handleMoreInfo = () => {
-		alert("컨텐츠 준비중입니다 :)")
+		alert(this.props.t("common.commingSoon"))
 	}
 
 	setFighterProfileImage = (fighter, side) => {

@@ -14,6 +14,11 @@ const ko = {
 			draw: "무승부",
 			goBack: "뒤로 가기",
 			active: "현역",
+			account: "계정",
+			logIn: "로그인",
+			logOut: "로그아웃",
+			signUp: "회원가입",
+			myInfo: "내 정보",
 			sns: {
 				title: "SNS",
 				facebook: "페이스북",
@@ -150,6 +155,91 @@ const ko = {
 					styledComponent: "styled-component",
 					redux: "redux",
 					reactRouter: "react-router"
+				}
+			},
+			Main: {
+				h3: "주요 작업 내용 정리",
+				githubLink:
+					"프로젝트 코드는 <0 href='https://github.com/90chanho/ufc' target='_blank' rel='noreferrer noopener' className='highlight'> GitHub</0>에서 확인 할 수 있습니다.",
+				contents: {
+					structure: {
+						title: "프로젝트 구성",
+						desc1: "CRA를 사용하여 기본 프로젝트 구조 생성",
+						desc2: "상태 관리 라이브러리(redux)를 사용하여 상태 관리",
+						desc3:
+							"styled-components(style in javascript)를 사용하여 스타일링하였고 가독성을 위해 스타일링 부분을 별도의 파일로 분리(ex. Component.js와 ComponentStyled.js)",
+						desc4:
+							"프로젝트 사용된 데이터는 임의로 데이터를 생성하고 firebase의 Realtime Database를 사용하여 데이터 통신 기능 구현",
+						desc5:
+							"테마(light, dark) 스타일링. 첫 방문시 테마 선택 모달창 제공하며, 선택 값은 쿠키 데이터로 7일간 저장, 이후 GNB에서 테마 선택 가능 기본값은 쿠키가 없을 경우 디바이스가 현재 dark-Mode인지 감지하여 light / dark 구분하여 적용",
+						desc6:
+							"다국어 기능 구현(한/영, 영작은 번역기로 번역), 기본 값은 navigator.language값을 가져와 적용"
+					},
+					packages: {
+						title: "패키지 사용",
+						desc1:
+							"<0 className='highlight'>styled-components</0>를 사용하여 각 컴포넌트 스타일링 및 theme 스타일링 적용",
+						desc2: "<0 className='highlight'>react-router</0>를 사용하여 router 설정",
+						desc3: "<0 className='highlight'>redux</0>를 사용하여 상태 데이터 관리",
+						desc4: "<0 className='highlight'>i18n, react-i18next</0>를 사용하여 다국어 적용",
+						desc5: "<0 className='highlight'>react-helmet</0>를 사용하여 meta 데이터 적용",
+						desc6:
+							"<0 className='highlight'>antd, @ant-degisn/icons</0>를 사용하여 일부 스타일 컴포넌트 적용",
+						desc7: "<0 className='highlight'>react-cookie</0>를 사용한 쿠키값 설정"
+					},
+					pages: {
+						title: "작업 페이지 목록",
+						desc1: "메인 페이지 : 프로젝트 간단 정보",
+						desc2: "이벤트 페이지 : UFC 이벤트(경기) 정보",
+						desc3: "선수 페이지 : UFC 선수 정보",
+						desc4: "랭킹 페이지 : UFC 체급별 랭킹",
+						desc5: "로그인 : 로그인 기능 구현",
+						desc6: "회원가입 : 회원가입 기능 구현",
+						desc7: "내 정보 : 회원정보 확인 및 수정",
+						desc8: "404 페이지 : Page Not Found 페이지 제공"
+					},
+					eventPage: {
+						title: "이벤트 페이지",
+						desc1: "이벤트 데이터를 fetch하여 리스트 렌더링",
+						desc2: "오늘 날짜를 기준으로 예정 / 과거 이벤트를 필터링"
+					},
+					fighterPage: {
+						title: "선수 페이지",
+						desc1: "선수 데이터를 fetch하여 이름순으로 리스트 렌더링",
+						desc2: "select요소를 통해 체급별로 필터링하여 리스트 렌더링 기능 구현",
+						desc3: "현재 리스트 렌더링 된 선수들 목록 안에서 선수 이름을 통한 검색 기능 구현",
+						desc4: "리스트 렌더링 된 선수의 프로필 보기를 클릭하면 선수 상세 프로필 페이지로 이동",
+						desc5: "Discus 서비스를 적용하여 선수 상세 프로필 페이지마다 코멘트 기능 구현"
+					},
+					rankingPage: {
+						title: "랭킹 페이지",
+						desc1: "선수 데이터를 fetch하여 그 중 체급별 / 랭킹순으로 리스트 렌더링",
+						desc2:
+							"선수 데이터의 현재 랭킹 과거 랭킹을 비교하여 상승 / 하락 / 랭킹 진입 / 변화 없음 내용을 제공",
+						desc3: "선수 이름을 클릭하면 선수 상세 프로필 페이지로 이동"
+					},
+					logInPage: {
+						title: "계정 - 로그인",
+						desc1:
+							"로그인 기능 구현을 위해 임의로 유저 데이터를 작업하였고, 입력 값과 비교하여 일치하면 로그인 되도록 작업",
+						desc2: "공통 Input 컴포넌트를 만들고 이를 사용하여 form 구현",
+						desc3: "validation 기능 구현(빈 값, 유효하지 않는 계정)",
+						desc4:
+							"로그인 성공시 새로고침 하여도 로그인을 유지하는 기능을 위해 localStorage을 사용. 10분 뒤 로그아웃 되도록 설정"
+					},
+					signUpPage: {
+						title: "계정 - 회원가입",
+						desc1: "공통 Input 컴포넌트를 만들고 이를 사용하여 form 구현",
+						desc2: "validation 기능 구현(빈 값, 이메일 폼, 패스워드 규칙, 패스워드 확인 등)",
+						desc3: "가입 시 회원을 구분할 수 있도록 uid(unique id)를 생성"
+					},
+					myPage: {
+						title: "계정 - 내 정보",
+						desc1:
+							"localStorage에 저장된 uid를 통해 해당 uid와 동일한 유저의 정보를 가져와 렌더링(* 기능 구현을 위한 임시적인 방법입니다.)",
+						desc2: "공통 Input 컴포넌트를 만들고 이를 사용하여 form 구현",
+						desc3: "validation 기능 구현(빈 값, 이메일 폼 등)"
+					}
 				}
 			},
 			EventItem: {

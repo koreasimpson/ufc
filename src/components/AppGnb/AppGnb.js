@@ -138,28 +138,28 @@ class AppGnb extends Component {
 					})}
 					<li className="account">
 						<a href="/" onClick={this.handleAccountMenuItem}>
-							계정
+							<Trans i18nKey={"common.account"} />
 						</a>
 						<ul ref={this.accountMenuList} className="depth2" hidden>
 							<li>
 								{isAuth ? (
 									<button className="button logout" onClick={this.onLogOut}>
-										로그아웃
+										<Trans i18nKey={"common.logOut"} />
 									</button>
 								) : (
 									<NavLink to="/login" onClick={e => this.handleLink(e)}>
-										로그인
+										<Trans i18nKey={"common.logIn"} />
 									</NavLink>
 								)}
 							</li>
 							<li>
 								{isAuth ? (
 									<NavLink to="/my" onClick={e => this.handleLink(e)}>
-										내 정보
+										<Trans i18nKey={"common.myInfo"} />
 									</NavLink>
 								) : (
 									<NavLink to="/signup" onClick={e => this.handleLink(e)}>
-										회원가입
+										<Trans i18nKey={"common.signUp"} />
 									</NavLink>
 								)}
 							</li>

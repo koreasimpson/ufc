@@ -33,7 +33,7 @@ const App = props => {
 				<GlobalStyle />
 				<div className={props.className}>
 					<AppHeader props={props} />
-					<AppMain test="hello" />
+					<AppMain />
 					<AppFooter />
 					<Modal open={!cookies.nzcUfcTheme} handleConfirm={setThemeCookies}>
 						<Modal.Header>
