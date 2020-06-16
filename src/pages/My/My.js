@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import { withTranslation, Trans } from "react-i18next"
+import { message } from "antd"
 
 import InputField from "components/Common/InputField"
 import { fetchUsers } from "assets/lib/fetch"
@@ -71,6 +72,7 @@ class My extends Component {
 			this.setState({
 				editMode: false
 			})
+			message.success("정보를 성공적으로 수정하였습니다.")
 		} else {
 			alert("양식에 맞게 모두 입력해주세요")
 		}
