@@ -1,71 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import styled from "styled-components"
-
-import { ReactComponent as ufc } from "assets/img/ufc.svg"
 import { withTranslation, Trans } from "react-i18next"
-import { device } from "config/responsive"
 
-const StyledLogo = styled(ufc)`
-	fill: ${({ theme }) => theme.logoColor};
-`
-
-const Container = styled.footer`
-	background-color: ${({ theme }) => theme.bgColor};
-	color: ${({ theme }) => theme.textColor};
-	border-top: 5px solid ${({ theme }) => theme.majorColor};
-	padding: 5rem 2rem;
-	display: flex;
-	justify-content: space-between;
-	position: relative;
-
-	h1 {
-		display: inline-block;
-		margin: 0;
-		svg {
-			height: 2rem;
-			width: 5rem;
-		}
-	}
-
-	#languageOptions {
-		vertical-align: bottom;
-		margin-left: 2rem;
-	}
-
-	.footer-navigation {
-		display: flex;
-		width: 399px;
-		justify-content: space-evenly;
-		dl {
-			flex: 1;
-			dt {
-				font-size: 1.5rem;
-			}
-			dd {
-				margin-top: 1rem;
-			}
-		}
-	}
-
-	.copyright {
-		position: absolute;
-		left: 2rem;
-		bottom: 5rem;
-	}
-
-	@media screen and ${device.mobileOnly} {
-		#languageOptions {
-			display: block;
-			margin-left: 0;
-			margin-top: 1rem;
-			margin-right: 2rem;
-		}
-		.copyright {
-			bottom: 2rem;
-		}
-	}
-`
+import StyledWrapper, { StyledLogo } from "./AppFooterStyled"
 
 class AppFooter extends Component {
 	constructor(props) {
@@ -84,7 +21,7 @@ class AppFooter extends Component {
 		const { className } = this.props
 
 		return (
-			<Container className={className}>
+			<StyledWrapper className={className}>
 				<div className="content left">
 					<h1>
 						<StyledLogo />
@@ -143,7 +80,7 @@ class AppFooter extends Component {
 						<Trans i18nKey={"components.AppFooter.copyright"} />
 					</small>
 				</p>
-			</Container>
+			</StyledWrapper>
 		)
 	}
 }

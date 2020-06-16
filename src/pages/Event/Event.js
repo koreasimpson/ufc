@@ -1,56 +1,10 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import styled from "styled-components"
 import { withTranslation, Trans } from "react-i18next"
 
-import { device } from "config/responsive"
 import EventItem from "components/Event/EventItem"
 import AppHelmet from "components/AppHelmet/AppHelmet"
-import langdingBg from "assets/img/background_event.jpg"
-
-const Container = styled.main`
-	.landing {
-		background-image: url(${langdingBg});
-	}
-	.contentWrap {
-		background-color: ${({ theme }) => theme.bgColor};
-		color: ${({ theme }) => theme.textColor};
-	}
-	.category {
-		text-align: center;
-		button {
-			display: inline-block;
-			font-size: 3rem;
-			font-weight: bold;
-			padding-left: 20px;
-			padding-right: 20px;
-			color: ${({ theme }) => theme.textColor};
-
-			&.selected {
-				color: ${({ theme }) => theme.majorColor};
-				border-bottom: 1px solid ${({ theme }) => theme.majorColor};
-			}
-		}
-	}
-	.eventItemList {
-		margin-top: 80px;
-	}
-
-	@media screen and ${device.mobileTabletOnly} {
-		.category {
-			margin-top: 3rem;
-		}
-		.eventItemList {
-			margin-top: 5rem;
-		}
-	}
-
-	@media screen and ${device.mobileOnly} {
-		.category {
-			display: flex;
-		}
-	}
-`
+import StyledWrapper from "./EventStyled"
 
 class Event extends Component {
 	constructor(props) {
@@ -99,7 +53,7 @@ class Event extends Component {
 		const filteredEvent = this.filteredEvent(events)
 
 		return (
-			<Container className="">
+			<StyledWrapper className="">
 				<AppHelmet metaData="Event" />
 				<div className="landing bg">
 					<h2 className="desc">
@@ -129,7 +83,7 @@ class Event extends Component {
 						)}
 					</ul>
 				</div>
-			</Container>
+			</StyledWrapper>
 		)
 	}
 }

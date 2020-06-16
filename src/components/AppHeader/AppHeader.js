@@ -1,12 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import styled from "styled-components"
 
 import AppGnb from "components/AppGnb/AppGnb"
-
-const Container = styled.header`
-	position: relative;
-`
+import StyledWrapper from "./AppHeaderStyled"
 
 class AppHeader extends Component {
 	constructor(props) {
@@ -16,9 +12,9 @@ class AppHeader extends Component {
 
 	render() {
 		return (
-			<Container className={`appHeader`}>
+			<StyledWrapper className={`appHeader`}>
 				<AppGnb />
-			</Container>
+			</StyledWrapper>
 		)
 	}
 }

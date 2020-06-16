@@ -1,41 +1,11 @@
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import { connect } from "react-redux"
-import styled from "styled-components"
 
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import RankingList from "components/Ranking/RankingList"
 import weightClassConfig from "config/weightClass"
-import { device } from "config/responsive"
-
-const Container = styled.main`
-	.content {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-items: center;
-		max-width: 1024px;
-		margin: 0 auto;
-	}
-	.group {
-		width: 25%;
-		min-width: 250px;
-		padding: 20px;
-		box-sizing: border-box;
-	}
-
-	@media screen and ${device.mobileTabletOnly} {
-		.content {
-			justify-content: space-evenly;
-		}
-	}
-
-	@media screen and ${device.mobileOnly} {
-		.content {
-			justify-content: space-evenly;
-		}
-	}
-`
+import StyledWrapper from "./RankingStyled"
 
 class Ranking extends Component {
 	constructor(props) {
@@ -45,7 +15,7 @@ class Ranking extends Component {
 	render() {
 		const { className } = this.props
 		return (
-			<Container className={className}>
+			<StyledWrapper className={className}>
 				<AppHelmet metaData="Ranking" />
 				<section className="contentWrap">
 					<h2>ATHLETE RANKINGS</h2>
@@ -55,7 +25,7 @@ class Ranking extends Component {
 						})}
 					</ul>
 				</section>
-			</Container>
+			</StyledWrapper>
 		)
 	}
 }

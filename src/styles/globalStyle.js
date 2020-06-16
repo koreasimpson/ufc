@@ -158,10 +158,19 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
-  [class*=alert],
-  [class*=Alert] {
-    color: red;
+  [class=alert] {
     white-space: nowrap;
+		align-items: center;
+		width: 90%;
+		height: 2rem;
+		font-size: 1rem;
+    line-height: 2rem;
+		margin: 1rem auto 0;
+		color: red;
+		text-indent: 10px;
+		border-radius: 5px;
+		box-sizing: border-box;
+		background-color: ${({ theme }) => theme.errorBgColor};
   }
 
   .highlight {
