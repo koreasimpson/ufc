@@ -22,9 +22,11 @@ class AppGnb extends Component {
 		this.gnbList = ["event", "fighter", "ranking", "live", "shop", "support"]
 		this.hasLandingContent = true
 		this.detectScrollThrottled = throttle(this.detectScroll, 100)
+		this.detectResizeThrottled = throttle(this.detectResize, 100)
 		this.cookies = props.cookies
 
 		window.addEventListener("scroll", this.detectScrollThrottled)
+		window.addEventListener("resize", this.detectResizeThrottled)
 		window.addEventListener("click", this.hideAccountMenuItem)
 	}
 
@@ -40,11 +42,19 @@ class AppGnb extends Component {
 		}
 	}
 
+	detectResize = () => {
+		if (window.innerWidth < breakpoint.laptop && this.state.isFixed) {
+			this.setState({ isFixed: false })
+		}
+	}
+
 	toggleGnb = e => {
 		if (this.gnb.current.classList.contains("is-show")) {
 			this.gnb.current.classList.remove("is-show")
+			document.querySelector("body").style.overflowY = "auto"
 		} else {
 			this.gnb.current.classList.add("is-show")
+			document.querySelector("body").style.overflowY = "hidden"
 		}
 	}
 
@@ -86,6 +96,7 @@ class AppGnb extends Component {
 
 	componentWillUnmount() {
 		this.detectScrollThrottled.cancel()
+		this.detectResizeThrottled.cancel()
 		window.removeEventListener("click", this.hideAccountMenuItem)
 	}
 
