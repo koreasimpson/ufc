@@ -4,10 +4,9 @@ import styled from "styled-components"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 
-import { device } from "config/responsive"
-import defaultFighterImg from "assets/img/fighters/fighter_profile.png"
 import store from "store"
 import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
+import defaultFighterImg from "assets/img/fighters/fighter_profile.png"
 
 const Container = styled.li`
 	text-align: left;

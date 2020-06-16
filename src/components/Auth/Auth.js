@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Route, Redirect, withRouter } from "react-router-dom"
-import { connect } from "react-redux"
 import store from "store"
 
 class Auth extends Component {

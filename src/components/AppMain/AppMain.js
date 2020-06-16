@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react"
-import { connect } from "react-redux"
 import { Switch, Route } from "react-router-dom"
 import { withTranslation, Trans } from "react-i18next"
 
