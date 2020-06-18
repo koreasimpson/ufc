@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Component, Fragment, createRef } from "react"
 import { withTranslation } from "react-i18next"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
@@ -12,6 +12,7 @@ class RankingList extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.championProfileImg = createRef()
 	}
 
 	setRankingList = weightClass => {
@@ -41,10 +42,26 @@ class RankingList extends Component {
 		store.dispatch({ type: SET_TARGET_FIGHTERS, value: ranker })
 	}
 
+	setProfileImage = name => {
+		const img = new Image()
+		const This = this
+		const src = `https://kr.object.ncloudstorage.com/ufc/fighters/${name.replace(" ", "_")}.png`
+		img.onload = function() {
+			if (This.championProfileImg.current) This.championProfileImg.current.src = src
+		}
+		img.onerror = function() {
+			console.clear()
+			if (This.championProfileImg.current) This.championProfileImg.current.src = defaultFighterImg
+		}
+		img.src = src
+	}
+
 	render() {
 		const { className, weightClass } = this.props
 		const { champion, rankingList = [] } = this.setRankingList(weightClass)
-
+		if (champion) {
+			this.setProfileImage(champion.name)
+		}
 		return (
 			<StyledWrapper className={className}>
 				<dl>
@@ -61,7 +78,11 @@ class RankingList extends Component {
 										{champion ? champion.name : null}
 									</Link>
 									<figure>
-										<img src={defaultFighterImg} alt="챔피언 사진" />
+										<img
+											src={defaultFighterImg}
+											alt={champion.name}
+											ref={this.championProfileImg}
+										/>
 									</figure>
 								</Fragment>
 							) : (

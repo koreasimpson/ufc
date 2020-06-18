@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, createRef } from "react"
 import { withTranslation, Trans } from "react-i18next"
 import { withRouter, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
@@ -10,6 +10,24 @@ class FighterDetail extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.profileImg = createRef()
+	}
+
+	setProfileImage = () => {
+		const img = new Image()
+		const This = this
+		const src = `https://kr.object.ncloudstorage.com/ufc/fighters/${this.props.target.name.replace(
+			" ",
+			"_"
+		)}_L.png`
+		img.onload = function() {
+			if (This.profileImg.current) This.profileImg.current.src = src
+		}
+		img.onerror = function() {
+			console.clear()
+			if (This.profileImg.current) This.profileImg.current.src = defaultFighterImg
+		}
+		img.src = src
 	}
 
 	componentDidMount() {
@@ -19,6 +37,7 @@ class FighterDetail extends Component {
 
 	render() {
 		const { target, className } = this.props
+		if (target.name) this.setProfileImage()
 		return target.name ? (
 			<StyledWrapper className={className}>
 				<dl className="record">
@@ -43,7 +62,7 @@ class FighterDetail extends Component {
 				</dl>
 				<div className="detailInfo">
 					<figure className="left">
-						<img src={defaultFighterImg} alt={target.name} />
+						<img src={defaultFighterImg} alt={target.name} ref={this.profileImg} />
 					</figure>
 					<dl className="right">
 						<div className="breakLine">

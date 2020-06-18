@@ -64,6 +64,7 @@ const StyledWrapper = styled.li`
 
 	.icon {
 		width: 30px;
+		height: 100%;
 		position: relative;
 		text-align: center;
 		display: flex;
@@ -76,7 +77,7 @@ const StyledWrapper = styled.li`
 			border-right: 4px solid transparent;
 			border-left: 4px solid transparent;
 			width: 0;
-			height: 0;
+			height: 100%;
 		}
 
 		[class*="up"] {

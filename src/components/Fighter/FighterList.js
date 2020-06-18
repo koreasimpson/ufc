@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, createRef } from "react"
 import { withTranslation, Trans } from "react-i18next"
 import { Link, withRouter } from "react-router-dom"
 
@@ -12,6 +12,29 @@ class FighterList extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.frontImg = createRef()
+		this.backImg = createRef()
+	}
+
+	setProfileImage = (src, type) => {
+		const img = new Image()
+		const This = this
+		img.onload = function() {
+			if (type === "front" && This.frontImg.current) {
+				This.frontImg.current.src = src
+			} else if (type === "back" && This.backImg.current) {
+				This.backImg.current.src = src
+			}
+		}
+		img.onerror = function() {
+			console.clear()
+			if (type === "front" && This.frontImg.current) {
+				This.frontImg.current.src = defaultProfileFrontImage
+			} else if (type === "back" && This.backImg.current) {
+				This.backImg.current.src = defaultProfileBackImage
+			}
+		}
+		img.src = src
 	}
 
 	setTargetFighterData = data => {
@@ -22,11 +45,20 @@ class FighterList extends Component {
 		const { className } = this.props
 		const { name, aka, weightClass, record } = this.props.data
 		const { url } = this.props.match
+
+		this.setProfileImage(
+			`https://kr.object.ncloudstorage.com/ufc/fighters/${name.replace(/\s/g, "_")}.png`,
+			"front"
+		)
+		this.setProfileImage(
+			`https://kr.object.ncloudstorage.com/ufc/fighters/${name.replace(/\s/g, "_")}_L.png`,
+			"back"
+		)
 		return (
 			<StyledWrapper className={className}>
 				<div className="front">
 					<figure>
-						<img src={defaultProfileFrontImage} alt={name} />
+						<img src={defaultProfileFrontImage} alt={name} ref={this.frontImg} />
 					</figure>
 					<p className="aka" hidden={!aka.length}>
 						"{aka}"
@@ -53,7 +85,12 @@ class FighterList extends Component {
 							</Link>
 						</div>
 						<figure className="right">
-							<img src={defaultProfileBackImage} alt={name} />
+							<img
+								src={defaultProfileBackImage}
+								alt={name}
+								ref={this.backImg}
+								className="backImg"
+							/>
 						</figure>
 					</div>
 					<dl className="snsWrap">
