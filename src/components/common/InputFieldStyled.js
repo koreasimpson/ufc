@@ -33,6 +33,8 @@ const StyledWrapper = styled.div`
 		padding: 1.5rem 5px 0.5rem;
 		font-size: 1rem;
 		border: 1px solid #e7e7e7;
+		background-color: ${({ theme }) => (theme.value === "dark" ? theme.bgColor2 : theme.bgColor)};
+		color: ${({ theme }) => theme.textColor};
 
 		&:focus {
 			& + .labelText {
