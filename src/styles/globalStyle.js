@@ -66,6 +66,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   /**  common style  **/
+  select {
+    border-radius: 5px;
+    background-color: ${({ theme }) => (theme.value === "dark" ? theme.bgColor2 : theme.bgColor)};
+    color: ${({ theme }) => theme.textColor};
+  }
+
  .a11yHidden {
     overflow: hidden;
     position: absolute;
@@ -175,6 +181,22 @@ export const GlobalStyle = createGlobalStyle`
 
   .highlight {
     background-color: ${({ theme }) => theme.highlight};
+  }
+
+  .ant-tooltip {
+    max-width: 100%;
+    .ant-tooltip-arrow-content {
+      background-color: ${({ theme }) => theme.majorColor};
+    }
+    .ant-tooltip-inner {
+      background-color: ${({ theme }) => theme.majorColor};
+      color: #fff;
+      white-space: nowrap;
+    }
+  }
+
+  .ant-notification-notice {
+    border: 1px solid ${({ theme }) => theme.textColor};
   }
 
   @media screen and ${device.laptop} {
