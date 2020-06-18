@@ -1,5 +1,6 @@
 import React, { Component, createRef } from "react"
 import { withTranslation, Trans } from "react-i18next"
+import { notification } from "antd"
 
 import StyledWrapper from "./EventItemStyled"
 
@@ -18,7 +19,10 @@ class EventItem extends Component {
 	}
 
 	handleMoreInfo = () => {
-		alert(this.props.t("common.commingSoon"))
+		notification.info({
+			message: this.props.t("common.commingSoon"),
+			placement: "topRight"
+		})
 	}
 
 	setFighterProfileImage = (fighter, side) => {
