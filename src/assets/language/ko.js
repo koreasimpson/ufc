@@ -3,6 +3,7 @@ const ko = {
 		common: {
 			ufc: "UFC",
 			confirm: "확인",
+			edit: "수정",
 			moreInfo: "상세 정보",
 			lightTheme: "라이트 테마",
 			darkTheme: "다크 테마",
@@ -272,12 +273,17 @@ const ko = {
 					sequrityAnswer1: "질문 답변1",
 					sequrityAnswer2: "질문 답변2"
 				},
+				toolTip: {
+					account: "계정은 이메일 형식으로 입력해주세요.",
+					password:
+						"비밀번호 설정 규칙<0></0>1. 비밀번호는 6~20자의 영문 대소문자를 입력해주세요.<0></0> 2. 숫자와 특수 문자를 각각 1개 이상 포함해야 합니다."
+				},
 				validation: {
-					empty: "{{ labelText }}을(를) 입력해주세요",
-					emailForm: "이메일 형식으로 입력해주세요",
+					empty: "{{ labelText }}을(를) 입력해주세요.",
+					emailForm: "이메일 형식에 맞게 입력해주세요.",
 					passwordInValidationText: "암호에 이메일에 입력한 값이 포함되어서는 안 됩니다.",
-					passwordRules: "최소 1개의 숫자와 특수문자를 포함한 6~20자의 영문으로 생성해야 합니다.",
-					notSamePassword: "입력한 암호와 일치하지 않습니다"
+					passwordRules: "비밀번호 생성 규칙에 맞게 입력해주세요.",
+					notSamePassword: "입력한 암호와 일치하지 않습니다."
 				}
 			},
 			SignUp: {
@@ -304,7 +310,10 @@ const ko = {
 						list12: "학창 시절 가장 좋아했던 밴드 또는 가수는 누구입니까?"
 					},
 					validation: {
-						notAllPass: "가입 폼을 양식에 맞게 모두 입력해주세요"
+						notAllPass: {
+							title: "회원가입 실패",
+							desc: "가입 폼을 양식에 맞게 모두 입력해주세요 (이 메세지는 5초 후에 사라집니다.)"
+						}
 					}
 				},
 				Complete: {}
@@ -330,12 +339,27 @@ const ko = {
 			},
 			Login: {
 				h2: "로그인",
-				validation: "UFC 계정 또는 비밀번호가 유효하지 않습니다.",
+				validation: {
+					title: "로그인 실패",
+					desc: "UFC 계정 또는 비밀번호가 유효하지 않습니다. (이 메세지는 5초 후에 사라집니다.)"
+				},
 				notAccount:
 					"UFC 아이디가 없으신가요? 지금 생성하시고 원하는 UFC 이벤트 및 선수의 정보를 메일로 받아보세요."
 			},
 			My: {
-				h2: "My page"
+				h2: "My page",
+				welcome: "반갑습니다 <0></0><1></1>님.",
+				formLegend: {
+					accountInfo: "계정 정보",
+					personalInfo: "신상 정보"
+				},
+				validation: {
+					title: "정보 수정 실패",
+					desc: "수정사항을 양식에 맞게 전부 입력해주세요. (이 메세지는 5초 후에 사라집니다.)"
+				},
+				edit: {
+					success: "정보를 성공적으로 수정하였습니다."
+				}
 			},
 			PrivacyPolicy: {
 				h2: "개인정보 처리방침"
