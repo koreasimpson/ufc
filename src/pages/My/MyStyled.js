@@ -50,6 +50,11 @@ const StyledWrapper = styled.main`
 			}
 		}
 	}
+
+	.ant-alert {
+		display: none;
+		margin-top: 1rem;
+	}
 `
 
 export default StyledWrapper

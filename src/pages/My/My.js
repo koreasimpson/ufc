@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import { withTranslation, Trans } from "react-i18next"
-import { message } from "antd"
+import { message, Alert } from "antd"
 
 import InputField from "components/Common/InputField"
 import { fetchUsers } from "assets/lib/fetch"
@@ -72,9 +72,13 @@ class My extends Component {
 			this.setState({
 				editMode: false
 			})
-			message.success("정보를 성공적으로 수정하였습니다.")
+			message.success(this.props.t("pages.My.edit.success"))
 		} else {
-			alert("양식에 맞게 모두 입력해주세요")
+			const alertElement = document.querySelector(".ant-alert")
+			alertElement.style.display = "block"
+			setTimeout(() => {
+				alertElement.style.display = "none"
+			}, 5000)
 		}
 	}
 
@@ -125,7 +129,7 @@ class My extends Component {
 	}
 
 	render() {
-		const { className } = this.props
+		const { className, t } = this.props
 		const { val, error, errorText } = this.state
 
 		return (
@@ -136,11 +140,17 @@ class My extends Component {
 						<Trans i18nKey="pages.My.h2" />
 					</h2>
 					<p>
-						반갑습니다 `{this.state.val.familyName} {this.state.val.firstName}`님.
+						<Trans i18nKey={"pages.My.welcome"}>
+							{this.state.val.familyName}
+							{this.state.val.firstName}
+						</Trans>
+						{/* 반갑습니다 `{this.state.val.familyName} {this.state.val.firstName}`님. */}
 					</p>
 					<form action="">
 						<fieldset disabled={!this.state.editMode}>
-							<legend>계정 정보</legend>
+							<legend>
+								<Trans i18nKey={"pages.My.formLegend.accountInfo"} />
+							</legend>
 							<InputField
 								labelText="account"
 								type="text"
@@ -150,7 +160,9 @@ class My extends Component {
 							/>
 						</fieldset>
 						<fieldset disabled={!this.state.editMode}>
-							<legend>신상 정보</legend>
+							<legend>
+								<Trans i18nKey={"pages.My.formLegend.personalInfo"} />
+							</legend>
 							<div className="fieldWrapper">
 								<InputField
 									labelText="familyName"
@@ -196,11 +208,19 @@ class My extends Component {
 						</fieldset>
 						<div className="buttonWrapper">
 							<button disabled={this.state.editMode} onClick={e => this.onEditMode(e)}>
-								수정
+								<Trans i18nKey={"common.edit"} />
 							</button>
-							<button onClick={e => this.handleSubmit(e)}>변경</button>
+							<button onClick={e => this.handleSubmit(e)}>
+								<Trans i18nKey={"common.confirm"} />
+							</button>
 						</div>
 					</form>
+					<Alert
+						message={t("pages.My.validation.title")}
+						description={t("pages.My.validation.desc")}
+						type="error"
+						showIcon
+					/>
 				</section>
 			</StyledWrapper>
 		)
