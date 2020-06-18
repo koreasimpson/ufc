@@ -4,6 +4,7 @@ import { Link, NavLink, withRouter } from "react-router-dom"
 import { withTranslation, Trans } from "react-i18next"
 import throttle from "lodash.throttle"
 import { withCookies } from "react-cookie"
+import { notification } from "antd"
 
 import store from "store"
 import { breakpoint } from "config/responsive"
@@ -61,7 +62,10 @@ class AppGnb extends Component {
 	handleLink = (e, gnb = "") => {
 		if (gnb === "live" || gnb === "shop" || gnb === "support") {
 			e.preventDefault()
-			alert(this.props.t("common.commingSoon"))
+			notification.info({
+				message: this.props.t("common.commingSoon"),
+				placement: "topRight"
+			})
 			return
 		}
 		this.gnb.current.classList.remove("is-show")
