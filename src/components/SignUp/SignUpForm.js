@@ -212,7 +212,7 @@ class SignUp extends Component {
 								type="text"
 								name="account"
 								value={val.account}
-								tooltipText="이메일 형식으로 입력해주세요"
+								tooltipText={t("components.InputField.toolTip.account")}
 								error={error.account}
 								errorText={errorText.account}
 								handleChange={this.getInputValue}
@@ -220,10 +220,13 @@ class SignUp extends Component {
 							/>
 							<InputField
 								labelText="password"
-								type="text"
+								type="password"
 								name="password"
 								value={val.password}
-								tooltipText="숫자와 특수문자를 각각 최소 1개씩 포함하는 8글자 이상"
+								// tooltipText={t("components.InputField.toolTip.password")}
+								tooltipText={
+									<Trans i18nKey={"components.InputField.toolTip.password"} components={[<br />]} />
+								}
 								error={error.password}
 								errorText={errorText.password}
 								handleChange={this.getInputValue}
@@ -231,7 +234,7 @@ class SignUp extends Component {
 							/>
 							<InputField
 								labelText="passwordConfirm"
-								type="text"
+								type="password"
 								name="passwordConfirm"
 								value={val.passwordConfirm}
 								error={error.passwordConfirm}
@@ -327,8 +330,8 @@ class SignUp extends Component {
 							<Trans i18nKey="components.SignUp.Form.h2" />
 						</button>
 						<Alert
-							message="회원가입 안내"
-							description={t("components.SignUp.Form.validation.notAllPass")}
+							message={t("components.SignUp.Form.validation.notAllPass.title")}
+							description={t("components.SignUp.Form.validation.notAllPass.desc")}
 							type="error"
 							showIcon
 						/>

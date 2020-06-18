@@ -30,7 +30,7 @@ const StyledWrapper = styled.main`
 		.sequrityQuestionContainer {
 			select {
 				width: 100%;
-				height: 2rem;
+				padding: 1rem 5px;
 				margin-bottom: 20px;
 			}
 		}
