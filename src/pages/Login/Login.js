@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link, withRouter, Redirect } from "react-router-dom"
 import { withTranslation, Trans } from "react-i18next"
-import { message } from "antd"
+import { message, Alert } from "antd"
 
 import store from "store"
 import { ACCESS_LOGIN } from "store/actions/auth"
@@ -100,12 +100,16 @@ class Login extends Component {
 				this.props.history.push("/")
 			}
 		} else {
-			document.querySelector(".alert").hidden = false
+			const alertElement = document.querySelector(".ant-alert")
+			alertElement.style.display = "block"
+			setTimeout(() => {
+				alertElement.style.display = "none"
+			}, 5000)
 		}
 	}
 
 	render() {
-		const { className } = this.props
+		const { className, t } = this.props
 		const isAuth = store.getState().authReducer.isAuth
 
 		return isAuth ? (
@@ -118,9 +122,12 @@ class Login extends Component {
 						<Trans i18nKey="pages.Login.h2" />
 					</h2>
 					<form onSubmit={this.handleSubmit}>
-						<p className="alert" hidden>
-							<Trans i18nKey="pages.Login.validation" />
-						</p>
+						<Alert
+							message={t("pages.Login.validation.title")}
+							description={t("pages.Login.validation.desc")}
+							type="error"
+							showIcon
+						/>
 						<InputField
 							labelText="account"
 							type="text"

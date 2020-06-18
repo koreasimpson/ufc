@@ -23,7 +23,8 @@ const StyledWrapper = styled.main`
 			font-family: inherit;
 		}
 
-		.alert {
+		.ant-alert {
+			display: none;
 			margin-bottom: 1rem;
 		}
 
