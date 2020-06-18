@@ -1,5 +1,6 @@
 const theme = {
 	light: {
+		value: "light",
 		bgColor: "#fff",
 		textColor: "#000",
 		bgColorInvert: "#000",
@@ -10,6 +11,7 @@ const theme = {
 		highlight: "#D5648B"
 	},
 	dark: {
+		value: "dark",
 		bgColor: "#202020",
 		bgColor2: "#181818",
 		bgColor3: "#121212",
