@@ -63,9 +63,30 @@ export const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     font-size: inherit;
+    color: inherit;
   }
 
-  /**  common style  **/
+  :disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /**  
+   **  common style  
+   **/
+
+  #reactApp {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+  }
+
   select {
     border-radius: 5px;
     background-color: ${({ theme }) => (theme.value === "dark" ? theme.bgColor2 : theme.bgColor)};
@@ -101,49 +122,6 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 0;
     margin: 0;
     padding: 0;
-  }
-
-  .landing {
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center center;
-    margin: 0 auto;
-    text-align: center;
-
-    &.bg {
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-
-      .title {
-        font-size: 4rem;
-      }
-
-      .desc {
-        font-size: 3rem;
-        font-weight: bold;
-        text-shadow: 1px 1px 1px ${({ theme }) => theme.majorColor};
-        padding: 0 10%;
-      }
-    }
-  }
-
-  .contentWrap {
-    margin: 0 auto;
-    text-align: center;
-    padding-bottom: 4rem;
-
-    h2 {
-      font-size: 3rem;
-    }
-  }
-
-  :disabled {
-    cursor: not-allowed;
-    pointer-events: none;
   }
 
   button:disabled {
@@ -206,27 +184,11 @@ export const GlobalStyle = createGlobalStyle`
     html {
       font-size: 18px;
     }
-    .contentWrap {
-      padding-top: 100px;
-
-      h2 {
-        margin-top: 100px;
-        margin-bottom: 60px;
-
-        & + .desc {
-          margin-bottom: 50px;
-        }
-      }
-    }
   }
 
   @media screen and ${device.mobileTabletOnly} {
     .mobileTabletOnly {
       display: block;
-    }
-    .contentWrap {
-      padding-left: 10%;
-      padding-right: 10%;
     }
   }
 
@@ -234,28 +196,10 @@ export const GlobalStyle = createGlobalStyle`
     html {
       font-size: 16px;
     }
-    .contentWrap {
-      h2 {
-        margin-top: 50px;
-        margin-bottom: 30px;
-        & + .desc {
-          margin-bottom: 50px;
-        }
-      }
-    }
   }
   @media screen and ${device.mobileOnly} {
     html {
       font-size: 12px;
-    }
-    .contentWrap {
-      h2 {
-        margin-top: 40px;
-        margin-bottom: 20px;
-        & + .desc {
-          margin-bottom: 50px;
-        }
-      }
     }
   }
 `

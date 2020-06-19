@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { ThemeProvider } from "styled-components"
 import { withRouter } from "react-router-dom"
 import { CookiesProvider, useCookies } from "react-cookie"
@@ -14,7 +14,6 @@ import AppFooter from "components/AppFooter/AppFooter"
 import Modal from "components/Common/Modal"
 import ThemeSelect from "components/ModalContents/ThemeSelect"
 import ThemeStyle from "theme/theme"
-
 // components
 const App = props => {
 	const [cookies, setCookie] = useCookies(["name"])
@@ -31,7 +30,7 @@ const App = props => {
 		<CookiesProvider>
 			<ThemeProvider theme={ThemeStyle[theme]}>
 				<GlobalStyle />
-				<div className={props.className}>
+				<Fragment>
 					<AppHeader props={props} />
 					<AppMain />
 					<AppFooter />
@@ -47,7 +46,7 @@ const App = props => {
 					<BackTop>
 						<UpSquareFilled style={{ fontSize: "50px", color: "#CC0B0B" }} />
 					</BackTop>
-				</div>
+				</Fragment>
 			</ThemeProvider>
 		</CookiesProvider>
 	)
