@@ -69,6 +69,7 @@ class AppGnb extends Component {
 			return
 		}
 		this.gnb.current.classList.remove("is-show")
+		document.querySelector("body").style.overflowY = "auto"
 	}
 
 	onLogOut = () => {
