@@ -5,6 +5,9 @@ import { withTranslation, Trans } from "react-i18next"
 import EventItem from "components/Event/EventItem"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import StyledWrapper from "./EventStyled"
+import Layout from "components/Layout/Layout"
+
+import langdingBg from "assets/img/background_event.jpg"
 
 class Event extends Component {
 	constructor(props) {
@@ -55,34 +58,36 @@ class Event extends Component {
 		return (
 			<StyledWrapper className="">
 				<AppHelmet metaData="Event" />
-				<div className="landing bg">
-					<h2 className="desc">
-						<Trans i18nKey="pages.Event.h2" />
-					</h2>
-				</div>
-				<div className="contentWrap">
-					<div className="category">
-						<button
-							onClick={e => this.toggleEventCategory("upcoming")}
-							className={this.state.category === "upcoming" ? "selected" : null}>
-							<Trans i18nKey="pages.Event.upcommingEvent" />
-						</button>
-						<button
-							onClick={e => this.toggleEventCategory("past")}
-							className={this.state.category === "past" ? "selected" : null}>
-							<Trans i18nKey="pages.Event.pastEvent" />
-						</button>
-					</div>
-					<ul className="eventItemList">
-						{events.length ? (
-							filteredEvent.map((event, index) => <EventItem key={index} eventData={event} />)
-						) : (
-							<p>
-								<Trans i18nKey="pages.Event.noEvents" />
-							</p>
-						)}
-					</ul>
-				</div>
+				<Layout hasLanding={true}>
+					<Layout.Landing
+						headingText={<Trans i18nKey="pages.Event.h2" />}
+						backgroundImg={langdingBg}
+						backgroundImgWidth="2000"
+						backgroundImgHeight="1333"></Layout.Landing>
+					<Layout.Content>
+						<div className="category">
+							<button
+								onClick={e => this.toggleEventCategory("upcoming")}
+								className={this.state.category === "upcoming" ? "selected" : null}>
+								<Trans i18nKey="pages.Event.upcommingEvent" />
+							</button>
+							<button
+								onClick={e => this.toggleEventCategory("past")}
+								className={this.state.category === "past" ? "selected" : null}>
+								<Trans i18nKey="pages.Event.pastEvent" />
+							</button>
+						</div>
+						<ul className="eventItemList">
+							{events.length ? (
+								filteredEvent.map((event, index) => <EventItem key={index} eventData={event} />)
+							) : (
+								<p>
+									<Trans i18nKey="pages.Event.noEvents" />
+								</p>
+							)}
+						</ul>
+					</Layout.Content>
+				</Layout>
 			</StyledWrapper>
 		)
 	}

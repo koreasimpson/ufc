@@ -1,11 +1,12 @@
 import React, { Component } from "react"
-import { withTranslation } from "react-i18next"
+import { withTranslation, Trans } from "react-i18next"
 import { connect } from "react-redux"
 
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import RankingList from "components/Ranking/RankingList"
 import weightClassConfig from "config/weightClass"
 import StyledWrapper from "./RankingStyled"
+import Layout from "components/Layout/Layout"
 
 class Ranking extends Component {
 	constructor(props) {
@@ -17,14 +18,18 @@ class Ranking extends Component {
 		return (
 			<StyledWrapper className={className}>
 				<AppHelmet metaData="Ranking" />
-				<section className="contentWrap">
-					<h2>ATHLETE RANKINGS</h2>
-					<ul className="content">
-						{weightClassConfig.map((weightClass, index) => {
-							return <RankingList className="group" weightClass={weightClass} key={index} />
-						})}
-					</ul>
-				</section>
+				<Layout>
+					<Layout.Content>
+						<h2>
+							<Trans i18nKey={"pages.Ranking.h2"} />
+						</h2>
+						<ul className="content">
+							{weightClassConfig.map((weightClass, index) => {
+								return <RankingList className="group" weightClass={weightClass} key={index} />
+							})}
+						</ul>
+					</Layout.Content>
+				</Layout>
 			</StyledWrapper>
 		)
 	}

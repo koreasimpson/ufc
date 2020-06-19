@@ -160,8 +160,7 @@ const ko = {
 			},
 			Main: {
 				h3: "주요 작업 내용 정리",
-				githubLink:
-					"프로젝트 코드는 <0 href='https://github.com/90chanho/ufc' target='_blank' rel='noreferrer noopener' className='highlight'> GitHub</0>에서 확인 할 수 있습니다.",
+				githubLink: "프로젝트 코드는 <0> GitHub</0>에서 확인 할 수 있습니다.",
 				contents: {
 					structure: {
 						title: "프로젝트 구성",
@@ -321,7 +320,7 @@ const ko = {
 		},
 		pages: {
 			Ranking: {
-				h2: "랭킹"
+				h2: "ATHLETE RANKINGS"
 			},
 			Event: {
 				h2: "UFC Fight Events",
@@ -332,7 +331,9 @@ const ko = {
 			},
 			Fighter: {
 				h2: "UFC Fighters",
-				searchPlaceholder: "선수 검색"
+				searchPlaceholder: "선수 검색",
+				playerFound: "<0></0>명의 선수 검색됨",
+				notFound: "해당 조건의 선수가 없습니다."
 			},
 			Live: {
 				h2: "Live"
@@ -344,7 +345,8 @@ const ko = {
 					desc: "UFC 계정 또는 비밀번호가 유효하지 않습니다. (이 메세지는 5초 후에 사라집니다.)"
 				},
 				notAccount:
-					"UFC 아이디가 없으신가요? 지금 생성하시고 원하는 UFC 이벤트 및 선수의 정보를 메일로 받아보세요."
+					"UFC 아이디가 없으신가요? 지금 생성하시고 원하는 UFC 이벤트 및 선수의 정보를 메일로 받아보세요.",
+				success: "로그인에 성공하였습니다."
 			},
 			My: {
 				h2: "My page",

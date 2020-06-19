@@ -1,11 +1,7 @@
 import styled from "styled-components"
 import { device } from "config/responsive"
-import langdingBg from "assets/img/background_event.jpg"
 
 const StyledWrapper = styled.main`
-	.landing {
-		background-image: url(${langdingBg});
-	}
 	.contentWrap {
 		background-color: ${({ theme }) => theme.bgColor};
 		color: ${({ theme }) => theme.textColor};
@@ -31,9 +27,6 @@ const StyledWrapper = styled.main`
 	}
 
 	@media screen and ${device.mobileTabletOnly} {
-		.category {
-			margin-top: 3rem;
-		}
 		.eventItemList {
 			margin-top: 5rem;
 		}
@@ -42,6 +35,10 @@ const StyledWrapper = styled.main`
 	@media screen and ${device.mobileOnly} {
 		.category {
 			display: flex;
+			justify-content: center;
+			button {
+				font-size: 2rem;
+			}
 		}
 	}
 `

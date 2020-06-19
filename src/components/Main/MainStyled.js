@@ -1,13 +1,10 @@
 import styled from "styled-components"
-import langdingBg from "assets/img/background_header.jpg"
 
 const StyledWrapper = styled.main`
 	background-color: ${({ theme }) => theme.bgColor};
 	color: ${({ theme }) => theme.textColor};
 
 	.landing {
-		background-image: url(${langdingBg});
-
 		dl {
 			margin-top: 2rem;
 			dt {

@@ -5,10 +5,11 @@ import { message, Alert } from "antd"
 
 import store from "store"
 import { ACCESS_LOGIN } from "store/actions/auth"
+import Layout from "components/Layout/Layout"
 import AppHelmet from "components/AppHelmet/AppHelmet"
 import InputField from "components/Common/InputField"
-import StyledWrapper from "./LoginStyled"
 import { fetchUsers } from "assets/lib/fetch"
+import StyledWrapper from "./LoginStyled"
 
 class Login extends Component {
 	constructor(props) {
@@ -91,7 +92,7 @@ class Login extends Component {
 		e.preventDefault()
 		const result = await this.checkValidUser()
 		if (result) {
-			message.success("로그인에 성공하였습니다.")
+			message.success(this.props.t("pages.Login.success"))
 			store.dispatch({ type: ACCESS_LOGIN })
 			if (this.props.location.state) {
 				const wantedPath = this.props.location.state.from.pathname
@@ -117,52 +118,54 @@ class Login extends Component {
 		) : (
 			<StyledWrapper className={className}>
 				<AppHelmet />
-				<section className="contentWrap">
-					<h2>
-						<Trans i18nKey="pages.Login.h2" />
-					</h2>
-					<form onSubmit={this.handleSubmit}>
-						<Alert
-							message={t("pages.Login.validation.title")}
-							description={t("pages.Login.validation.desc")}
-							type="error"
-							showIcon
-						/>
-						<InputField
-							labelText="account"
-							type="text"
-							name="account"
-							value={this.state.val.account || ""}
-							error={this.state.error.account || ""}
-							errorText={this.state.errorText.account || ""}
-							handleChange={this.getInputValue}
-							handleBlur={this.checkInputError}
-						/>
-						<InputField
-							labelText="password"
-							type="password"
-							name="password"
-							value={this.state.val.password || ""}
-							error={this.state.error.password || ""}
-							errorText={this.state.errorText.password || ""}
-							handleChange={this.getInputValue}
-							handleBlur={this.checkInputError}
-						/>
-						<button
-							type="submit"
-							className="button login"
-							disabled={!(this.state.val.account && this.state.val.password)}>
+				<Layout>
+					<Layout.Content>
+						<h2>
 							<Trans i18nKey="pages.Login.h2" />
-						</button>
-						<br />
-						<Link to="/signup" className="signup">
-							<Trans i18nKey="pages.Login.notAccount" />
-						</Link>
-					</form>
-					<p className="testAccount">
-						<small>account: TEST_USER1@ufc.com | password: TEST1234! </small>
-					</p>
-				</section>
+						</h2>
+						<form onSubmit={this.handleSubmit}>
+							<Alert
+								message={t("pages.Login.validation.title")}
+								description={t("pages.Login.validation.desc")}
+								type="error"
+								showIcon
+							/>
+							<InputField
+								labelText="account"
+								type="text"
+								name="account"
+								value={this.state.val.account || ""}
+								error={this.state.error.account || ""}
+								errorText={this.state.errorText.account || ""}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
+							<InputField
+								labelText="password"
+								type="password"
+								name="password"
+								value={this.state.val.password || ""}
+								error={this.state.error.password || ""}
+								errorText={this.state.errorText.password || ""}
+								handleChange={this.getInputValue}
+								handleBlur={this.checkInputError}
+							/>
+							<button
+								type="submit"
+								className="button login"
+								disabled={!(this.state.val.account && this.state.val.password)}>
+								<Trans i18nKey="pages.Login.h2" />
+							</button>
+							<br />
+							<Link to="/signup" className="signup">
+								<Trans i18nKey="pages.Login.notAccount" />
+							</Link>
+						</form>
+						<p className="testAccount">
+							<small>account: 90chanho@gmail.com | password: test1234! </small>
+						</p>
+					</Layout.Content>
+				</Layout>
 			</StyledWrapper>
 		)
 	}

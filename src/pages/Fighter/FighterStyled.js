@@ -1,11 +1,7 @@
 import styled from "styled-components"
 import { breakpoint, device } from "config/responsive"
-import langdingBg from "assets/img/background_fighters.jpg"
 
 const StyledWrapper = styled.main`
-	.landing {
-		background-image: url(${langdingBg});
-	}
 	.targetFighter.aka {
 		font-size: 2rem;
 	}

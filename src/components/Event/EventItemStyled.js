@@ -9,12 +9,27 @@ const StyledWrapper = styled.li`
 	padding: 1rem 2rem;
 	margin: 0 auto;
 	margin-top: 1rem;
-	border: 1px solid ${({ theme }) => theme.textColor};
+	border-top: 1px solid ${({ theme }) => theme.textColor};
+	border-bottom: 1px solid ${({ theme }) => theme.textColor};
 	box-sizing: border-box;
 
 	&:hover {
 		border: 1px solid ${({ theme }) => theme.majorColor};
 		box-shadow: 0px 0px 10px 0px ${({ theme }) => theme.majorColor} inset;
+
+		.moreInfo {
+			border: 1px solid ${({ theme }) => theme.bgColor};
+
+			span {
+				position: relative;
+				color: #fff;
+				z-index: 1;
+			}
+
+			&::after {
+				left: 0;
+			}
+		}
 	}
 
 	.eventType,
@@ -85,7 +100,7 @@ const StyledWrapper = styled.li`
 			transition: all 0.5s;
 		}
 
-		&:hover {
+		/* &:hover {
 			border: 1px solid ${({ theme }) => theme.bgColor};
 
 			span {
@@ -97,7 +112,7 @@ const StyledWrapper = styled.li`
 			&::after {
 				left: 0;
 			}
-		}
+		} */
 	}
 
 	@media screen and ${device.mobileTabletOnly} {
