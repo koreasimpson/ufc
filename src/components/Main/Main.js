@@ -50,31 +50,29 @@ class Main extends Component {
 						backgroundImg={langdingBg}
 						backgroundImgWidth="2000"
 						backgroundImgHeight="1333">
-						<div className="landing bg">
-							<p className="desc">
-								<Trans i18nKey="components.AppMain.desc" />
-							</p>
-							<dl>
-								<dt>
-									<Trans i18nKey="components.AppMain.skills.title" />
-								</dt>
-								<dd>
-									<Trans i18nKey="components.AppMain.skills.react" />
-								</dd>
-								<dd>
-									<Trans i18nKey="components.AppMain.skills.reactHooks" />
-								</dd>
-								<dd>
-									<Trans i18nKey="components.AppMain.skills.styledComponent" />
-								</dd>
-								<dd>
-									<Trans i18nKey="components.AppMain.skills.redux" />
-								</dd>
-								<dd>
-									<Trans i18nKey="components.AppMain.skills.reactRouter" />
-								</dd>
-							</dl>
-						</div>
+						<p className="desc">
+							<Trans i18nKey="components.AppMain.desc" />
+						</p>
+						<dl>
+							<dt>
+								<Trans i18nKey="components.AppMain.skills.title" />
+							</dt>
+							<dd>
+								<Trans i18nKey="components.AppMain.skills.react" />
+							</dd>
+							<dd>
+								<Trans i18nKey="components.AppMain.skills.reactHooks" />
+							</dd>
+							<dd>
+								<Trans i18nKey="components.AppMain.skills.styledComponent" />
+							</dd>
+							<dd>
+								<Trans i18nKey="components.AppMain.skills.redux" />
+							</dd>
+							<dd>
+								<Trans i18nKey="components.AppMain.skills.reactRouter" />
+							</dd>
+						</dl>
 					</Layout.Landing>
 					<Layout.Content>
 						<h3>

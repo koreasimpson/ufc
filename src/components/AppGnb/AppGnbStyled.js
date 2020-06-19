@@ -23,6 +23,7 @@ const StyledWrapper = styled.nav`
 	color: ${({ theme }) => theme.textColor};
 	width: 1024px;
 	transition: width 1s;
+	z-index: 2;
 
 	&.fixed {
 		z-index: 100;

@@ -3,6 +3,7 @@ import AppHelmet from "components/AppHelmet/AppHelmet"
 import { withTranslation, Trans } from "react-i18next"
 import { message, Alert } from "antd"
 
+import Layout from "components/Layout/Layout"
 import InputField from "components/Common/InputField"
 import { fetchUsers } from "assets/lib/fetch"
 import StyledWrapper from "./MyStyled"
@@ -135,93 +136,94 @@ class My extends Component {
 		return (
 			<StyledWrapper className={className}>
 				<AppHelmet />
-				<section className="contentWrap">
-					<h2>
-						<Trans i18nKey="pages.My.h2" />
-					</h2>
-					<p>
-						<Trans i18nKey={"pages.My.welcome"}>
-							{this.state.val.familyName}
-							{this.state.val.firstName}
-						</Trans>
-						{/* 반갑습니다 `{this.state.val.familyName} {this.state.val.firstName}`님. */}
-					</p>
-					<form action="">
-						<fieldset disabled={!this.state.editMode}>
-							<legend>
-								<Trans i18nKey={"pages.My.formLegend.accountInfo"} />
-							</legend>
-							<InputField
-								labelText="account"
-								type="text"
-								name="account"
-								readOnly="readonly"
-								value={this.state.userData.account || ""}
-							/>
-						</fieldset>
-						<fieldset disabled={!this.state.editMode}>
-							<legend>
-								<Trans i18nKey={"pages.My.formLegend.personalInfo"} />
-							</legend>
-							<div className="fieldWrapper">
+				<Layout hasLanding={false}>
+					<Layout.Content>
+						<h2 className="title">
+							<Trans i18nKey="pages.My.h2" />
+						</h2>
+						<p>
+							<Trans i18nKey={"pages.My.welcome"}>
+								{this.state.val.familyName}
+								{this.state.val.firstName}
+							</Trans>
+						</p>
+						<form action="">
+							<fieldset disabled={!this.state.editMode}>
+								<legend>
+									<Trans i18nKey={"pages.My.formLegend.accountInfo"} />
+								</legend>
 								<InputField
-									labelText="familyName"
+									labelText="account"
 									type="text"
-									name="familyName"
-									value={val.familyName}
-									error={error.familyName}
-									errorText={errorText.familyName}
+									name="account"
+									readOnly="readonly"
+									value={this.state.userData.account || ""}
+								/>
+							</fieldset>
+							<fieldset disabled={!this.state.editMode}>
+								<legend>
+									<Trans i18nKey={"pages.My.formLegend.personalInfo"} />
+								</legend>
+								<div className="fieldWrapper">
+									<InputField
+										labelText="familyName"
+										type="text"
+										name="familyName"
+										value={val.familyName}
+										error={error.familyName}
+										errorText={errorText.familyName}
+										handleChange={this.getInputValue}
+										handleBlur={this.checkInputError}
+									/>
+									<InputField
+										labelText="firstName"
+										type="text"
+										name="firstName"
+										value={val.firstName}
+										error={error.firstName}
+										errorText={errorText.firstName}
+										handleChange={this.getInputValue}
+										handleBlur={this.checkInputError}
+									/>
+								</div>
+								<InputField
+									labelText="email"
+									type="text"
+									name="email"
+									value={val.email}
+									error={error.email}
+									errorText={errorText.email}
 									handleChange={this.getInputValue}
 									handleBlur={this.checkInputError}
 								/>
 								<InputField
-									labelText="firstName"
+									labelText="phone"
 									type="text"
-									name="firstName"
-									value={val.firstName}
-									error={error.firstName}
-									errorText={errorText.firstName}
+									name="phone"
+									value={val.phone}
+									error={error.phone}
+									errorText={errorText.phone}
 									handleChange={this.getInputValue}
 									handleBlur={this.checkInputError}
 								/>
+							</fieldset>
+							<div className="buttonWrapper">
+								<button disabled={this.state.editMode} onClick={e => this.onEditMode(e)}>
+									<Trans i18nKey={"common.edit"} />
+								</button>
+								<button onClick={e => this.handleSubmit(e)}>
+									<Trans i18nKey={"common.confirm"} />
+								</button>
 							</div>
-							<InputField
-								labelText="email"
-								type="text"
-								name="email"
-								value={val.email}
-								error={error.email}
-								errorText={errorText.email}
-								handleChange={this.getInputValue}
-								handleBlur={this.checkInputError}
-							/>
-							<InputField
-								labelText="phone"
-								type="text"
-								name="phone"
-								value={val.phone}
-								error={error.phone}
-								errorText={errorText.phone}
-								handleChange={this.getInputValue}
-								handleBlur={this.checkInputError}
-							/>
-						</fieldset>
-						<div className="buttonWrapper">
-							<button disabled={this.state.editMode} onClick={e => this.onEditMode(e)}>
-								<Trans i18nKey={"common.edit"} />
-							</button>
-							<button onClick={e => this.handleSubmit(e)}>
-								<Trans i18nKey={"common.confirm"} />
-							</button>
-						</div>
-					</form>
-					<Alert
-						message={t("pages.My.validation.title")}
-						description={t("pages.My.validation.desc")}
-						type="error"
-						showIcon
-					/>
-				</section>
+						</form>
+						<Alert
+							message={t("pages.My.validation.title")}
+							description={t("pages.My.validation.desc")}
+							type="error"
+							showIcon
+						/>
+					</Layout.Content>
+				</Layout>
 			</StyledWrapper>
 		)
 	}

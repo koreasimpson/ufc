@@ -120,7 +120,7 @@ class Login extends Component {
 				<AppHelmet />
 				<Layout>
 					<Layout.Content>
-						<h2>
+						<h2 className="title">
 							<Trans i18nKey="pages.Login.h2" />
 						</h2>
 						<form onSubmit={this.handleSubmit}>

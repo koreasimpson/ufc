@@ -99,20 +99,6 @@ const StyledWrapper = styled.li`
 			background-color: ${({ theme }) => theme.majorColor};
 			transition: all 0.5s;
 		}
-
-		/* &:hover {
-			border: 1px solid ${({ theme }) => theme.bgColor};
-
-			span {
-				position: relative;
-				color: ${({ theme }) => theme.bgColor};
-				z-index: 1;
-			}
-
-			&::after {
-				left: 0;
-			}
-		} */
 	}
 
 	@media screen and ${device.mobileTabletOnly} {

@@ -20,7 +20,7 @@ class Ranking extends Component {
 				<AppHelmet metaData="Ranking" />
 				<Layout>
 					<Layout.Content>
-						<h2>
+						<h2 className="title">
 							<Trans i18nKey={"pages.Ranking.h2"} />
 						</h2>
 						<ul className="content">

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { device } from "config/responsive"
 
-const StyledWrapper = styled.main`
+const StyledWrapper = styled.div`
 	form {
 		max-width: 480px;
 		margin: 0 auto;
