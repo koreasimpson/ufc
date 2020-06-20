@@ -1,3 +1,0 @@
-export const SET_LANGUAGE_KO = "SET_LANGUAGE_KO"
-export const SET_LANGUAGE_EN = "SET_LANGUAGE_EN"
-export const SET_LANGUAGE_JA = "SET_LANGUAGE_JA"

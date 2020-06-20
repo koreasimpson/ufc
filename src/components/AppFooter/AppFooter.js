@@ -3,11 +3,13 @@ import { connect } from "react-redux"
 import { withTranslation, Trans } from "react-i18next"
 
 import StyledWrapper, { StyledLogo } from "./AppFooterStyled"
+import { withCookies } from "react-cookie"
 
 class AppFooter extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
+		this.cookies = props.cookies
 	}
 
 	changeLanguage = e => {
@@ -15,6 +17,14 @@ class AppFooter extends Component {
 		let selectedOptions = options.filter(option => option.selected)
 		selectedOptions = selectedOptions[0].value
 		this.props.i18n.changeLanguage(selectedOptions)
+		this.setLangCookie(selectedOptions)
+	}
+
+	setLangCookie = lang => {
+		const dayTime = 86400000
+		let expireDate = new Date()
+		expireDate.setTime(expireDate.getTime() + 7 * dayTime)
+		this.cookies.set("nzcUfcLang", lang, { path: "/", expires: expireDate })
 	}
 
 	render() {
@@ -26,7 +36,10 @@ class AppFooter extends Component {
 					<h1>
 						<StyledLogo />
 					</h1>
-					<select id="languageOptions" onChange={this.changeLanguage}>
+					<select
+						id="languageOptions"
+						onChange={this.changeLanguage}
+						value={this.props.i18n.language}>
 						<option value="ko">Korea</option>
 						<option value="en">English</option>
 					</select>
@@ -85,7 +98,7 @@ class AppFooter extends Component {
 	}
 }
 
-const TransAppFooter = withTranslation()(AppFooter)
+const TransAppFooter = withTranslation()(withCookies(AppFooter))
 
 const mapStateToProps = state => ({})
 
