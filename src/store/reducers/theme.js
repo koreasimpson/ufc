@@ -1,7 +1,7 @@
 import { SET_THEME_LIGHT, SET_THEME_DARK } from "../actions/theme"
 import { getCookie } from "assets/lib/cookie"
 
-const themeCookieValue = getCookie("nzc-ufc-theme").split("=")[1]
+const themeCookieValue = getCookie("nzcUfcTheme")
 
 const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: Dark)").matches
 
