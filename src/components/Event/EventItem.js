@@ -3,19 +3,15 @@ import { withTranslation, Trans } from "react-i18next"
 import { notification } from "antd"
 
 import StyledWrapper from "./EventItemStyled"
+import defaultLeftFighterImg from "assets/img/fighters/fighter_left.png"
+import defaultRightFighterImg from "assets/img/fighters/fighter_right.png"
 
 class EventItem extends Component {
 	constructor(props) {
 		super(props)
 		this.props = props
-		this.fighterProfileElement = {
-			left: createRef(),
-			right: createRef()
-		}
-		this.fighterProfilePath = {
-			left: null,
-			right: null
-		}
+		this.leftSideFighter = createRef()
+		this.rightSideFighter = createRef()
 	}
 
 	handleMoreInfo = () => {
@@ -25,24 +21,43 @@ class EventItem extends Component {
 		})
 	}
 
-	setFighterProfileImage = (fighter, side) => {
-		try {
-			this.fighterProfilePath[side] = require(`assets/img/fighters/${fighter}.png`)
-			if (this.fighterProfileElement[side].current)
-				this.fighterProfileElement[side].current.classList.add("have")
-		} catch {
-			this.fighterProfilePath[side] = require(`assets/img/fighters/fighter_${side}.png`)
-			if (this.fighterProfileElement[side].current)
-				this.fighterProfileElement[side].current.classList.remove("have")
+	setProfileImage = (src, side) => {
+		const img = new Image()
+		const This = this
+		img.onload = function() {
+			if (side === "left" && This.leftSideFighter.current) {
+				This.leftSideFighter.current.src = src
+				This.leftSideFighter.current.classList.add("have")
+			} else if (side === "right" && This.rightSideFighter.current) {
+				This.rightSideFighter.current.src = src
+				This.rightSideFighter.current.classList.add("have")
+			}
 		}
+		img.onerror = function() {
+			console.clear()
+			if (side === "left" && This.leftSideFighter.current) {
+				This.leftSideFighter.current.src = defaultLeftFighterImg
+				This.leftSideFighter.current.classList.remove("have")
+			} else if (side === "right" && This.rightSideFighter.current) {
+				This.rightSideFighter.current.src = defaultRightFighterImg
+				This.rightSideFighter.current.classList.remove("have")
+			}
+		}
+		img.src = src
 	}
 
 	render() {
 		const { eventNumber, eventLocation, eventDate, eventRoster } = this.props.eventData
 		const { fighters } = eventRoster.mainEvent
 		const { red: fighterLeft, blue: fighterRight } = fighters
-		this.setFighterProfileImage(fighterLeft, "left")
-		this.setFighterProfileImage(fighterRight, "right")
+		this.setProfileImage(
+			`https://kr.object.ncloudstorage.com/ufc/fighters/${fighterLeft.replace(/\s/g, "_")}.png`,
+			"left"
+		)
+		this.setProfileImage(
+			`https://kr.object.ncloudstorage.com/ufc/fighters/${fighterRight.replace(/\s/g, "_")}.png`,
+			"right"
+		)
 		return (
 			<StyledWrapper>
 				{eventNumber === "fightPass" ? (
@@ -66,16 +81,8 @@ class EventItem extends Component {
 					</p>
 				)}
 				<figure className="fighterProfile">
-					<img
-						src={this.fighterProfilePath.left}
-						ref={this.fighterProfileElement.left}
-						alt="fighter"
-					/>
-					<img
-						src={this.fighterProfilePath.right}
-						ref={this.fighterProfileElement.right}
-						alt="fighter"
-					/>
+					<img src={defaultLeftFighterImg} alt={fighterLeft} ref={this.leftSideFighter} />
+					<img src={defaultRightFighterImg} alt={fighterRight} ref={this.rightSideFighter} />
 					<figcaption className="a11yHidden"></figcaption>
 				</figure>
 				<div className="eventInfo">
