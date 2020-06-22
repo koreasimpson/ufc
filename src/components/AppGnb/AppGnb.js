@@ -46,6 +46,8 @@ class AppGnb extends Component {
 	detectResize = () => {
 		if (window.innerWidth < breakpoint.laptop && this.state.isFixed) {
 			this.setState({ isFixed: false })
+		} else {
+			document.querySelector("body").style.overflowY = "auto"
 		}
 	}
 
@@ -67,13 +69,18 @@ class AppGnb extends Component {
 				placement: "topRight"
 			})
 			return
+		} else if (gnb === "logout") {
+			e.preventDefault()
+			store.dispatch({ type: ACCESS_LOGOUT })
 		}
 		this.gnb.current.classList.remove("is-show")
 		document.querySelector("body").style.overflowY = "auto"
 	}
 
-	onLogOut = () => {
+	onLogOut = e => {
+		e.preventDefault()
 		store.dispatch({ type: ACCESS_LOGOUT })
+		this.props.history.go()
 	}
 
 	handleAccountMenuItem = e => {
@@ -148,9 +155,9 @@ class AppGnb extends Component {
 						<ul ref={this.accountMenuList} className="depth2" hidden>
 							<li>
 								{isAuth ? (
-									<button className="button logout" onClick={this.onLogOut}>
+									<a href="/" className="button logout" onClick={e => this.onLogOut(e, "logout")}>
 										<Trans i18nKey={"common.logOut"} />
-									</button>
+									</a>
 								) : (
 									<NavLink to="/login" onClick={e => this.handleLink(e)}>
 										<Trans i18nKey={"common.logIn"} />
