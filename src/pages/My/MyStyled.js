@@ -21,8 +21,7 @@ const StyledWrapper = styled.main`
 
 			&:not(:disabled) {
 				input[name="account"] {
-					background-color: #eee;
-					border-color: #e7e7e7;
+					opacity: 0.3;
 				}
 			}
 		}

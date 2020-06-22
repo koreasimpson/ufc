@@ -26,6 +26,10 @@ const StyledWrapper = styled.main`
 		margin-top: 80px;
 	}
 
+	.noEvent {
+		font-size: 2rem;
+	}
+
 	@media screen and ${device.mobileTabletOnly} {
 		.eventItemList {
 			margin-top: 5rem;
@@ -33,6 +37,9 @@ const StyledWrapper = styled.main`
 	}
 
 	@media screen and ${device.mobileOnly} {
+		.eventItemList {
+			margin-top: 3rem;
+		}
 		.category {
 			display: flex;
 			justify-content: center;

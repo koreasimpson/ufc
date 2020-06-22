@@ -81,7 +81,7 @@ class Event extends Component {
 							{events.length ? (
 								filteredEvent.map((event, index) => <EventItem key={index} eventData={event} />)
 							) : (
-								<p>
+								<p className="noEvent">
 									<Trans i18nKey="pages.Event.noEvents" />
 								</p>
 							)}

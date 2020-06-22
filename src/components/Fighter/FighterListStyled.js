@@ -72,7 +72,7 @@ const StyledWrapper = styled.li`
 			flex: 1;
 			align-items: center;
 			display: flex;
-			justify-content: space-between;
+			justify-content: space-evenly;
 
 			.left {
 				.aka {
@@ -84,13 +84,14 @@ const StyledWrapper = styled.li`
 				.buttonMoreInfo {
 					margin-top: 20px;
 					display: inline-block;
-					border: 1px solid #000;
+					border: 1px solid ${({ theme }) => theme.textColor};
 					padding: 10px;
 				}
 			}
 			.right {
+				padding: 5%;
 				img {
-					width: 100%;
+					height: 170px;
 				}
 			}
 		}

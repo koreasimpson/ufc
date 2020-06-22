@@ -26,5 +26,4 @@ class Auth extends Component {
 	}
 }
 
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth))
 export default withRouter(Auth)

@@ -14,7 +14,7 @@ import AppFooter from "components/AppFooter/AppFooter"
 import Modal from "components/Common/Modal"
 import ThemeSelect from "components/ModalContents/ThemeSelect"
 import ThemeStyle from "theme/theme"
-// components
+
 const App = props => {
 	const [cookies, setCookie] = useCookies(["name"])
 	const theme = props.theme || cookies.nzcUfcTheme

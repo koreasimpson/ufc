@@ -1,4 +1,3 @@
-// import React, { Component } from "react"
 import styled from "styled-components"
 
 import { ReactComponent as ufc } from "assets/img/ufc.svg"
@@ -34,6 +33,10 @@ const StyledWrapper = styled.nav`
 
 		.gnb .underline {
 			width: 100%;
+		}
+
+		.gnb .account .depth2 {
+			right: 15px;
 		}
 	}
 
@@ -120,7 +123,7 @@ const StyledWrapper = styled.nav`
 			background: inherit;
 			color: inherit;
 			text-align: center;
-			box-shadow: 0 0 10px 0px ${({ theme }) => theme.textColor};
+			box-shadow: 0 0 10px 0px ${({ theme }) => (theme === "light" ? theme.textColor : "#000")};
 		}
 	}
 	@media screen and ${device.mobileTabletOnly} {

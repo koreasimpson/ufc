@@ -30,7 +30,7 @@ const StyledWrapper = styled.main`
 
 		.signup {
 			display: block;
-			font-size: 1rem;
+			font-size: 1.5rem;
 			text-decoration: underline;
 			margin-top: 20px;
 		}
@@ -38,6 +38,7 @@ const StyledWrapper = styled.main`
 
 	.testAccount {
 		margin-top: 20px;
+		font-size: 1.5rem;
 	}
 `
 export default StyledWrapper

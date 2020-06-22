@@ -143,7 +143,7 @@ class Fighter extends Component {
 												<FighterList data={fighter} key={index} />
 											))
 										) : (
-											<li>
+											<li className="noFighter">
 												<Trans i18nKey={"pages.Fighter.notFound"} />
 											</li>
 										)}

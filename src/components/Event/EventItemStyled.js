@@ -63,6 +63,7 @@ const StyledWrapper = styled.li`
 	.fighterProfile {
 		display: flex;
 		justify-content: center;
+		align-items: center;
 		img {
 			height: 160px;
 			padding: 10px 15px;

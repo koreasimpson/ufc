@@ -78,6 +78,13 @@ const StyledWrapper = styled.div`
 			}
 		}
 	}
+
+	@media screen and ${device.mobileOnly} {
+		.detailInfo .left img {
+			width: 200px;
+			height: auto;
+		}
+	}
 `
 
 export default StyledWrapper

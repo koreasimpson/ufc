@@ -162,7 +162,9 @@ class Login extends Component {
 							</Link>
 						</form>
 						<p className="testAccount">
-							<small>account: 90chanho@gmail.com | password: test1234! </small>
+							<small>
+								account: 90chanho@gmail.com <br /> password: test1234!{" "}
+							</small>
 						</p>
 					</Layout.Content>
 				</Layout>

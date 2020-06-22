@@ -1,4 +1,3 @@
-// Layout type1은 랜딩 화면에 background 컨텐츠를 갖고 있음.
 import React, { createContext, useContext } from "react"
 
 import StyledWrapper from "./LayoutStyled"

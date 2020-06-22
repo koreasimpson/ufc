@@ -2,6 +2,11 @@ import styled from "styled-components"
 import { device } from "config/responsive"
 
 const StyledWrapper = styled.div`
+	.desc {
+		font-size: 1.5rem;
+		padding: 1.5rem 0;
+	}
+
 	form {
 		max-width: 480px;
 		margin: 0 auto;
@@ -33,6 +38,11 @@ const StyledWrapper = styled.div`
 				padding: 1rem 5px;
 				margin-bottom: 20px;
 			}
+		}
+
+		.ant-select {
+			width: 100%;
+			margin-bottom: 1rem;
 		}
 
 		.button.submit {

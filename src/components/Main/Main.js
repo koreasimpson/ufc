@@ -78,7 +78,7 @@ class Main extends Component {
 						<h3>
 							<Trans i18nKey="components.Main.h3" />
 						</h3>
-						<p>
+						<p className="githubLink">
 							<Trans
 								i18nKey="components.Main.githubLink"
 								components={[

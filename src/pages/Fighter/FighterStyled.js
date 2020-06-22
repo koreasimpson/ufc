@@ -40,12 +40,32 @@ const StyledWrapper = styled.main`
 		margin: 0 auto;
 		display: flex;
 		flex-wrap: wrap;
+
+		.noFighter {
+			font-size: 2rem;
+			margin-top: 2rem;
+			width: 100%;
+			text-align: center;
+		}
 	}
 	.goBack {
-		padding: 15px 35px;
-		transform: translateY(8rem);
+		padding: 1rem 1.5rem;
+		font-size: 1.5rem;
+		margin-top: 1.5rem;
 		background-color: ${({ theme }) => theme.bgColor};
 		color: ${({ theme }) => theme.majorColor};
+	}
+
+	@media screen and ${device.laptop} {
+		.contentHeader {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.ant-select {
+				margin: 2rem;
+			}
+		}
 	}
 
 	@media screen and ${device.mobileTabletOnly} {
@@ -58,7 +78,12 @@ const StyledWrapper = styled.main`
 			}
 
 			.searchForm input {
-				width: 150px;
+				/* width: 150px; */
+				width: 100%;
+			}
+
+			.ant-select {
+				width: 100%;
 			}
 		}
 
