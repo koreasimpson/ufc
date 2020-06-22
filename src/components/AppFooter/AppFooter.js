@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { withTranslation, Trans } from "react-i18next"
+import { withCookies } from "react-cookie"
+import { Select } from "antd"
 
 import StyledWrapper, { StyledLogo } from "./AppFooterStyled"
-import { withCookies } from "react-cookie"
 
 class AppFooter extends Component {
 	constructor(props) {
@@ -12,12 +13,9 @@ class AppFooter extends Component {
 		this.cookies = props.cookies
 	}
 
-	changeLanguage = e => {
-		const options = Array.from(e.target.children)
-		let selectedOptions = options.filter(option => option.selected)
-		selectedOptions = selectedOptions[0].value
-		this.props.i18n.changeLanguage(selectedOptions)
-		this.setLangCookie(selectedOptions)
+	handleSelectChange = value => {
+		this.props.i18n.changeLanguage(value)
+		this.setLangCookie(value)
 	}
 
 	setLangCookie = lang => {
@@ -29,6 +27,7 @@ class AppFooter extends Component {
 
 	render() {
 		const { className } = this.props
+		const { Option } = Select
 
 		return (
 			<StyledWrapper className={className}>
@@ -36,13 +35,24 @@ class AppFooter extends Component {
 					<h1>
 						<StyledLogo />
 					</h1>
-					<select
-						id="languageOptions"
-						onChange={this.changeLanguage}
-						value={this.props.i18n.language}>
-						<option value="ko">Korea</option>
-						<option value="en">English</option>
-					</select>
+					<Select defaultValue={this.props.i18n.language} onChange={this.handleSelectChange}>
+						<Option value="ko" label="Korea">
+							<div className="demo-option-label-item">
+								<span role="img" aria-label="Korea">
+									🇰🇷
+								</span>
+								Korea (韩国)
+							</div>
+						</Option>
+						<Option value="en" label="English">
+							<div className="demo-option-label-item">
+								<span role="img" aria-label="English">
+									🇺🇸
+								</span>
+								USA (美国)
+							</div>
+						</Option>
+					</Select>
 				</div>
 				<div className="content footer-navigation right">
 					<dl>

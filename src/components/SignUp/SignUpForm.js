@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { withTranslation, Trans } from "react-i18next"
-import InputField from "components/Common/InputField"
-import { expPassword, expEmail, expPhone } from "assets/lib/regExp"
-import StyledWrapper from "./SignUpFormStyled"
-import { Alert } from "antd"
+import { Alert, Select } from "antd"
 
+import StyledWrapper from "./SignUpFormStyled"
+import { expPassword, expEmail, expPhone } from "assets/lib/regExp"
+import InputField from "components/Common/InputField"
 class SignUp extends Component {
 	constructor(props) {
 		super(props)
@@ -120,19 +120,31 @@ class SignUp extends Component {
 		})
 	}
 
-	handleSelect = e => {
-		const options = Array.from(e.currentTarget.children)
-		const name = e.currentTarget.name
-		const selectedOptions = options.filter(option => option.selected)
-		const selectedOptionsValue = selectedOptions.map(option => option.value)
-
+	handleSelectChange = value => {
+		let name
+		value <= 6 ? (name = "sequrityQuestion1") : (name = "sequrityQuestion2")
 		this.setState({
 			...this.state,
 			val: {
 				...this.state.val,
-				[name]: selectedOptionsValue[0]
+				[name]: value
 			}
 		})
+	}
+
+	setSelectOptions = (start, end) => {
+		let optionList = []
+		for (let i = start; i <= end; i++) {
+			optionList.push(
+				<Select.Option value={i} key={`list${i}`}>
+					<Trans
+						i18nKey={`components.SignUp.Form.sequrityQuestionList.list${i}`}
+						components={[<span></span>]}
+					/>
+				</Select.Option>
+			)
+		}
+		return optionList
 	}
 
 	handleSubmit = e => {
@@ -222,7 +234,6 @@ class SignUp extends Component {
 							type="password"
 							name="password"
 							value={val.password}
-							// tooltipText={t("components.InputField.toolTip.password")}
 							tooltipText={
 								<Trans i18nKey={"components.InputField.toolTip.password"} components={[<br />]} />
 							}
@@ -257,29 +268,9 @@ class SignUp extends Component {
 							<Trans i18nKey="components.SignUp.Form.legend.sequrityQuestion" />
 						</legend>
 						<div className="sequrityQuestionContainer">
-							<select
-								name="sequrityQuestion1"
-								className="sequrityField"
-								onChange={this.handleSelect}>
-								<option value="1" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list1")}
-								</option>
-								<option value="2" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list2")}
-								</option>
-								<option value="3" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list3")}
-								</option>
-								<option value="4" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list4")}
-								</option>
-								<option value="5" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list5")}
-								</option>
-								<option value="6" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list6")}
-								</option>
-							</select>
+							<Select defaultValue={1} onChange={this.handleSelectChange}>
+								{this.setSelectOptions(1, 6)}
+							</Select>
 							<InputField
 								labelText="sequrityAnswer1"
 								type="text"
@@ -290,29 +281,9 @@ class SignUp extends Component {
 								handleChange={this.getInputValue}
 								handleBlur={this.checkInputError}
 							/>
-							<select
-								name="sequrityQuestion2"
-								className="sequrityField"
-								onChange={this.handleSelect}>
-								<option value="7" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list7")}
-								</option>
-								<option value="8" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list8")}
-								</option>
-								<option value="9" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list9")}
-								</option>
-								<option value="10" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list10")}
-								</option>
-								<option value="11" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list11")}
-								</option>
-								<option value="12" dir="auto">
-									{this.props.t("components.SignUp.Form.sequrityQuestionList.list12")}
-								</option>
-							</select>
+							<Select defaultValue={7} onChange={this.handleSelectChange}>
+								{this.setSelectOptions(7, 12)}
+							</Select>
 							<InputField
 								labelText="sequrityAnswer2"
 								type="text"

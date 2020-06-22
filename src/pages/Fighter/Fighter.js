@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react"
 import { withTranslation, Trans } from "react-i18next"
 import { withRouter, Route } from "react-router-dom"
 import { connect } from "react-redux"
+import { Select } from "antd"
 
 import store from "store"
 import { SET_TARGET_FIGHTERS } from "store/actions/fighter"
@@ -30,9 +31,9 @@ class Fighter extends Component {
 		this.props.history.goBack()
 	}
 
-	handleSelect = e => {
+	handleSelectChange = value => {
 		this.setState({
-			weightClass: e.currentTarget.value
+			weightClass: value
 		})
 	}
 
@@ -73,6 +74,7 @@ class Fighter extends Component {
 		const { className, t, target, fighters } = this.props
 		const { pathname } = this.props.location
 		const { url } = this.props.match
+		const { Option } = Select
 		this.filteringFighters(fighters)
 
 		return (
@@ -113,18 +115,18 @@ class Fighter extends Component {
 											{String(this.filteredFighters.length)}
 										</Trans>
 									</span>
-									<select onChange={this.handleSelect} value={this.state.weightClass}>
-										<option value="all" key="0">
+									<Select defaultValue={this.state.weightClass} onChange={this.handleSelectChange}>
+										<Option value="all" key="0">
 											{t("common.weightClass.all")}
-										</option>
+										</Option>
 										{weightClassConfig.map((weightClass, index) => {
 											return (
-												<option value={weightClass} key={index + 1}>
+												<Option value={weightClass} key={index + 1}>
 													{t(`common.weightClass.${weightClass}`)}
-												</option>
+												</Option>
 											)
 										})}
-									</select>
+									</Select>
 									<div className="searchForm">
 										<input
 											type="text"
