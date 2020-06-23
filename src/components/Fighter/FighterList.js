@@ -81,7 +81,9 @@ class FighterList extends Component {
 								data-name={name}
 								onClick={() => this.setTargetFighterData(this.props.data)}
 								className="buttonMoreInfo">
-								<Trans i18nKey="components.FighterList.profile.button" />
+								<span>
+									<Trans i18nKey="components.FighterList.profile.button" />
+								</span>
 							</Link>
 						</div>
 						<figure className="right">

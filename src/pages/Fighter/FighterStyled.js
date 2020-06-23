@@ -29,6 +29,10 @@ const StyledWrapper = styled.main`
 	.searchForm {
 		input {
 			padding: 10px 20px;
+			background-color: ${({ theme }) => (theme.value === "dark" ? theme.bgColor2 : theme.bgColor)};
+			color: ${({ theme }) => theme.textColor};
+			border: 1px solid #e7e7e7;
+			border-radius: 5px;
 		}
 		.searchResultLength {
 			display: inline-block;

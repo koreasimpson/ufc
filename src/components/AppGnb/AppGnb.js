@@ -177,8 +177,7 @@ class AppGnb extends Component {
 							</li>
 							<li>
 								<button className={`toggle ${theme}`} onClick={this.toggleTheme}>
-									<i className="circle"></i>
-									{theme === "light" ? "☼" : "☾"}
+									어두운 테마: {theme === "light" ? "사용 하기" : "사용 해제"}
 								</button>
 							</li>
 						</ul>

@@ -45,6 +45,7 @@ const StyledWrapper = styled.main`
 			justify-content: center;
 			button {
 				font-size: 2rem;
+				white-space: nowrap;
 			}
 		}
 	}

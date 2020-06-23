@@ -82,10 +82,38 @@ const StyledWrapper = styled.li`
 					font-size: 0.7rem;
 				}
 				.buttonMoreInfo {
+					position: relative;
 					margin-top: 20px;
 					display: inline-block;
 					border: 1px solid ${({ theme }) => theme.textColor};
 					padding: 10px;
+					overflow: hidden;
+
+					&:hover {
+						border: none;
+						&::after {
+							left: 0;
+						}
+					}
+
+					&::after {
+						content: "";
+						display: block;
+						width: 100%;
+						height: 100%;
+						position: absolute;
+						top: 0%;
+						left: -100%;
+						background-color: ${({ theme }) => theme.majorColor};
+						transition: all 0.5s;
+					}
+
+					span {
+						position: relative;
+						z-index: 1;
+						transition: all 0.5s;
+						color: ${({ theme }) => theme.textColor};
+					}
 				}
 			}
 			.right {

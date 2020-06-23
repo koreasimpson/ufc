@@ -15,13 +15,16 @@ const StyledWrapper = styled.footer`
 	justify-content: space-between;
 	position: relative;
 
-	h1 {
-		display: inline-block;
+	h2 {
 		margin: 0;
 		svg {
 			height: 2rem;
 			width: 5rem;
 		}
+	}
+
+	.ant-select {
+		margin-top: 10px;
 	}
 
 	#languageOptions {
@@ -51,12 +54,23 @@ const StyledWrapper = styled.footer`
 	}
 
 	@media screen and ${device.mobileOnly} {
-		#languageOptions {
-			display: block;
-			margin-left: 0;
-			margin-top: 1rem;
-			margin-right: 2rem;
+		display: block;
+
+		h2 {
+			display: inline-block;
 		}
+
+		.ant-select {
+			margin-top: 0;
+			margin-left: 15px;
+			vertical-align: text-bottom;
+		}
+
+		.footer-navigation {
+			width: 100%;
+			margin-top: 15px;
+		}
+
 		.copyright {
 			bottom: 2rem;
 		}

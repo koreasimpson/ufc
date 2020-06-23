@@ -32,25 +32,15 @@ class AppFooter extends Component {
 		return (
 			<StyledWrapper className={className}>
 				<div className="content left">
-					<h1>
+					<h2>
 						<StyledLogo />
-					</h1>
+					</h2>
 					<Select defaultValue={this.props.i18n.language} onChange={this.handleSelectChange}>
 						<Option value="ko" label="Korea">
-							<div className="demo-option-label-item">
-								<span role="img" aria-label="Korea">
-									🇰🇷
-								</span>
-								Korea (韩国)
-							</div>
+							<div className="demo-option-label-item">Korea</div>
 						</Option>
 						<Option value="en" label="English">
-							<div className="demo-option-label-item">
-								<span role="img" aria-label="English">
-									🇺🇸
-								</span>
-								USA (美国)
-							</div>
+							<div className="demo-option-label-item">USA</div>
 						</Option>
 					</Select>
 				</div>

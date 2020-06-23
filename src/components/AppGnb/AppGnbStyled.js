@@ -86,15 +86,8 @@ const StyledWrapper = styled.nav`
 					white-space: nowrap;
 
 					.toggle {
-						width: 80%;
-						border: 1px solid ${({ theme }) => theme.textColor};
-						border-radius: 10px;
-						margin: 10px;
-
-						&.light {
-						}
-						&.dark {
-						}
+						padding: 1rem;
+						text-align: left;
 					}
 				}
 			}
@@ -146,21 +139,12 @@ const StyledWrapper = styled.nav`
 				top: 67px;
 				height: calc(100vh - 67px);
 				left: 0;
-				z-index: 1;
+				z-index: 2;
 				background-color: ${({ theme }) => theme.bgColor};
 			}
 
-			li {
-				&.account {
-					.depth2 {
-						.toggle {
-							width: 100px;
-						}
-					}
-				}
-			}
-
-			a {
+			a,
+			button {
 				width: 100%;
 				height: 100%;
 				font-size: 2rem;
