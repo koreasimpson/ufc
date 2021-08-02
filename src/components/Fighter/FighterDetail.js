@@ -141,7 +141,7 @@ class FighterDetail extends Component {
 					<DiscussionEmbed
 						shortname="ufc"
 						config={{
-							url: `https://90chanho.github.io/ufc/${target.name.replace(/ /g, "")}`,
+							url: `https://koreassimpson.github.io/ufc/${target.name.replace(/ /g, "")}`,
 							identifier: target.name.replace(/ /g, ""),
 							title: target.name.replace(/ /g, ""),
 							category_id: target.name.replace(/ /g, "")

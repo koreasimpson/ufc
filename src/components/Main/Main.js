@@ -83,7 +83,7 @@ class Main extends Component {
 								i18nKey="components.Main.githubLink"
 								components={[
 									<a
-										href="https://github.com/90chanho/ufc"
+										href="https://github.com/koreassimpson/ufc"
 										target="_blank"
 										rel="noreferrer noopener"
 										className="highlight">
