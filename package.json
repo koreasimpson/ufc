@@ -12,7 +12,7 @@
 		"deploy": "gh-pages -b master -d build -e docs",
 		"build-and-serve": "npm run build && npm run serve"
 	},
-	"homepage": "https://koreassimpson.github.io/ufc",
+	"homepage": "https://koreasimpson.github.io/ufc",
 	"browserslist": {
 		"production": [
 			">0.2% in KR",

@@ -4,7 +4,7 @@ import { withTranslation, Trans } from "react-i18next"
 import { message, Alert } from "antd"
 
 import Layout from "components/Layout/Layout"
-import InputField from "components/Common/InputField"
+import InputField from "components/common/InputField"
 import { fetchUsers } from "assets/lib/fetch"
 import StyledWrapper from "./MyStyled"
 import { expEmail, expPhone } from "assets/lib/regExp"

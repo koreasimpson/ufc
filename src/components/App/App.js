@@ -11,7 +11,7 @@ import { GlobalStyle } from "styles/globalStyle"
 import AppHeader from "components/AppHeader/AppHeader"
 import AppMain from "components/AppMain/AppMain"
 import AppFooter from "components/AppFooter/AppFooter"
-import Modal from "components/Common/Modal"
+import Modal from "components/common/Modal"
 import ThemeSelect from "components/ModalContents/ThemeSelect"
 import ThemeStyle from "theme/theme"
 

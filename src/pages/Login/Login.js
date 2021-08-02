@@ -7,7 +7,7 @@ import store from "store"
 import { ACCESS_LOGIN } from "store/actions/auth"
 import Layout from "components/Layout/Layout"
 import AppHelmet from "components/AppHelmet/AppHelmet"
-import InputField from "components/Common/InputField"
+import InputField from "components/common/InputField"
 import { fetchUsers } from "assets/lib/fetch"
 import StyledWrapper from "./LoginStyled"
 
@@ -163,7 +163,7 @@ class Login extends Component {
 						</form>
 						<p className="testAccount">
 							<small>
-								account: koreassimpson@gmail.com <br /> password: test1234!{" "}
+								account: koreasimpson@gmail.com <br /> password: test1234!{" "}
 							</small>
 						</p>
 					</Layout.Content>

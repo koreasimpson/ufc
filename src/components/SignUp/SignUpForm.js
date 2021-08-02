@@ -4,7 +4,7 @@ import { Alert, Select } from "antd"
 
 import StyledWrapper from "./SignUpFormStyled"
 import { expPassword, expEmail, expPhone } from "assets/lib/regExp"
-import InputField from "components/Common/InputField"
+import InputField from "components/common/InputField"
 class SignUp extends Component {
 	constructor(props) {
 		super(props)
